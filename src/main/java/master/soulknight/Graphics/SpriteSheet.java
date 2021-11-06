@@ -2,9 +2,11 @@ package master.soulknight.Graphics;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
+import java.io.FileInputStream;
+import java.io.IOException;
 
 public class SpriteSheet {
-    private Sprite SPRITESHEET = null;
+    private Sprite SPRITESHEET;
     private Sprite[][] spriteArray;
     private final int TILE_SIZE = 34;
     public int w;
@@ -14,25 +16,35 @@ public class SpriteSheet {
     private String file;
 
     public SpriteSheet(String file) {
+
         this.file = file;
         w = TILE_SIZE;
         h = TILE_SIZE;
 
         System.out.println("Loading " + file + "...");
-        SPRITESHEET = new Sprite(loadSprite(file));
-
-        wSprite = SPRITESHEET.image.getWidth() / w;
-    }
-
-    private BufferedImage loadSprite(String file) {
-        BufferedImage sprite = null;
         try {
-            sprite = ImageIO.read(getClass().getClassLoader().getResourceAsStream(file));
-        } catch (Exception e) {
-            System.out.println("ERROR: could not load file: " + file);
+            BufferedImage sprite = ImageIO.read(new FileInputStream(file));
+            SPRITESHEET = new Sprite(sprite);
+
+            wSprite = SPRITESHEET.image.getWidth() / w;
+            hSprite = SPRITESHEET.image.getHeight() / h;
+            loadSpriteArray();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-        return sprite;
+
     }
+
+//    private BufferedImage loadSprite(String file) {
+//        BufferedImage sprite = new BufferedImage();
+//        try {System.out.println(file);
+//            sprite = ImageIO.read(getClass().getClassLoader().getResourceAsStream(file));
+//            System.out.println(sprite);
+//        } catch (Exception e) {
+//            System.out.println("ERROR: could not load file: " + file);
+//        }
+//        return sprite;
+//    }
 
     public void loadSpriteArray() {
         spriteArray = new Sprite[hSprite][wSprite];

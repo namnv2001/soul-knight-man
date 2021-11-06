@@ -55,6 +55,9 @@ public abstract class Entity {
         this.sprite = sprite;
         pos = origin;
         this.size = size;
+
+        ani = new Animation();
+        setAnimation(RIGHT, sprite.getSpriteArray(RIGHT), 10 );
     }
 
     public void animated() {
@@ -154,6 +157,7 @@ public abstract class Entity {
 
     public void update() {
         animated();
+        move();
         ani.update();
     }
 

@@ -20,7 +20,6 @@ public class GamePanel extends Application {
     public static int width = 1280;
     public static int height = 720;
 
-    private boolean running;
     private BufferedImage img;
 
     private GraphicsContext gc;
@@ -28,12 +27,11 @@ public class GamePanel extends Application {
 
     private GameStateManager gsm;
 
-    EventHandler<KeyEvent> eventHandler = new EventHandler<KeyEvent>() {
-        private KeyEvent key;
+    EventHandler<KeyEvent> eventHandler = new EventHandler<>() {
 
         @Override
         public void handle(KeyEvent keyEvent) {
-            this.key = keyEvent;
+            input(keyEvent);
         }
     };
 
@@ -43,13 +41,12 @@ public class GamePanel extends Application {
     }
 
     public void init() {
-        running = true;
         initGraphics();
         gsm = new GameStateManager(gc);
     }
 
     @Override
-    public void start(Stage stage) throws Exception {
+    public void start(Stage stage) {
 
         AnimationTimer timer = new AnimationTimer() {
             @Override
@@ -59,10 +56,6 @@ public class GamePanel extends Application {
             }
         };
         timer.start();
-//        while(running) {
-//            render();
-//            update();
-//        }
         Group root = new Group();
         Scene scene = new Scene(root);
         root.getChildren().add(canvas);
@@ -72,6 +65,7 @@ public class GamePanel extends Application {
     }
 
     public void input(KeyEvent key) {
+        System.out.println("1");
         gsm.input(key);
     }
 
