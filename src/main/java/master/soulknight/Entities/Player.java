@@ -39,6 +39,8 @@ public class Player extends Entity {
             }
             if (key.getCode() == KeyCode.SPACE) {
                 placeBoom = true;
+            } else {
+                placeBoom = false;
             }
             if (up && down) {
                 up = false;
@@ -59,6 +61,9 @@ public class Player extends Entity {
 
     public void update() {
         super.update();
+        if (!fallen) {
+            move();
+        }
     }
 
     @Override
