@@ -9,17 +9,51 @@ import master.soulknight.Util.Vector2f;
 
 
 public class Player extends Entity {
-    Image image ;
+    Image image;
 
     public Player(SpriteSheet sprite, Vector2f origin, int size) {
         super(sprite, origin, size);
     }
 
     public void input(KeyEvent key) {
-        if(!fallen) {
-            if(key.getCode() == KeyCode.W) {
-                System.out.println("4");
+        if (!fallen) {
+            if (key.getCode() == KeyCode.W) {
+                up = true;
+            } else {
+                up = false;
             }
+            if (key.getCode() == KeyCode.S) {
+                down = true;
+            } else {
+                down = false;
+            }
+            if (key.getCode() == KeyCode.A) {
+                left = true;
+            } else {
+                left = false;
+            }
+            if (key.getCode() == KeyCode.D) {
+                right = true;
+            } else {
+                right = false;
+            }
+            if (key.getCode() == KeyCode.SPACE) {
+                placeBoom = true;
+            }
+            if (up && down) {
+                up = false;
+                down = false;
+            }
+            if (left && right) {
+                left = false;
+                right = false;
+            }
+        } else {
+            up = false;
+            down = false;
+            left = false;
+            right = false;
+            placeBoom = false;
         }
     }
 
@@ -29,6 +63,6 @@ public class Player extends Entity {
 
     @Override
     public void render(GraphicsContext gc) {
-        gc.drawImage(ani.getImage().image,pos.x,pos.y);
+//        gc.drawImage(ani.getImage().image,pos.x,pos.y);
     }
 }
