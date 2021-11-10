@@ -1,5 +1,6 @@
 package master.soulknight.Graphics;
 
+
 import java.awt.image.BufferedImage;
 
 public class Sprite {
@@ -50,4 +51,5 @@ public class Sprite {
 //    public int getPixels(int num) {
 //        return pixels[num];
 //    }
+
 }

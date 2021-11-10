@@ -61,30 +61,52 @@ public abstract class Entity {
     }
 
     public void animated() {
-        if(placeBoom) {
-            if(currentAnimation < 5) {
-                setAnimation(currentAnimation + BOOM, sprite.getSpriteArray(currentAnimation + BOOM), 0);
-            }
-        } else if(up) {
-            if((currentAnimation != UP || ani.getDelay() == -1)) {
+//        if(placeBoom) {
+//            if(currentAnimation < 5) {
+//                setAnimation(currentAnimation + BOOM, sprite.getSpriteArray(currentAnimation + BOOM), 0);
+//            }
+//        } else if(up) {
+//            if((currentAnimation != UP || ani.getDelay() == -1)) {
+//                setAnimation(UP, sprite.getSpriteArray(UP), 5);
+//            }
+//        }  else if(down) {
+//            if((currentAnimation != DOWN || ani.getDelay() == -1)) {
+//                setAnimation(DOWN, sprite.getSpriteArray(DOWN), 5);
+//            }
+//        }  else if(right) {
+//            if((currentAnimation != RIGHT || ani.getDelay() == -1)) {
+//                setAnimation(RIGHT, sprite.getSpriteArray(RIGHT), 5);
+//            }
+//        }  else if(left) {
+//            if((currentAnimation != LEFT || ani.getDelay() == -1)) {
+//                setAnimation(LEFT, sprite.getSpriteArray(LEFT), 5);
+//            }
+//        }  else if(fallen) {
+//            if((currentAnimation != FALLEN || ani.getDelay() == -1)) {
+//                setAnimation(FALLEN, sprite.getSpriteArray(FALLEN), 5);
+//            }
+//        }
+        if(up) {
+            if(currentAnimation != UP || ani.getDelay() == -1) {
                 setAnimation(UP, sprite.getSpriteArray(UP), 5);
             }
-        }  else if(down) {
-            if((currentAnimation != DOWN || ani.getDelay() == -1)) {
+        }
+        else if(down) {
+            if(currentAnimation != DOWN || ani.getDelay() == -1) {
                 setAnimation(DOWN, sprite.getSpriteArray(DOWN), 5);
             }
-        }  else if(right) {
-            if((currentAnimation != RIGHT || ani.getDelay() == -1)) {
-                setAnimation(RIGHT, sprite.getSpriteArray(RIGHT), 5);
-            }
-        }  else if(left) {
-            if((currentAnimation != LEFT || ani.getDelay() == -1)) {
+        }
+        else if(left) {
+            if(currentAnimation != LEFT || ani.getDelay() == -1) {
                 setAnimation(LEFT, sprite.getSpriteArray(LEFT), 5);
             }
-        }  else if(fallen) {
-            if((currentAnimation != FALLEN || ani.getDelay() == -1)) {
-                setAnimation(FALLEN, sprite.getSpriteArray(FALLEN), 5);
+        }
+        else if(right) {
+            if(currentAnimation != RIGHT || ani.getDelay() == -1) {
+                setAnimation(RIGHT, sprite.getSpriteArray(RIGHT), 5);
             }
+        } else {
+            setAnimation(currentAnimation, sprite.getSpriteArray(currentAnimation), -1);
         }
     }
 
@@ -157,8 +179,8 @@ public abstract class Entity {
 
     public void update() {
         animated();
-        move();
         ani.update();
+        move();
     }
 
 }

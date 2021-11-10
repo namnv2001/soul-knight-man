@@ -29,6 +29,6 @@ public class PlayState extends GameState{
 
     @Override
     public void render(GraphicsContext gc) {
-
+        player.render(gc);
     }
 }

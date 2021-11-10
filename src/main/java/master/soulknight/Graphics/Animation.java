@@ -1,7 +1,5 @@
 package master.soulknight.Graphics;
 
-import java.awt.image.BufferedImage;
-
 public class Animation {
 
     private Sprite[] frames;
