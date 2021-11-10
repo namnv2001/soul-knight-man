@@ -55,11 +55,15 @@ public class Player extends Entity {
             placeBoom = false;
         }
     }
-
     public void update() {
         super.update();
         if (!fallen) {
             move();
+            if (left || right) {
+                pos.x += dx;
+            } else if (up || down) {
+                pos.y += dy;
+            }
         }
     }
 
