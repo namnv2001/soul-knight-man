@@ -10,6 +10,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import master.soulknight.Entities.Player;
 import master.soulknight.States.GameStateManager;
 
 import java.awt.image.BufferedImage;
@@ -18,6 +19,7 @@ public class GamePanel extends Application {
 
     public static int width = 1280;
     public static int height = 720;
+    public static Player player;
 
     private BufferedImage img;
 
@@ -58,9 +60,15 @@ public class GamePanel extends Application {
         Group root = new Group();
         Scene scene = new Scene(root);
         root.getChildren().add(canvas);
-        scene.addEventHandler(KeyEvent.KEY_PRESSED, eventHandler);
+//        scene.addEventHandler(KeyEvent.KEY_PRESSED, eventHandler);
         stage.setScene(scene);
         stage.show();
+        scene.setOnKeyPressed(event -> {
+            player.handleKeyPressedEvent(event.getCode());
+        });
+        scene.setOnKeyReleased(event -> {
+            player.handleKeyReleasedEvent(event.getCode());
+        });
     }
 
     public void input(KeyEvent key) {

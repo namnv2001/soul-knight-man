@@ -10,6 +10,8 @@ import master.soulknight.Util.Vector2f;
 
 public class Player extends Entity {
 
+    private KeyCode direction;
+
     public Player(SpriteSheet sprite, Vector2f origin, int size) {
         super(sprite, origin, size);
     }
@@ -55,6 +57,47 @@ public class Player extends Entity {
             placeBoom = false;
         }
     }
+
+    public void handleKeyPressedEvent(KeyCode keycode) {
+        if (keycode == KeyCode.LEFT) {
+            direction  = keycode;
+            left = true;
+        } else if (keycode == KeyCode.RIGHT) {
+            direction  = keycode;
+            right = true;
+        } else if (keycode == KeyCode.UP) {
+            direction  = keycode;
+            up = true;
+        } else if (keycode == KeyCode.DOWN) {
+            direction  = keycode;
+            down = true;
+        }
+        if (keycode ==  KeyCode.SPACE) {
+            placeBoom = true;
+        }
+    }
+
+    public void handleKeyReleasedEvent(KeyCode keycode) {
+        if (direction == keycode) {
+            if (direction == KeyCode.LEFT) {
+                left = false;
+            }
+            if (direction == KeyCode.RIGHT) {
+                right = false;
+            }
+            if (direction == KeyCode.UP) {
+                up = false;
+            }
+            if (direction == KeyCode.DOWN) {
+                down = false;
+            }
+            direction = null;
+        }
+        if (keycode == KeyCode.SPACE) {
+            placeBoom = false;
+        }
+    }
+
     public void update() {
         super.update();
         if (!fallen) {
