@@ -11,6 +11,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import master.soulknight.States.GameStateManager;
+import master.soulknight.Util.KeyHandler;
 
 import java.awt.image.BufferedImage;
 
@@ -26,13 +27,17 @@ public class GamePanel extends Application {
 
     private GameStateManager gsm;
 
-    EventHandler<KeyEvent> eventHandler = new EventHandler<>() {
+    EventHandler<KeyHandler> eventHandler = new EventHandler<>() {
 
         @Override
-        public void handle(KeyEvent keyEvent) {
+        public void handle(KeyHandler keyEvent) {
             input(keyEvent);
         }
     };
+
+    public void handle(KeyHandler keyEvent) {
+        input(keyEvent);
+    }
 
     public void initGraphics() {
         canvas = new Canvas(width,height);
@@ -63,7 +68,7 @@ public class GamePanel extends Application {
         stage.show();
     }
 
-    public void input(KeyEvent key) {
+    public void input(KeyHandler key) {
         System.out.println("1");
         gsm.input(key);
     }

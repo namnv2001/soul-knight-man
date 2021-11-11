@@ -4,6 +4,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyEvent;
 import master.soulknight.GamePanel;
 import master.soulknight.Graphics.SpriteSheet;
+import master.soulknight.Util.KeyHandler;
 import master.soulknight.Util.Vector2f;
 
 import java.util.ArrayList;
@@ -61,7 +62,7 @@ public class GameStateManager {
         }
     }
 
-    public void input( KeyEvent key) {
+    public void input(KeyHandler key) {
         for (int i = 0; i < states.size(); i++) {
             System.out.println("2");
             states.get(i).input(key);

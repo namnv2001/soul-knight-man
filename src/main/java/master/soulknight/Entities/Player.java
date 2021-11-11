@@ -2,9 +2,8 @@ package master.soulknight.Entities;
 
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import master.soulknight.Graphics.SpriteSheet;
+import master.soulknight.Util.KeyHandler;
 import master.soulknight.Util.Vector2f;
 
 
@@ -14,29 +13,29 @@ public class Player extends Entity {
         super(sprite, origin, size);
     }
 
-    public void input(KeyEvent key) {
+    public void input(KeyHandler key) {
         if (!fallen) {
-            if (key.getCode() == KeyCode.W) {
+            if (key.up.down) {
                 up = true;
             } else {
                 up = false;
             }
-            if (key.getCode() == KeyCode.S) {
+            if (key.down.down) {
                 down = true;
             } else {
                 down = false;
             }
-            if (key.getCode() == KeyCode.A) {
+            if (key.left.down) {
                 left = true;
             } else {
                 left = false;
             }
-            if (key.getCode() == KeyCode.D) {
+            if (key.right.down) {
                 right = true;
             } else {
                 right = false;
             }
-            if (key.getCode() == KeyCode.SPACE) {
+            if (key.attack.clicked) {
                 placeBoom = true;
             }
             if (up && down) {
@@ -52,7 +51,6 @@ public class Player extends Entity {
             down = false;
             left = false;
             right = false;
-            placeBoom = false;
         }
     }
     public void update() {

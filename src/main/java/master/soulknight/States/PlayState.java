@@ -4,6 +4,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyEvent;
 import master.soulknight.Entities.Player;
 import master.soulknight.Graphics.SpriteSheet;
+import master.soulknight.Util.KeyHandler;
 import master.soulknight.Util.Vector2f;
 
 public class PlayState extends GameState{
@@ -22,7 +23,7 @@ public class PlayState extends GameState{
     }
 
     @Override
-    public void input(KeyEvent key) {
+    public void input(KeyHandler key) {
         System.out.println("3");
         player.input(key);
     }

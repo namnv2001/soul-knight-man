@@ -1,7 +1,7 @@
 package master.soulknight.States;
 
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.input.KeyEvent;
+import master.soulknight.Util.KeyHandler;
 
 public class MenuState extends GameState {
 
@@ -15,7 +15,7 @@ public class MenuState extends GameState {
     }
 
     @Override
-    public void input( KeyEvent key) {
+    public void input(KeyHandler key) {
 
     }
 
