@@ -14,10 +14,10 @@ public class MenuState extends GameState {
 
     }
 
-    @Override
-    public void input( KeyEvent key) {
-
-    }
+//    @Override
+//    public void input( KeyEvent key) {
+//
+//    }
 
     @Override
     public void render(GraphicsContext gc) {

@@ -60,13 +60,13 @@ public class GameStateManager {
             states.get(i).update();
         }
     }
-
-    public void input( KeyEvent key) {
-        for (int i = 0; i < states.size(); i++) {
-            System.out.println("2");
-            states.get(i).input(key);
-        }
-    }
+//
+//    public void input( KeyEvent key) {
+//        for (int i = 0; i < states.size(); i++) {
+//            System.out.println("2");
+//            states.get(i).input(key);
+//        }
+//    }
 
     public void render(GraphicsContext gc) {
         for (int i = 0; i < states.size(); i++) {

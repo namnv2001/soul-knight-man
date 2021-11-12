@@ -10,7 +10,9 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import master.soulknight.Entities.Player;
 import master.soulknight.States.GameStateManager;
+import master.soulknight.States.PlayState;
 
 import java.awt.image.BufferedImage;
 
@@ -26,13 +28,13 @@ public class GamePanel extends Application {
 
     private GameStateManager gsm;
 
-    EventHandler<KeyEvent> eventHandler = new EventHandler<>() {
-
-        @Override
-        public void handle(KeyEvent keyEvent) {
-            input(keyEvent);
-        }
-    };
+//    EventHandler<KeyEvent> eventHandler = new EventHandler<>() {
+//
+//        @Override
+//        public void handle(KeyEvent keyEvent) {
+//            input(keyEvent);
+//        }
+//    };
 
     public void initGraphics() {
         canvas = new Canvas(width,height);
@@ -58,15 +60,21 @@ public class GamePanel extends Application {
         Group root = new Group();
         Scene scene = new Scene(root);
         root.getChildren().add(canvas);
-        scene.addEventHandler(KeyEvent.KEY_PRESSED, eventHandler);
         stage.setScene(scene);
         stage.show();
+//        scene.addEventHandler(KeyEvent.KEY_PRESSED, eventHandler);
+        scene.setOnKeyPressed(event -> {
+            PlayState.player.handleKeyPressedEvent(event.getCode());
+        });
+        scene.setOnKeyReleased(event -> {
+            PlayState.player.handleKeyReleasedEvent(event.getCode());
+        });
     }
-
-    public void input(KeyEvent key) {
-        System.out.println("1");
-        gsm.input(key);
-    }
+//
+//    public void input(KeyEvent key) {
+//        System.out.println("1");
+//        gsm.input(key);
+//    }
 
     public void update() {
         gsm.update();

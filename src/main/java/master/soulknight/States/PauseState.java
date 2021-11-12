@@ -15,10 +15,10 @@ public class PauseState extends GameState {
 
     }
 
-    @Override
-    public void input(KeyEvent key) {
-
-    }
+//    @Override
+//    public void input(KeyEvent key) {
+//
+//    }
 
     @Override
     public void render(GraphicsContext gc) {
