@@ -10,7 +10,12 @@ import java.io.IOException;
 public class SpriteSheet {
     private Sprite SPRITESHEET;
     private Sprite[][] spriteArray;
-    private final int TILE_SIZE = 320;
+
+    public static int getTileSize() {
+        return TILE_SIZE;
+    }
+
+    private static final int TILE_SIZE = 31;
     public int w;
     public int h;
     private int wSprite;
@@ -21,7 +26,7 @@ public class SpriteSheet {
 
         this.file = file;
         w = TILE_SIZE;
-        h = TILE_SIZE + 40;
+        h = TILE_SIZE ;
 
         System.out.println("Loading " + file + "...");
         try {

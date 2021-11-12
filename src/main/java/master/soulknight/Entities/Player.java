@@ -10,8 +10,9 @@ import master.soulknight.Util.Vector2f;
 
 public class Player extends Entity {
 
-    public Player(SpriteSheet sprite, Vector2f origin, int size) {
-        super(sprite, origin, size);
+
+    public Player(SpriteSheet sprite, Vector2f origin, int size, double SCALING) {
+        super(sprite, origin, size, SCALING);
     }
 
     public void input(KeyEvent key) {
@@ -65,6 +66,7 @@ public class Player extends Entity {
 
     @Override
     public void render(GraphicsContext gc) {
-        gc.drawImage(SwingFXUtils.toFXImage(ani.getImage().image, null),pos.x,pos.y);
+        gc.drawImage(SwingFXUtils.toFXImage(ani.getImage().image, null), pos.x, pos.y
+                , SpriteSheet.getTileSize() * Entity.getSCALING(), SpriteSheet.getTileSize() * Entity.getSCALING());
     }
 }

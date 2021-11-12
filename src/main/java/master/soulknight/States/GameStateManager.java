@@ -28,7 +28,7 @@ public class GameStateManager {
         map = new Vector2f(GamePanel.width, GamePanel.height);
         GameStateManager.gc = gc;
         states = new ArrayList<>();
-        Vector2f.setWorldVac(map.x, map.y);
+        Vector2f.setWorldVar(map.x, map.y);
 
         states.add(new PlayState(this));
     }

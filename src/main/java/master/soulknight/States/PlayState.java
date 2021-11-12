@@ -9,11 +9,14 @@ import master.soulknight.Util.Vector2f;
 public class PlayState extends GameState{
 
     private Player player;
+    //private Player player1;
+    protected final double scaling = 2.5;
 
     public PlayState(GameStateManager gsm) {
         super(gsm);
 
-        player = new Player(new SpriteSheet("src/main/resources/Sprite/Druid2 - Copy.png"), new Vector2f(360,240), 128);
+       // player1 = new Player(new SpriteSheet("src/main/resources/Sprite/Engineer2 - Copy.png"), new Vector2f(600,240), 64);
+        player = new Player(new SpriteSheet("src/main/resources/Sprite/alchemist_0_0 #154237 - Copy.png"), new Vector2f(360,240), 128,scaling);
     }
 
     @Override
@@ -30,5 +33,6 @@ public class PlayState extends GameState{
     @Override
     public void render(GraphicsContext gc) {
         player.render(gc);
+       // player1.render(gc);
     }
 }
