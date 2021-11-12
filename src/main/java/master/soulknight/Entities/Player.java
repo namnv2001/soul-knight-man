@@ -52,23 +52,55 @@ public class Player extends Entity {
 //    }
 
     public void handleKeyPressedEvent(KeyCode keycode) {
-        if (fallen) return;
-        if (keycode == KeyCode.A) {
-            direction  = keycode;
-            left = true;
-        } else if (keycode == KeyCode.D) {
-            direction  = keycode;
-            right = true;
-        } else if (keycode == KeyCode.W) {
-            direction  = keycode;
-            up = true;
-        } else if (keycode == KeyCode.S) {
-            direction  = keycode;
-            down = true;
+                if (!fallen) {
+            if (keycode == KeyCode.W) {
+                direction  = keycode;
+                up = true;
+            } else {
+                up = false;
+            }
+            if (keycode == KeyCode.S) {
+                direction  = keycode;
+                down = true;
+            } else {
+                down = false;
+            }
+            if (keycode == KeyCode.A) {
+                direction  = keycode;
+                left = true;
+            } else {
+                left = false;
+            }
+            if (keycode == KeyCode.D) {
+                direction  = keycode;
+                right = true;
+            } else {
+                right = false;
+            }
+            if (keycode == KeyCode.SPACE) {
+                placeBoom = true;
+            }
         }
-        if (keycode ==  KeyCode.SPACE) {
-            placeBoom = true;
-        }
+//        if (fallen) return;
+//        if (keycode == KeyCode.A) {
+//            direction  = keycode;
+//            left = true;
+//        }
+//        if (keycode == KeyCode.D) {
+//            direction  = keycode;
+//            right = true;
+//        }
+//        if (keycode == KeyCode.W) {
+//            direction  = keycode;
+//            up = true;
+//        }
+//        if (keycode == KeyCode.S) {
+//            direction  = keycode;
+//            down = true;
+//        }
+//        if (keycode ==  KeyCode.SPACE) {
+//            placeBoom = true;
+//        }
     }
 
     public void handleKeyReleasedEvent(KeyCode keycode) {
@@ -97,12 +129,10 @@ public class Player extends Entity {
         super.update();
         if (!fallen) {
             move();
-            if (left || right) {
-                pos.x += dx;
-            } else if (up || down) {
-                pos.y += dy;
-            }
+            pos.x += x;
+            pos.y += y;
         }
+
     }
 
     @Override

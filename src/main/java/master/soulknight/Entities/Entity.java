@@ -71,30 +71,37 @@ public abstract class Entity {
         ani.setDelay(delay);
 
     }
+    private int directionVar;
 
     public void animated() {
         if (up) {
-            if (currentAnimation != UP && currentAnimation == RIGHT|| ani.getDelay() == -1) {
+            if ( currentAnimation == RIGHT|| ani.getDelay() == -1) {
                 setAnimation(UP, sprite.getSpriteArray(RIGHT), 4);
-            } else if (currentAnimation != UP && currentAnimation == LEFT|| ani.getDelay() == -1) {
+                directionVar = RIGHT;
+            } else if ( currentAnimation == LEFT|| ani.getDelay() == -1) {
                 setAnimation(UP, sprite.getSpriteArray(LEFT), 4);
+                directionVar = LEFT;
             }
         } else if (down) {
-            if (currentAnimation != DOWN && currentAnimation == RIGHT|| ani.getDelay() == -1) {
+            if ( currentAnimation == RIGHT|| ani.getDelay() == -1) {
                 setAnimation(DOWN, sprite.getSpriteArray(RIGHT), 4);
-            } else if (currentAnimation != DOWN && currentAnimation == LEFT|| ani.getDelay() == -1) {
+                directionVar = RIGHT;
+            } else if (currentAnimation == LEFT|| ani.getDelay() == -1) {
                 setAnimation(DOWN, sprite.getSpriteArray(LEFT), 4);
+                directionVar = LEFT;
             }
         } else if (left) {
             if (currentAnimation != LEFT || ani.getDelay() == -1) {
                 setAnimation(LEFT, sprite.getSpriteArray(LEFT), 4);
+                directionVar = LEFT;
             }
         } else if (right) {
             if (currentAnimation != RIGHT || ani.getDelay() == -1) {
                 setAnimation(RIGHT, sprite.getSpriteArray(RIGHT), 4);
+                directionVar = RIGHT;
             }
         } else {
-            setAnimation(currentAnimation, sprite.getSpriteArray(currentAnimation), -1);
+            setAnimation(currentAnimation, sprite.getSpriteArray(directionVar), -1);
         }
     }
 
