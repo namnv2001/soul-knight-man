@@ -15,60 +15,53 @@ public class Player extends Entity {
     public Player(SpriteSheet sprite, Vector2f origin, int size) {
         super(sprite, origin, size);
     }
-
-    public void input(KeyEvent key) {
-        if (!fallen) {
-            if (key.getCode() == KeyCode.W) {
-                up = true;
-            } else {
-                up = false;
-            }
-            if (key.getCode() == KeyCode.S) {
-                down = true;
-            } else {
-                down = false;
-            }
-            if (key.getCode() == KeyCode.A) {
-                left = true;
-            } else {
-                left = false;
-            }
-            if (key.getCode() == KeyCode.D) {
-                right = true;
-            } else {
-                right = false;
-            }
-            if (key.getCode() == KeyCode.SPACE) {
-                placeBoom = true;
-            }
-            if (up && down) {
-                up = false;
-                down = false;
-            }
-            if (left && right) {
-                left = false;
-                right = false;
-            }
-        } else {
-            up = false;
-            down = false;
-            left = false;
-            right = false;
-            placeBoom = false;
-        }
-    }
+//
+//    public void input(KeyEvent key) {
+//        if (!fallen) {
+//            if (key.getCode() == KeyCode.W) {
+//                up = true;
+//            } else {
+//                up = false;
+//            }
+//            if (key.getCode() == KeyCode.S) {
+//                down = true;
+//            } else {
+//                down = false;
+//            }
+//            if (key.getCode() == KeyCode.A) {
+//                left = true;
+//            } else {
+//                left = false;
+//            }
+//            if (key.getCode() == KeyCode.D) {
+//                right = true;
+//            } else {
+//                right = false;
+//            }
+//            if (key.getCode() == KeyCode.SPACE) {
+//                placeBoom = true;
+//            }
+//        } else {
+//            up = false;
+//            down = false;
+//            left = false;
+//            right = false;
+//            placeBoom = false;
+//        }
+//    }
 
     public void handleKeyPressedEvent(KeyCode keycode) {
-        if (keycode == KeyCode.LEFT) {
+        if (fallen) return;
+        if (keycode == KeyCode.A) {
             direction  = keycode;
             left = true;
-        } else if (keycode == KeyCode.RIGHT) {
+        } else if (keycode == KeyCode.D) {
             direction  = keycode;
             right = true;
-        } else if (keycode == KeyCode.UP) {
+        } else if (keycode == KeyCode.W) {
             direction  = keycode;
             up = true;
-        } else if (keycode == KeyCode.DOWN) {
+        } else if (keycode == KeyCode.S) {
             direction  = keycode;
             down = true;
         }
@@ -78,17 +71,18 @@ public class Player extends Entity {
     }
 
     public void handleKeyReleasedEvent(KeyCode keycode) {
+        if (fallen) return;
         if (direction == keycode) {
-            if (direction == KeyCode.LEFT) {
+            if (direction == KeyCode.A) {
                 left = false;
             }
-            if (direction == KeyCode.RIGHT) {
+            if (direction == KeyCode.D) {
                 right = false;
             }
-            if (direction == KeyCode.UP) {
+            if (direction == KeyCode.W) {
                 up = false;
             }
-            if (direction == KeyCode.DOWN) {
+            if (direction == KeyCode.S) {
                 down = false;
             }
             direction = null;

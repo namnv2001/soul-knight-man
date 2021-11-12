@@ -8,7 +8,7 @@ import master.soulknight.Util.Vector2f;
 
 public class PlayState extends GameState{
 
-    private Player player;
+    public static Player player;
 
     public PlayState(GameStateManager gsm) {
         super(gsm);
@@ -20,12 +20,12 @@ public class PlayState extends GameState{
     public void update() {
         player.update();
     }
-
-    @Override
-    public void input(KeyEvent key) {
-        System.out.println("3");
-        player.input(key);
-    }
+//
+//    @Override
+//    public void input(KeyEvent key) {
+//        System.out.println("3");
+//        player.input(key);
+//    }
 
     @Override
     public void render(GraphicsContext gc) {

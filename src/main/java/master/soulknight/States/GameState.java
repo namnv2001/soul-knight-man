@@ -12,6 +12,6 @@ public abstract class GameState {
     }
 
     public abstract void update();
-    public abstract void input(KeyEvent key);
+//    public abstract void input(KeyEvent key);
     public abstract void render(GraphicsContext gc);
 }
