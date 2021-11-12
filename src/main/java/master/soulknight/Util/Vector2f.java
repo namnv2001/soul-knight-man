@@ -22,12 +22,12 @@ public class Vector2f {
         this.y = y;
     }
 
-    public static void setWorldVac(float x, float y) {
+    public static void setWorldVar(float x, float y) {
         worldX = x;
         worldY = y;
     }
 
-    public Vector2f getWorldVac() {
+    public Vector2f getWorldVar() {
         return new Vector2f(x - worldX, y - worldY);
     }
 

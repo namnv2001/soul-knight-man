@@ -5,10 +5,12 @@ import javafx.scene.image.Image;
 import master.soulknight.Graphics.Animation;
 import master.soulknight.Graphics.Sprite;
 import master.soulknight.Graphics.SpriteSheet;
+import master.soulknight.Util.AABB;
 import master.soulknight.Util.Vector2f;
 
 public abstract class Entity {
 
+    private static double SCALING;
     private final int IDLE = 6;
     private final int BOOM = 5;
     private final int FALLEN = 4;
@@ -37,73 +39,59 @@ public abstract class Entity {
     protected float dx;
     protected float dy;
 
-    protected float speed = 4f;
+    protected float speed = 2f;
     protected float acc = 3f;
     protected float deacc = 0.3f;
 
+    protected AABB hitBounds;
+    protected AABB bounds;
 
     protected Image img;
 
+    public static double getSCALING() {
+        return SCALING;
+    }
+
+    public Entity(SpriteSheet sprite, Vector2f origin, int size, double SCALING) {
+        this.sprite = sprite;
+        pos = origin;
+        this.size = size;
+        this.SCALING = SCALING;
+
+        bounds = new AABB(origin, size, size);
+        hitBounds = new AABB(new Vector2f(origin.x + (size / 2), origin.y), size, size);
+
+        ani = new Animation();
+        setAnimation(RIGHT, sprite.getSpriteArray(RIGHT), 10);
+    }
+
     public void setAnimation(int i, Sprite[] frames, int delay) {
         currentAnimation = i;
-        ani.setFrames(i,frames);
+        ani.setFrames(i, frames);
         ani.setDelay(delay);
 
     }
 
-    public Entity(SpriteSheet sprite, Vector2f origin, int size) {
-        this.sprite = sprite;
-        pos = origin;
-        this.size = size;
-
-        ani = new Animation();
-        setAnimation(RIGHT, sprite.getSpriteArray(RIGHT), 10 );
-    }
-
     public void animated() {
-//        if(placeBoom) {
-//            if(currentAnimation < 5) {
-//                setAnimation(currentAnimation + BOOM, sprite.getSpriteArray(currentAnimation + BOOM), 0);
-//            }
-//        } else if(up) {
-//            if((currentAnimation != UP || ani.getDelay() == -1)) {
-//                setAnimation(UP, sprite.getSpriteArray(UP), 5);
-//            }
-//        }  else if(down) {
-//            if((currentAnimation != DOWN || ani.getDelay() == -1)) {
-//                setAnimation(DOWN, sprite.getSpriteArray(DOWN), 5);
-//            }
-//        }  else if(right) {
-//            if((currentAnimation != RIGHT || ani.getDelay() == -1)) {
-//                setAnimation(RIGHT, sprite.getSpriteArray(RIGHT), 5);
-//            }
-//        }  else if(left) {
-//            if((currentAnimation != LEFT || ani.getDelay() == -1)) {
-//                setAnimation(LEFT, sprite.getSpriteArray(LEFT), 5);
-//            }
-//        }  else if(fallen) {
-//            if((currentAnimation != FALLEN || ani.getDelay() == -1)) {
-//                setAnimation(FALLEN, sprite.getSpriteArray(FALLEN), 5);
-//            }
-//        }
-        if(up) {
-            if(currentAnimation != UP || ani.getDelay() == -1) {
-                setAnimation(UP, sprite.getSpriteArray(UP), 5);
+        if (up) {
+            if (currentAnimation != UP && currentAnimation == RIGHT|| ani.getDelay() == -1) {
+                setAnimation(UP, sprite.getSpriteArray(RIGHT), 4);
+            } else if (currentAnimation != UP && currentAnimation == LEFT|| ani.getDelay() == -1) {
+                setAnimation(UP, sprite.getSpriteArray(LEFT), 4);
             }
-        }
-        else if(down) {
-            if(currentAnimation != DOWN || ani.getDelay() == -1) {
-                setAnimation(DOWN, sprite.getSpriteArray(DOWN), 5);
+        } else if (down) {
+            if (currentAnimation != DOWN && currentAnimation == RIGHT|| ani.getDelay() == -1) {
+                setAnimation(DOWN, sprite.getSpriteArray(RIGHT), 4);
+            } else if (currentAnimation != DOWN && currentAnimation == LEFT|| ani.getDelay() == -1) {
+                setAnimation(DOWN, sprite.getSpriteArray(LEFT), 4);
             }
-        }
-        else if(left) {
-            if(currentAnimation != LEFT || ani.getDelay() == -1) {
-                setAnimation(LEFT, sprite.getSpriteArray(LEFT), 5);
+        } else if (left) {
+            if (currentAnimation != LEFT || ani.getDelay() == -1) {
+                setAnimation(LEFT, sprite.getSpriteArray(LEFT), 4);
             }
-        }
-        else if(right) {
-            if(currentAnimation != RIGHT || ani.getDelay() == -1) {
-                setAnimation(RIGHT, sprite.getSpriteArray(RIGHT), 5);
+        } else if (right) {
+            if (currentAnimation != RIGHT || ani.getDelay() == -1) {
+                setAnimation(RIGHT, sprite.getSpriteArray(RIGHT), 4);
             }
         } else {
             setAnimation(currentAnimation, sprite.getSpriteArray(currentAnimation), -1);
@@ -111,76 +99,98 @@ public abstract class Entity {
     }
 
     public void move() {
-        if(up) {
+        if (up) {
             currentDirection = UP;
             dy -= acc;
-            if(dy < -speed) {
+            if (dy < -speed) {
                 dy = -speed;
             }
         } else {
-            if(dy < 0) {
+            if (dy < 0) {
                 dy += deacc;
-                if(dy > 0) {
+                if (dy > 0) {
                     dy = 0;
                 }
             }
         }
 
-        if(down) {
+        if (down) {
             currentDirection = DOWN;
             dy += acc;
-            if(dy > speed) {
+            if (dy > speed) {
                 dy = speed;
             }
         } else {
-            if(dy > 0) {
+            if (dy > 0) {
                 dy -= deacc;
-                if(dy < 0) {
+                if (dy < 0) {
                     dy = 0;
                 }
             }
         }
 
-        if(left) {
+        if (left) {
             currentDirection = LEFT;
             dx -= acc;
-            if(dx < -speed) {
+            if (dx < -speed) {
                 dx = -speed;
             }
         } else {
-            if(dx < 0) {
+            if (dx < 0) {
                 dx += deacc;
-                if(dx > 0) {
+                if (dx > 0) {
                     dx = 0;
                 }
             }
         }
 
-        if(right) {
+        if (right) {
             currentDirection = RIGHT;
             dx += acc;
-            if(dx > speed) {
+            if (dx > speed) {
                 dx = speed;
             }
         } else {
-            if(dx > 0) {
+            if (dx > 0) {
                 dx -= deacc;
-                if(dx < 0) {
+                if (dx < 0) {
                     dx = 0;
                 }
             }
+        }
+    }
+
+    public void setHitBoxDirection() {
+        if(up) {
+            hitBounds.setyOffset(-size/2);
+            hitBounds.setxOffset(-size/2);
+        }
+        else if(down) {
+            hitBounds.setyOffset(size/2);
+            hitBounds.setxOffset(-size/2);
+        }
+        else if(left) {
+            hitBounds.setyOffset(-size);
+            hitBounds.setxOffset(0);
+        }
+        else if(right) {
+            hitBounds.setyOffset(0);
+            hitBounds.setxOffset(0);
         }
     }
 
 
     public void render(GraphicsContext gc) {
-        gc.drawImage(img,x,y);
+        gc.drawImage(img, x, y);
     }
 
     public void update() {
         animated();
-        ani.update();
+        setHitBoxDirection();
         move();
+        ani.update();
+        pos.x += dx;
+        pos.y += dy;
     }
 
 }
