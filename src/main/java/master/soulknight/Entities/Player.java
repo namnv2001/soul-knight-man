@@ -137,7 +137,7 @@ public class Player extends Entity {
 
     @Override
     public void render(GraphicsContext gc) {
-        gc.drawImage(SwingFXUtils.toFXImage(ani.getImage().image, null), pos.x, pos.y
+        gc.drawImage(ani.getImage().getFxImage(), pos.x, pos.y
                 , SpriteSheet.getTileSize() * Entity.getSCALING(), SpriteSheet.getTileSize() * Entity.getSCALING());
     }
 }

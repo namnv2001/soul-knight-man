@@ -101,7 +101,7 @@ public abstract class Entity {
                 directionVar = RIGHT;
             }
         } else {
-            setAnimation(currentAnimation, sprite.getSpriteArray(directionVar), -1);
+            setAnimation(currentAnimation, sprite.getSpriteArray(directionVar), 4);
         }
     }
 
