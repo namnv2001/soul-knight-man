@@ -56,7 +56,7 @@ public abstract class Entity {
         this.sprite = sprite;
         pos = origin;
         this.size = size;
-        this.SCALING = SCALING;
+        Entity.SCALING = SCALING;
 
         bounds = new AABB(origin, size, size);
         hitBounds = new AABB(new Vector2f(origin.x + (size / 2), origin.y), size, size);

@@ -1,10 +1,8 @@
 package master.soulknight.States;
 
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.input.KeyEvent;
 import master.soulknight.GamePanel;
 import master.soulknight.Graphics.SpriteSheet;
-import master.soulknight.Tiles.TileManager;
 import master.soulknight.Util.Vector2f;
 
 import java.util.ArrayList;
@@ -30,7 +28,6 @@ public class GameStateManager {
         GameStateManager.gc = gc;
         states = new ArrayList<>();
         Vector2f.setWorldVar(map.x, map.y);
-
         states.add(new PlayState(this));
     }
 

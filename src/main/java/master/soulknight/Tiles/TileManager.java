@@ -15,10 +15,12 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
-
 public class TileManager {
-
     public static final Sprite tileSheet = new Sprite("src/main/resources/Sprite/ss - Copy.png");
+    public static SpriteSheet grass = new SpriteSheet(2, 0, tileSheet);
+    public static SpriteSheet wall = new SpriteSheet(1, 0, tileSheet);
+    public static SpriteSheet box = new SpriteSheet(0, 0, tileSheet);
+
     protected ArrayList<Block> blocks = new ArrayList<>();
     protected int TILE_SIZE = 31;
     protected int level;
@@ -29,7 +31,6 @@ public class TileManager {
         TILE_SIZE *= scaling;
         readMap(path);
     }
-
 
 
     public void readMap(String path) {
@@ -56,13 +57,13 @@ public class TileManager {
                 for (int j = 0; j < columns; j++) {
                     Block block;
                     if (mapStr[i].charAt(j) == '#') {
-                        block = new WallBlock(TILE_SIZE, TILE_SIZE, SpriteSheet.wall.getFxImage()
+                        block = new WallBlock(TILE_SIZE, TILE_SIZE, wall.getFxImage()
                                 , new Vector2f(TILE_SIZE * j, TILE_SIZE * i));
-                    } else if(mapStr[i].charAt(j) == '*') {
-                        block = new BoxBlock(TILE_SIZE, TILE_SIZE, SpriteSheet.box.getFxImage()
+                    } else if (mapStr[i].charAt(j) == '*') {
+                        block = new BoxBlock(TILE_SIZE, TILE_SIZE, box.getFxImage()
                                 , new Vector2f(TILE_SIZE * j, TILE_SIZE * i));
                     } else {
-                        block = new FloorBlock(TILE_SIZE, TILE_SIZE, SpriteSheet.grass.getFxImage()
+                        block = new FloorBlock(TILE_SIZE, TILE_SIZE, grass.getFxImage()
                                 , new Vector2f(TILE_SIZE * j, TILE_SIZE * i));
                     }
                     blocks.add(block);
@@ -74,6 +75,6 @@ public class TileManager {
     }
 
     public void render(GraphicsContext gc) {
-        blocks.forEach(g -> g.render(gc,TILE_SIZE));
+        blocks.forEach(g -> g.render(gc, TILE_SIZE));
     }
 }

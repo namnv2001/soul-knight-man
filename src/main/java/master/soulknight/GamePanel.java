@@ -2,25 +2,18 @@ package master.soulknight;
 
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
-import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import master.soulknight.Entities.Player;
 import master.soulknight.States.GameStateManager;
 import master.soulknight.States.PlayState;
-
-
 
 public class GamePanel extends Application {
     public static int oldFrameCount;
     public static int oldTickCount;
     public static int tickCount;
-
 
     public static int width = 1280;
     public static int height = 720;
@@ -30,16 +23,8 @@ public class GamePanel extends Application {
 
     private GameStateManager gsm;
 
-//    EventHandler<KeyEvent> eventHandler = new EventHandler<>() {
-//
-//        @Override
-//        public void handle(KeyEvent keyEvent) {
-//            input(keyEvent);
-//        }
-//    };
-
     public void initGraphics() {
-        canvas = new Canvas(width,height);
+        canvas = new Canvas(width, height);
         gc = canvas.getGraphicsContext2D();
     }
 
@@ -84,15 +69,10 @@ public class GamePanel extends Application {
                 if ((now - lastUpdateTime[0]) > TBU) {
                     lastUpdateTime[0] = now - TBU;
                 }
-
-
-
-
+                //**********************************************
                 render();
                 update();
-
-
-
+                //**********************************************
                 lastRenderTime[0] = now;
                 frameCount[0]++;
 
@@ -131,26 +111,17 @@ public class GamePanel extends Application {
         root.getChildren().add(canvas);
         stage.setScene(scene);
         stage.show();
-//        scene.addEventHandler(KeyEvent.KEY_PRESSED, eventHandler);
-        scene.setOnKeyPressed(event -> {
-            PlayState.player.handleKeyPressedEvent(event.getCode());
-        });
-        scene.setOnKeyReleased(event -> {
-            PlayState.player.handleKeyReleasedEvent(event.getCode());
-        });
+
+        scene.setOnKeyPressed(event -> PlayState.player.handleKeyPressedEvent(event.getCode()));
+        scene.setOnKeyReleased(event -> PlayState.player.handleKeyReleasedEvent(event.getCode()));
     }
-//
-//    public void input(KeyEvent key) {
-//        System.out.println("1");
-//        gsm.input(key);
-//    }
 
     public void update() {
         gsm.update();
     }
 
     public void render() {
-        if(gc != null) {
+        if (gc != null) {
 
             gsm.render(gc);
         }

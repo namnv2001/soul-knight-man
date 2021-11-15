@@ -28,8 +28,16 @@ public class AABB {
         return width;
     }
 
+    public void setWidth(float width) {
+        this.width = width;
+    }
+
     public float getHeight() {
         return height;
+    }
+
+    public void setHeight(float height) {
+        this.height = height;
     }
 
     public float getRadius() {
@@ -42,13 +50,5 @@ public class AABB {
 
     public void setyOffset(float yOffset) {
         this.yOffset = yOffset;
-    }
-
-    public void setWidth(float width) {
-        this.width = width;
-    }
-
-    public void setHeight(float height) {
-        this.height = height;
     }
 }

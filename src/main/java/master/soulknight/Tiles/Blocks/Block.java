@@ -1,6 +1,5 @@
 package master.soulknight.Tiles.Blocks;
 
-import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import master.soulknight.Entities.Entity;
@@ -10,11 +9,10 @@ import master.soulknight.Util.AABB;
 import master.soulknight.Util.Vector2f;
 
 public abstract class Block {
-    protected int width;
-    protected int height;
-
     public Image img;
     public Vector2f pos;
+    protected int width;
+    protected int height;
 
     public Block(int width, int height, Image img, Vector2f pos) {
         this.width = width;
@@ -32,6 +30,7 @@ public abstract class Block {
     }
 
     public abstract boolean update(AABB p);
+
     public abstract boolean isInside(AABB p);
 
     public abstract Sprite getImage();
@@ -41,6 +40,6 @@ public abstract class Block {
     }
 
     public void render(GraphicsContext gc, int TILE_SIZE) {
-        gc.drawImage(img, pos.x,  pos.y, SpriteSheet.getTileSize() * Entity.getSCALING(),SpriteSheet.getTileSize() * Entity.getSCALING());
+        gc.drawImage(img, pos.x, pos.y, TILE_SIZE, TILE_SIZE);
     }
 }
