@@ -2,11 +2,10 @@ package master.soulknight.Util;
 
 public class Vector2f {
 
-    public float x;
-    public float y;
-
     public static float worldX;
     public static float worldY;
+    public float x;
+    public float y;
 
     public Vector2f() {
         x = 0;
@@ -14,7 +13,7 @@ public class Vector2f {
     }
 
     public Vector2f(Vector2f pos) {
-        new Vector2f(pos.x,pos.y);
+        new Vector2f(pos.x, pos.y);
     }
 
     public Vector2f(float x, float y) {

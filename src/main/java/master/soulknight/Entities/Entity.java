@@ -72,6 +72,7 @@ public abstract class Entity {
         ani.setDelay(delay);
 
     }
+    private int directionVar;
 
     public void animated() {
         if (up) {
@@ -183,7 +184,6 @@ public abstract class Entity {
         }
     }
 
-
     public void render(GraphicsContext gc) {
         gc.drawImage(img, x, y);
     }
@@ -196,5 +196,4 @@ public abstract class Entity {
         pos.x += dx;
         pos.y += dy;
     }
-
 }

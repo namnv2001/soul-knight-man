@@ -8,13 +8,11 @@ import master.soulknight.Util.Vector2f;
 
 public class Player extends Entity {
 
-
     private KeyCode direction;
 
     public Player(SpriteSheet sprite, Vector2f origin, int size, double SCALING) {
         super(sprite, origin, size, SCALING);
     }
-
 
     public void handleKeyPressedEvent(KeyCode keycode) {
         if (!fallen) {

@@ -10,12 +10,10 @@ import javafx.stage.Stage;
 import master.soulknight.States.GameStateManager;
 import master.soulknight.States.PlayState;
 
-
 public class GamePanel extends Application {
     public static int oldFrameCount;
     public static int oldTickCount;
     public static int tickCount;
-
 
     public static int width = 1280;
     public static int height = 720;
@@ -24,14 +22,6 @@ public class GamePanel extends Application {
     private Canvas canvas;
 
     private GameStateManager gsm;
-
-//    EventHandler<KeyEvent> eventHandler = new EventHandler<>() {
-//
-//        @Override
-//        public void handle(KeyEvent keyEvent) {
-//            input(keyEvent);
-//        }
-//    };
 
     public void initGraphics() {
         canvas = new Canvas(width, height);
@@ -69,7 +59,6 @@ public class GamePanel extends Application {
                 double now = System.nanoTime();
                 int updateCount = 0;
                 while (((now - lastUpdateTime[0]) > TBU) && (updateCount < MUBR)) {
-
                     lastUpdateTime[0] += TBU;
                     updateCount++;
                     tickCount++;
@@ -80,10 +69,8 @@ public class GamePanel extends Application {
                     lastUpdateTime[0] = now - TBU;
                 }
 
-
                 render();
                 update();
-
 
                 lastRenderTime[0] = now;
                 frameCount[0]++;
@@ -94,7 +81,6 @@ public class GamePanel extends Application {
                         System.out.println("NEW SECOND " + thisSecond + " " + frameCount[0]);
                         oldFrameCount = frameCount[0];
                     }
-
                     if (tickCount != oldTickCount) {
                         System.out.println("NEW SECOND (T) " + thisSecond + " " + tickCount);
                         oldTickCount = tickCount;
@@ -106,13 +92,11 @@ public class GamePanel extends Application {
 
                 while (now - lastRenderTime[0] < TTBR && now - lastUpdateTime[0] < TBU) {
                     Thread.yield();
-
                     try {
                         Thread.sleep(1);
                     } catch (Exception e) {
                         System.out.println("ERROR: yielding thread");
                     }
-
                     now = System.nanoTime();
                 }
             }
@@ -138,9 +122,7 @@ public class GamePanel extends Application {
 
     public void render() {
         if (gc != null) {
-
             gsm.render(gc);
         }
     }
-
 }

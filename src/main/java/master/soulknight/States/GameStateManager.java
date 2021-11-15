@@ -28,7 +28,6 @@ public class GameStateManager {
         GameStateManager.gc = gc;
         states = new ArrayList<>();
         Vector2f.setWorldVar(map.x, map.y);
-
         states.add(new PlayState(this));
     }
 
@@ -55,8 +54,8 @@ public class GameStateManager {
     }
 
     public void update() {
-        for (GameState state : states) {
-            state.update();
+        for (int i = 0; i < states.size(); i++) {
+            states.get(i).update();
         }
     }
 
@@ -66,5 +65,3 @@ public class GameStateManager {
         }
     }
 }
-
-

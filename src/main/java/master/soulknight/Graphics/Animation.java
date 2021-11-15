@@ -1,7 +1,5 @@
 package master.soulknight.Graphics;
 
-import java.awt.image.BufferedImage;
-
 public class Animation {
 
     private Sprite[] frames;
@@ -46,10 +44,6 @@ public class Animation {
         this.numFrames = numFrames;
     }
 
-    public void setDelay(int delay) {
-        this.delay = delay;
-    }
-
     public void update() {
         if (delay == -1) {
             return;
@@ -69,6 +63,10 @@ public class Animation {
 
     public int getDelay() {
         return delay;
+    }
+
+    public void setDelay(int delay) {
+        this.delay = delay;
     }
 
     public Sprite getImage() {

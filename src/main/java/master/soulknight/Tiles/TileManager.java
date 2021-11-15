@@ -16,15 +16,16 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class TileManager {
-    public static final Sprite tileSheet = new Sprite("src/main/resources/Sprite/ss.png");
+    public static final Sprite tileSheet = new Sprite("src/main/resources/Sprite/ss - Copy.png");
+    public static SpriteSheet grass = new SpriteSheet(2, 0, tileSheet);
+    public static SpriteSheet wall = new SpriteSheet(1, 0, tileSheet);
+    public static SpriteSheet box = new SpriteSheet(0, 0, tileSheet);
+
     protected ArrayList<Block> blocks = new ArrayList<>();
     protected int TILE_SIZE = 31;
     protected int level;
     protected int rows;
     protected int columns;
-    SpriteSheet grass = new SpriteSheet(2, 0, tileSheet);
-    SpriteSheet wall = new SpriteSheet(1, 0, tileSheet);
-    SpriteSheet box = new SpriteSheet(0, 0, tileSheet);
 
     public TileManager(String path, double scaling) {
         TILE_SIZE *= scaling;
@@ -36,25 +37,22 @@ public class TileManager {
             File file = new File(path);
             String firstLine;
             BufferedReader reader = new BufferedReader(new FileReader(file));
-
             firstLine = reader.readLine();
-            String[] splited = firstLine.split("\\s+");
 
+            String[] splited = firstLine.split("\\s+");
             level = Integer.parseInt(splited[0]);
             rows = Integer.parseInt(splited[1]);
             columns = Integer.parseInt(splited[2]);
-
             int count = 0;
             String[] mapStr = new String[rows];
             String line;
-
             while ((line = reader.readLine()) != null && count < rows) {
                 mapStr[count] = "";
                 mapStr[count] += line;
                 count++;
             }
             System.out.println(TILE_SIZE);
-
+          
             for (int i = 0; i < rows; i++) {
                 for (int j = 0; j < columns; j++) {
                     Block block;

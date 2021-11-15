@@ -1,6 +1,5 @@
 package master.soulknight.Graphics;
 
-
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.PixelWriter;
@@ -60,5 +59,4 @@ public class Sprite {
         }
         return new ImageView(wr).getImage();
     }
-
 }

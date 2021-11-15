@@ -22,6 +22,7 @@ public class SpriteSheet {
     private int _x, _y;
     private int wSprite;
     private int hSprite;
+    private String file;
 
     public SpriteSheet(String file) {
 
@@ -42,7 +43,6 @@ public class SpriteSheet {
     }
 
     public SpriteSheet(int x, int y, Sprite sheet) {
-
         pixels = new int[TILE_SIZE * TILE_SIZE];
         _x = x * TILE_SIZE;
         _y = y * TILE_SIZE;
@@ -96,7 +96,5 @@ public class SpriteSheet {
             }
         }
         return new ImageView(wr).getImage();
-
     }
-
 }
