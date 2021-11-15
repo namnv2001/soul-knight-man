@@ -1,7 +1,6 @@
 package master.soulknight.States;
 
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.input.KeyEvent;
 import master.soulknight.GamePanel;
 import master.soulknight.Graphics.SpriteSheet;
 import master.soulknight.Util.Vector2f;
@@ -28,7 +27,7 @@ public class GameStateManager {
         map = new Vector2f(GamePanel.width, GamePanel.height);
         GameStateManager.gc = gc;
         states = new ArrayList<>();
-        Vector2f.setWorldVac(map.x, map.y);
+        Vector2f.setWorldVar(map.x, map.y);
 
         states.add(new PlayState(this));
     }
@@ -56,21 +55,14 @@ public class GameStateManager {
     }
 
     public void update() {
-        for (int i = 0; i < states.size(); i++) {
-            states.get(i).update();
-        }
-    }
-
-    public void input( KeyEvent key) {
-        for (int i = 0; i < states.size(); i++) {
-            System.out.println("2");
-            states.get(i).input(key);
+        for (GameState state : states) {
+            state.update();
         }
     }
 
     public void render(GraphicsContext gc) {
-        for (int i = 0; i < states.size(); i++) {
-            states.get(i).render(gc);
+        for (GameState state : states) {
+            state.render(gc);
         }
     }
 }
