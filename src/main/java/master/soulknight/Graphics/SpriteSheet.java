@@ -13,6 +13,7 @@ import java.io.IOException;
 
 public class SpriteSheet {
     private static final int TILE_SIZE = 31;
+
     public int w;
     public int h;
     public int[] pixels;
@@ -22,9 +23,9 @@ public class SpriteSheet {
     private int wSprite;
     private int hSprite;
     private String file;
+
     public SpriteSheet(String file) {
 
-        this.file = file;
         w = TILE_SIZE;
         h = TILE_SIZE;
 
@@ -42,7 +43,6 @@ public class SpriteSheet {
     }
 
     public SpriteSheet(int x, int y, Sprite sheet) {
-
         pixels = new int[TILE_SIZE * TILE_SIZE];
         _x = x * TILE_SIZE;
         _y = y * TILE_SIZE;

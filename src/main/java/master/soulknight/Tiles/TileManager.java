@@ -32,7 +32,6 @@ public class TileManager {
         readMap(path);
     }
 
-
     public void readMap(String path) {
         try {
             File file = new File(path);
@@ -53,6 +52,7 @@ public class TileManager {
                 count++;
             }
             System.out.println(TILE_SIZE);
+          
             for (int i = 0; i < rows; i++) {
                 for (int j = 0; j < columns; j++) {
                     Block block;

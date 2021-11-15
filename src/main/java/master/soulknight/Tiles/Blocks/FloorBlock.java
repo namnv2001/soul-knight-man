@@ -25,5 +25,4 @@ public class FloorBlock extends Block{
     public Sprite getImage() {
         return null;
     }
-
 }

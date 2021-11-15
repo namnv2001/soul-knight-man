@@ -6,7 +6,7 @@ import master.soulknight.Graphics.SpriteSheet;
 import master.soulknight.Tiles.TileManager;
 import master.soulknight.Util.Vector2f;
 
-public class PlayState extends GameState{
+public class PlayState extends GameState {
 
     public static Player player;
     public static TileManager tm;

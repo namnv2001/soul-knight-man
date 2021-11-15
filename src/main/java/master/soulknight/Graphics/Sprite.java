@@ -16,7 +16,6 @@ public class Sprite {
     public BufferedImage image;
     public int[] pixels;
     private int[] ogpixels;
-
     private int w;
     private int h;
 
@@ -60,6 +59,4 @@ public class Sprite {
         }
         return new ImageView(wr).getImage();
     }
-
-
 }

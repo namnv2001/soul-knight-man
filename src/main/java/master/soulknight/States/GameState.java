@@ -2,7 +2,6 @@ package master.soulknight.States;
 
 import javafx.scene.canvas.GraphicsContext;
 
-
 public abstract class GameState {
     protected GameStateManager gsm;
 

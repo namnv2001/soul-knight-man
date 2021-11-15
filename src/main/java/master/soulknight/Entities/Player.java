@@ -15,7 +15,7 @@ public class Player extends Entity {
     }
 
     public void handleKeyPressedEvent(KeyCode keycode) {
-                if (!fallen) {
+        if (!fallen) {
             if (keycode == KeyCode.W) {
                 direction  = keycode;
                 up = true;
@@ -80,7 +80,8 @@ public class Player extends Entity {
 
     @Override
     public void render(GraphicsContext gc) {
-        gc.drawImage(ani.getImage().getFxImage(), pos.x, pos.y
-                , SpriteSheet.getTileSize() * Entity.getSCALING(), SpriteSheet.getTileSize() * Entity.getSCALING());
+        gc.drawImage(ani.getImage().getFxImage(), pos.x, pos.y,
+                SpriteSheet.getTileSize() * Entity.getSCALING(),
+                SpriteSheet.getTileSize() * Entity.getSCALING());
     }
 }

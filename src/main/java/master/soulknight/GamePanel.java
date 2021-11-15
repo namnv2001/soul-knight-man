@@ -59,7 +59,6 @@ public class GamePanel extends Application {
                 double now = System.nanoTime();
                 int updateCount = 0;
                 while (((now - lastUpdateTime[0]) > TBU) && (updateCount < MUBR)) {
-
                     lastUpdateTime[0] += TBU;
                     updateCount++;
                     tickCount++;
@@ -69,10 +68,10 @@ public class GamePanel extends Application {
                 if ((now - lastUpdateTime[0]) > TBU) {
                     lastUpdateTime[0] = now - TBU;
                 }
-                //**********************************************
+
                 render();
                 update();
-                //**********************************************
+
                 lastRenderTime[0] = now;
                 frameCount[0]++;
 
@@ -82,7 +81,6 @@ public class GamePanel extends Application {
                         System.out.println("NEW SECOND " + thisSecond + " " + frameCount[0]);
                         oldFrameCount = frameCount[0];
                     }
-
                     if (tickCount != oldTickCount) {
                         System.out.println("NEW SECOND (T) " + thisSecond + " " + tickCount);
                         oldTickCount = tickCount;
@@ -94,13 +92,11 @@ public class GamePanel extends Application {
 
                 while (now - lastRenderTime[0] < TTBR && now - lastUpdateTime[0] < TBU) {
                     Thread.yield();
-
                     try {
                         Thread.sleep(1);
                     } catch (Exception e) {
                         System.out.println("ERROR: yielding thread");
                     }
-
                     now = System.nanoTime();
                 }
             }
@@ -112,8 +108,12 @@ public class GamePanel extends Application {
         stage.setScene(scene);
         stage.show();
 
-        scene.setOnKeyPressed(event -> PlayState.player.handleKeyPressedEvent(event.getCode()));
-        scene.setOnKeyReleased(event -> PlayState.player.handleKeyReleasedEvent(event.getCode()));
+        scene.setOnKeyPressed(event -> {
+            PlayState.player.handleKeyPressedEvent(event.getCode());
+        });
+        scene.setOnKeyReleased(event -> {
+            PlayState.player.handleKeyReleasedEvent(event.getCode());
+        });
     }
 
     public void update() {
@@ -122,9 +122,7 @@ public class GamePanel extends Application {
 
     public void render() {
         if (gc != null) {
-
             gsm.render(gc);
         }
     }
-
 }

@@ -47,10 +47,7 @@ public abstract class Entity {
     protected AABB bounds;
 
     protected Image img;
-
-    public static double getSCALING() {
-        return SCALING;
-    }
+    private int directionVar;
 
     public Entity(SpriteSheet sprite, Vector2f origin, int size, double SCALING) {
         this.sprite = sprite;
@@ -65,6 +62,10 @@ public abstract class Entity {
         setAnimation(RIGHT, sprite.getSpriteArray(RIGHT), 10);
     }
 
+    public static double getSCALING() {
+        return SCALING;
+    }
+
     public void setAnimation(int i, Sprite[] frames, int delay) {
         currentAnimation = i;
         ani.setFrames(i, frames);
@@ -75,18 +76,18 @@ public abstract class Entity {
 
     public void animated() {
         if (up) {
-            if ( currentAnimation == RIGHT|| ani.getDelay() == -1) {
+            if (currentAnimation == RIGHT || ani.getDelay() == -1) {
                 setAnimation(UP, sprite.getSpriteArray(RIGHT), 4);
                 directionVar = RIGHT;
-            } else if ( currentAnimation == LEFT|| ani.getDelay() == -1) {
+            } else if (currentAnimation == LEFT || ani.getDelay() == -1) {
                 setAnimation(UP, sprite.getSpriteArray(LEFT), 4);
                 directionVar = LEFT;
             }
         } else if (down) {
-            if ( currentAnimation == RIGHT|| ani.getDelay() == -1) {
+            if (currentAnimation == RIGHT || ani.getDelay() == -1) {
                 setAnimation(DOWN, sprite.getSpriteArray(RIGHT), 4);
                 directionVar = RIGHT;
-            } else if (currentAnimation == LEFT|| ani.getDelay() == -1) {
+            } else if (currentAnimation == LEFT || ani.getDelay() == -1) {
                 setAnimation(DOWN, sprite.getSpriteArray(LEFT), 4);
                 directionVar = LEFT;
             }
@@ -168,24 +169,20 @@ public abstract class Entity {
     }
 
     public void setHitBoxDirection() {
-        if(up) {
-            hitBounds.setyOffset(-size/2);
-            hitBounds.setxOffset(-size/2);
-        }
-        else if(down) {
-            hitBounds.setyOffset(size/2);
-            hitBounds.setxOffset(-size/2);
-        }
-        else if(left) {
+        if (up) {
+            hitBounds.setyOffset(-size / 2);
+            hitBounds.setxOffset(-size / 2);
+        } else if (down) {
+            hitBounds.setyOffset(size / 2);
+            hitBounds.setxOffset(-size / 2);
+        } else if (left) {
             hitBounds.setyOffset(-size);
             hitBounds.setxOffset(0);
-        }
-        else if(right) {
+        } else if (right) {
             hitBounds.setyOffset(0);
             hitBounds.setxOffset(0);
         }
     }
-
 
     public void render(GraphicsContext gc) {
         gc.drawImage(img, x, y);
@@ -199,5 +196,4 @@ public abstract class Entity {
         pos.x += dx;
         pos.y += dy;
     }
-
 }
