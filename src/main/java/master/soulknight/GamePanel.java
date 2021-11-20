@@ -114,6 +114,9 @@ public class GamePanel extends Application {
         scene.setOnKeyReleased(event -> {
             PlayState.player.handleKeyReleasedEvent(event.getCode());
         });
+        scene.setOnMouseClicked(event -> {
+            System.out.println("mouse clicked");
+        });
     }
 
     public void update() {

@@ -5,7 +5,7 @@ import master.soulknight.Graphics.Sprite;
 import master.soulknight.Util.AABB;
 import master.soulknight.Util.Vector2f;
 
-public class BoxBlock extends Block{
+public class BoxBlock extends Block {
 
     public BoxBlock(int width, int height, Image img, Vector2f pos) {
         super(width, height, img, pos);

@@ -16,7 +16,7 @@ public class PlayState extends GameState {
     public PlayState(GameStateManager gsm) {
         super(gsm);
         tm = new TileManager("src/main/resources/levels/Level1.txt",scaling);
-        player = new Player(new SpriteSheet("src/main/resources/Sprite/alchemist_0_0 #154237 - Copy.png"), new Vector2f(360,240), 128,scaling);
+        player = new Player(new SpriteSheet("src/main/resources/Sprite/alchemist_0_0 #154237 - Copy.png"), new Vector2f(62,62), 128,scaling);
     }
 
     @Override

@@ -2,7 +2,10 @@ package master.soulknight.Entities;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyCode;
+import master.soulknight.GamePanel;
 import master.soulknight.Graphics.SpriteSheet;
+import master.soulknight.Tiles.TileCollision;
+import master.soulknight.Tiles.TileManager;
 import master.soulknight.Util.Vector2f;
 
 
@@ -68,14 +71,38 @@ public class Player extends Entity {
         }
     }
 
-    public void update() {
-        super.update();
-        if (!fallen) {
-            move();
-            pos.x += x;
-            pos.y += y;
-        }
+//    public void update() {
+//        double realWidth = TileManager.mapColumns * 62;
+//        double realHeight = TileManager.mapRows * 62;
+//        double widthRatio = realWidth / TileManager.mapColumns;
+//        double heightRatio = realHeight / TileManager.mapRows;
+//        boolean isMovable = true;
+//        if (!fallen) {
+//            for (int i = 0; i < TileManager.mapRows; i++) {
+//                for (int j = 0; j < TileManager.mapColumns; j++) {
+//                    boolean xAllowed = Math.round(pos.x / widthRatio) != j;
+//                    boolean yAllowed = Math.round(pos.y / heightRatio) != i;
+//                    boolean mapAllowed = TileManager.collideMap[i][j] == 0;
+//                    if (xAllowed && yAllowed && mapAllowed) {
+//                        isMovable = true;
+//                    } else if (!xAllowed && !yAllowed && !mapAllowed) {
+//                        isMovable = false;
+//                        System.out.println("collided");
+//                    }
+//                }
+//            }
+//            if (isMovable) {
+//                super.update();
+//            } else if (up || down) {
+//                super.collidedUpdateUpDown();
+//            }
+//        }
+//    }
 
+    public void update() {
+        if (!fallen) {
+            super.update();
+        }
     }
 
     @Override
