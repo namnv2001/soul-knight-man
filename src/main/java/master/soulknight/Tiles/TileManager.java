@@ -20,7 +20,11 @@ public class TileManager {
     public static SpriteSheet grass = new SpriteSheet(2, 0, tileSheet);
     public static SpriteSheet wall = new SpriteSheet(1, 0, tileSheet);
     public static SpriteSheet box = new SpriteSheet(0, 0, tileSheet);
+    public static int[][] collideMap;
+    public static int mapRows;
+    public static int mapColumns;
 
+    public static ArrayList<Block> collideBlocks = new ArrayList<>();
     protected ArrayList<Block> blocks = new ArrayList<>();
     protected int TILE_SIZE = 31;
     protected int level;
@@ -30,6 +34,10 @@ public class TileManager {
     public TileManager(String path, double scaling) {
         TILE_SIZE *= scaling;
         readMap(path);
+    }
+
+    public static int getCollideMapValue(int row, int column) {
+        return collideMap[row][column];
     }
 
     public void readMap(String path) {
@@ -43,6 +51,9 @@ public class TileManager {
             level = Integer.parseInt(splited[0]);
             rows = Integer.parseInt(splited[1]);
             columns = Integer.parseInt(splited[2]);
+            collideMap = new int[rows][columns];
+            mapRows = rows;
+            mapColumns = columns;
             int count = 0;
             String[] mapStr = new String[rows];
             String line;
@@ -52,19 +63,24 @@ public class TileManager {
                 count++;
             }
             System.out.println(TILE_SIZE);
-          
+
             for (int i = 0; i < rows; i++) {
                 for (int j = 0; j < columns; j++) {
                     Block block;
                     if (mapStr[i].charAt(j) == '#') {
                         block = new WallBlock(TILE_SIZE, TILE_SIZE, wall.getFxImage()
                                 , new Vector2f(TILE_SIZE * j, TILE_SIZE * i));
+                        collideMap[i][j] = 1;
+                        collideBlocks.add(block);
                     } else if (mapStr[i].charAt(j) == '*') {
                         block = new BoxBlock(TILE_SIZE, TILE_SIZE, box.getFxImage()
                                 , new Vector2f(TILE_SIZE * j, TILE_SIZE * i));
+                        collideMap[i][j] = 1;
+                        collideBlocks.add(block);
                     } else {
                         block = new FloorBlock(TILE_SIZE, TILE_SIZE, grass.getFxImage()
                                 , new Vector2f(TILE_SIZE * j, TILE_SIZE * i));
+                        collideMap[i][j] = 0;
                     }
                     blocks.add(block);
                 }

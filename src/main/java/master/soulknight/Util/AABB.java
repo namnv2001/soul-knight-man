@@ -51,4 +51,7 @@ public class AABB {
     public void setyOffset(float yOffset) {
         this.yOffset = yOffset;
     }
+
+    public float getXOffset() { return xOffset; }
+    public float getYOffset() { return yOffset; }
 }

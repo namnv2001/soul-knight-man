@@ -5,6 +5,8 @@ import javafx.scene.image.Image;
 import master.soulknight.Graphics.Animation;
 import master.soulknight.Graphics.Sprite;
 import master.soulknight.Graphics.SpriteSheet;
+import master.soulknight.States.PlayState;
+import master.soulknight.Tiles.TileCollision;
 import master.soulknight.Util.AABB;
 import master.soulknight.Util.Vector2f;
 
@@ -66,13 +68,19 @@ public abstract class Entity {
         return SCALING;
     }
 
+    public int getX() {
+        return (int) pos.x;
+    }
+
+    public int getY() {
+        return (int) pos.y;
+    }
+
     public void setAnimation(int i, Sprite[] frames, int delay) {
         currentAnimation = i;
         ani.setFrames(i, frames);
         ani.setDelay(delay);
-
     }
-    private int directionVar;
 
     public void animated() {
         if (up) {
@@ -188,6 +196,10 @@ public abstract class Entity {
         gc.drawImage(img, x, y);
     }
 
+    public int getSize() {
+        return size;
+    }
+
     public void update() {
         animated();
         setHitBoxDirection();
@@ -195,5 +207,16 @@ public abstract class Entity {
         ani.update();
         pos.x += dx;
         pos.y += dy;
+        if (TileCollision.isCollidedWithBlock(PlayState.player)) {
+            pos.x -= dx;
+            pos.y -= dy;
+        }
     }
+
+//    public void collidedUpdateUpDown() {
+//        animated();
+//        setHitBoxDirection();
+//        ani.update();
+//        pos.x += dx;
+//    }
 }

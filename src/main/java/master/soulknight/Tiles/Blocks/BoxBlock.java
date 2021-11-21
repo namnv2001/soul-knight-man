@@ -1,6 +1,8 @@
 package master.soulknight.Tiles.Blocks;
 
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import javafx.scene.paint.Color;
 import master.soulknight.Graphics.Sprite;
 import master.soulknight.Util.AABB;
 import master.soulknight.Util.Vector2f;
@@ -24,5 +26,11 @@ public class BoxBlock extends Block{
     @Override
     public Sprite getImage() {
         return null;
+    }
+
+    @Override
+    public void render(GraphicsContext gc, int TILE_SIZE) {
+        gc.setFill(Color.YELLOW);
+        gc.fillRect(pos.x,pos.y,TILE_SIZE,TILE_SIZE);
     }
 }
