@@ -80,12 +80,12 @@ public class TileManager {
                     if (mapStr[i].charAt(j) == '#') {
                         block = new WallBlock(TILE_SIZE, TILE_SIZE, wall.getFxImage()
                                 , new Vector2f(TILE_SIZE * j, TILE_SIZE * i));
-                        collideMap[i][j] = 1;
+//                        collideMap[i][j] = 1;
                         collideBlocks.add(block);
                     } else if (mapStr[i].charAt(j) == '*') {
                         block = new BoxBlock(TILE_SIZE, TILE_SIZE, box.getFxImage()
                                 , new Vector2f(TILE_SIZE * j, TILE_SIZE * i));
-                        collideMap[i][j] = 1;
+//                        collideMap[i][j] = 1;
                         collideBlocks.add(block);
                     } else {
                         block = new FloorBlock(TILE_SIZE, TILE_SIZE, grass.getFxImage()

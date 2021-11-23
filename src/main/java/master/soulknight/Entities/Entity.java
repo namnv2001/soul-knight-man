@@ -207,7 +207,7 @@ public abstract class Entity {
         ani.update();
         pos.x += dx;
         pos.y += dy;
-        if (TileCollision.isCollidedWithBlock(PlayState.player)) {
+        if (TileCollision.isCollidedWithBlock(PlayState.player) || (TileCollision.isCollidedWithBombs(PlayState.player) && !Bomb.firstTime)) {
             pos.x -= dx;
             pos.y -= dy;
         }
