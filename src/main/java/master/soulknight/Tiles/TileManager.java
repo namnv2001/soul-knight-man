@@ -1,6 +1,7 @@
 package master.soulknight.Tiles;
 
 import javafx.scene.canvas.GraphicsContext;
+import master.soulknight.Entities.Bomb;
 import master.soulknight.Graphics.Sprite;
 import master.soulknight.Graphics.SpriteSheet;
 import master.soulknight.Tiles.Blocks.Block;
@@ -25,6 +26,7 @@ public class TileManager {
     public static int mapColumns;
 
     public static ArrayList<Block> collideBlocks = new ArrayList<>();
+    protected static ArrayList<Bomb> bombs = new ArrayList<>();
     protected ArrayList<Block> blocks = new ArrayList<>();
     protected int TILE_SIZE = 31;
     protected int level;
@@ -34,6 +36,14 @@ public class TileManager {
     public TileManager(String path, double scaling) {
         TILE_SIZE *= scaling;
         readMap(path);
+    }
+
+    public static ArrayList<Bomb> getBombs() {
+        return bombs;
+    }
+
+    public static void addBomb(Bomb bomb) {
+        bombs.add(bomb);
     }
 
     public static int getCollideMapValue(int row, int column) {
@@ -92,5 +102,7 @@ public class TileManager {
 
     public void render(GraphicsContext gc) {
         blocks.forEach(g -> g.render(gc, TILE_SIZE));
+        bombs.forEach(g -> g.render(gc));
+        bombs.forEach(Bomb::update);
     }
 }

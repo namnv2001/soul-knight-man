@@ -5,11 +5,17 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
 import master.soulknight.Graphics.Sprite;
 import master.soulknight.Graphics.SpriteSheet;
+import master.soulknight.Tiles.TileManager;
 import master.soulknight.Util.Vector2f;
+
+import java.util.Iterator;
 
 
 public class Player extends Entity {
 
+    private Bomb bomb;
+    private int bombsInHand;
+    private int bombRange;
     private float x,y;
 
     public static Sprite boom = new Sprite("src/main/resources/Sprite/MyVer.zip - Copy.png");
@@ -17,6 +23,8 @@ public class Player extends Entity {
 
     public Player(SpriteSheet sprite, Vector2f origin, int size, double SCALING) {
         super(sprite, origin, size, SCALING);
+        bombsInHand = 1;
+        bombRange = 1;
     }
 
     public void handleKeyPressedEvent(KeyCode keycode) {
@@ -46,9 +54,12 @@ public class Player extends Entity {
                 right = false;
             }
             if (keycode == KeyCode.SPACE) {
-                x = pos.x;
-                y = pos.y;
-                placeBoom = true;
+
+                if(bombsInHand > 0) {
+                    bombsInHand--;
+                    bomb = new Bomb(new SpriteSheet("src/main/resources/Sprite/MyVer.zip - Copy.png"),getBombPos(pos),size,Entity.getSCALING(),bombRange);
+                    TileManager.addBomb(bomb);
+                }
             }
         }
     }
@@ -68,45 +79,40 @@ public class Player extends Entity {
             if (direction == KeyCode.S) {
                 down = false;
             }
-            direction = null;
+//            direction = null;
         }
-        if (keycode == KeyCode.SPACE) {
-            placeBoom = false;
-        }
-    }
 
-//    public void update() {
-//        double realWidth = TileManager.mapColumns * 62;
-//        double realHeight = TileManager.mapRows * 62;
-//        double widthRatio = realWidth / TileManager.mapColumns;
-//        double heightRatio = realHeight / TileManager.mapRows;
-//        boolean isMovable = true;
-//        if (!fallen) {
-//            for (int i = 0; i < TileManager.mapRows; i++) {
-//                for (int j = 0; j < TileManager.mapColumns; j++) {
-//                    boolean xAllowed = Math.round(pos.x / widthRatio) != j;
-//                    boolean yAllowed = Math.round(pos.y / heightRatio) != i;
-//                    boolean mapAllowed = TileManager.collideMap[i][j] == 0;
-//                    if (xAllowed && yAllowed && mapAllowed) {
-//                        isMovable = true;
-//                    } else if (!xAllowed && !yAllowed && !mapAllowed) {
-//                        isMovable = false;
-//                        System.out.println("collided");
-//                    }
-//                }
-//            }
-//            if (isMovable) {
-//                super.update();
-//            } else if (up || down) {
-//                super.collidedUpdateUpDown();
-//            }
-//        }
-//    }
+    }
 
     public void update() {
         if (!fallen) {
             super.update();
         }
+        bombClear();
+    }
+
+    public void bombClear() {
+        Iterator<Bomb> iterator = TileManager.getBombs().iterator();
+        while ( iterator.hasNext()) {
+            Bomb bomb = iterator.next();
+            if(bomb.removed) {
+                iterator.remove();
+                bombsInHand++;
+            }
+        }
+//        for(Bomb bomb : TileManager.getBombs()) {
+//            if(bomb.removed && !(TileManager.getBombs().isEmpty())) {
+//                TileManager.getBombs().remove(bomb);
+//                bombsInHand++;
+//            }
+//        }
+    }
+
+    private static Vector2f getBombPos(Vector2f pos) {
+        int playerX = (int) Math.round(pos.x / (SpriteSheet.getTileSize() * getSCALING()));
+        int playerY = (int) Math.round(pos.y / (SpriteSheet.getTileSize() * getSCALING()));
+        System.out.println(playerX + " " + playerY);
+        return new Vector2f((int)(playerX * SpriteSheet.getTileSize() * getSCALING()), (int)(playerY * SpriteSheet.getTileSize() * getSCALING()));
     }
 
     @Override
@@ -116,8 +122,6 @@ public class Player extends Entity {
                 SpriteSheet.getTileSize() * Entity.getSCALING());
         gc.setFill(Color.BLUE);
         gc.fillRect(pos.x + 7, pos.y + 7, getSize(), getSize());
-        if(placeBoom) {
-            gc.drawImage(boom.getFxImage(), x, y);
-        }
+
     }
 }
