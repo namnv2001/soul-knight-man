@@ -48,7 +48,6 @@ public class Animation {
         if (delay == -1) {
             return;
         }
-
         count++;
 
         if (count == delay) {
