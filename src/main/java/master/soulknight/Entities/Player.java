@@ -65,11 +65,13 @@ public class Player extends Entity {
     }
 
     public void keepMoving() {
-        switch(direction) {
-            case A -> left = true;
-            case S -> down = true;
-            case D -> right = true;
-            case W -> up = true;
+        if(direction != null) {
+            switch(direction) {
+                case A -> left = true;
+                case S -> down = true;
+                case D -> right = true;
+                case W -> up = true;
+            }
         }
     }
 
@@ -88,7 +90,7 @@ public class Player extends Entity {
             if (direction == KeyCode.S) {
                 down = false;
             }
-//            direction = null;
+            direction = null;
         }
 
     }
