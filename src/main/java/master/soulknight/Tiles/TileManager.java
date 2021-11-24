@@ -2,6 +2,7 @@ package master.soulknight.Tiles;
 
 import javafx.scene.canvas.GraphicsContext;
 import master.soulknight.Entities.Bomb;
+import master.soulknight.Entities.Flame;
 import master.soulknight.Graphics.Sprite;
 import master.soulknight.Graphics.SpriteSheet;
 import master.soulknight.Tiles.Blocks.Block;
@@ -25,6 +26,7 @@ public class TileManager {
     public static int mapColumns;
 
     public static ArrayList<Block> collideBlocks = new ArrayList<>();
+    protected static ArrayList<Flame> flames = new ArrayList<>();
     protected static ArrayList<Bomb> bombs = new ArrayList<>();
     protected ArrayList<Block> blocks = new ArrayList<>();
     protected int TILE_SIZE = 31;
@@ -43,6 +45,33 @@ public class TileManager {
 
     public static void addBomb(Bomb bomb) {
         bombs.add(bomb);
+    }
+
+    public static void addFlame(Flame flame) {
+        flames.add(flame);
+    }
+
+    public static boolean colliedTile(int x, int y) {
+        for (Block blocks : collideBlocks) {
+            if (blocks.pos.x == x && blocks.pos.y == y) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static boolean bombExist(Vector2f pos) {
+        for (Bomb bomb : bombs) {
+            if (bomb.getX() == pos.x && bomb.getY() == pos.y) {
+                System.out.println("Bomb exist");
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static ArrayList<Flame> getFlames() {
+        return flames;
     }
 
     public void readMap(String path) {
@@ -95,5 +124,7 @@ public class TileManager {
         blocks.forEach(g -> g.render(gc, TILE_SIZE));
         bombs.forEach(g -> g.render(gc));
         bombs.forEach(Bomb::update);
+        flames.forEach(g -> g.render(gc));
+        flames.forEach(Flame::update);
     }
 }

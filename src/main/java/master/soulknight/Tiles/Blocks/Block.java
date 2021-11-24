@@ -45,6 +45,14 @@ public abstract class Block extends Rectangle {
         return pos;
     }
 
+    public boolean breakable() {
+        return true;
+    }
+
+    public boolean solid() {
+        return true;
+    }
+
     public void render(GraphicsContext gc, int TILE_SIZE) {
 
         gc.drawImage(img, pos.x, pos.y, TILE_SIZE, TILE_SIZE);

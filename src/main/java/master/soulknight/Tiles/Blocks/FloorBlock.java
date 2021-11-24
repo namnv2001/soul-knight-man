@@ -25,4 +25,9 @@ public class FloorBlock extends Block{
     public Sprite getImage() {
         return null;
     }
+
+    @Override
+    public boolean solid() {
+        return false;
+    }
 }

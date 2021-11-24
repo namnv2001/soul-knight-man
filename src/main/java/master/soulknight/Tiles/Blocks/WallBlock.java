@@ -29,6 +29,11 @@ public class WallBlock extends Block {
     }
 
     @Override
+    public boolean breakable() {
+        return false;
+    }
+
+    @Override
     public void render(GraphicsContext gc, int TILE_SIZE) {
         gc.setFill(Color.RED);
         gc.fillRect(pos.x,pos.y,TILE_SIZE,TILE_SIZE);
