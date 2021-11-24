@@ -120,8 +120,5 @@ public class Player extends Entity {
         gc.drawImage(ani.getImage().getFxImage(), pos.x, pos.y,
                 SpriteSheet.getTileSize() * Entity.getSCALING(),
                 SpriteSheet.getTileSize() * Entity.getSCALING());
-        gc.setFill(Color.BLUE);
-        gc.fillRect(pos.x + 7, pos.y + 7, getSize(), getSize());
-
     }
 }
