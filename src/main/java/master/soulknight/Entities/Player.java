@@ -54,12 +54,23 @@ public class Player extends Entity {
                 right = false;
             }
             if (keycode == KeyCode.SPACE) {
-
+                keepMoving();
                 if(bombsInHand > 0) {
                     bombsInHand--;
                     bomb = new Bomb(new SpriteSheet("src/main/resources/Sprite/MyVer.zip - Copy.png"),getBombPos(pos),size,Entity.getSCALING(),bombRange);
                     TileManager.addBomb(bomb);
                 }
+            }
+        }
+    }
+
+    public void keepMoving() {
+        if(direction != null) {
+            switch(direction) {
+                case A -> left = true;
+                case S -> down = true;
+                case D -> right = true;
+                case W -> up = true;
             }
         }
     }
@@ -79,7 +90,7 @@ public class Player extends Entity {
             if (direction == KeyCode.S) {
                 down = false;
             }
-//            direction = null;
+            direction = null;
         }
 
     }

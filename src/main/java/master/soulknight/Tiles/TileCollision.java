@@ -1,5 +1,6 @@
 package master.soulknight.Tiles;
 
+import master.soulknight.Entities.Bomb;
 import master.soulknight.Entities.Player;
 import master.soulknight.Tiles.Blocks.Block;
 
@@ -34,13 +35,15 @@ public class TileCollision {
         return false;
     }
 
-    private static void squareSquareIntersect(int row, int col, Player player) {
-        //RectA.X1 < RectB.X2 && RectA.X2 > RectB.X1 && RectA.Y1 < RectB.Y2 && RectA.Y2 > RectB.Y1
-
-        // X and Y coordinate of player
-        int playerX = (int) Math.round(player.getX() / widthRatio);
-        int playerY = (int) Math.round(player.getY() / heightRatio);
-        System.out.println(playerX + " " + playerY);
-
-    }
+   public static boolean isCollidedWithBombs(Player player) {
+       for (Bomb bomb : TileManager.getBombs()) {
+           if (player.getX() + 7 < bomb.getX() + bomb.getSize() &&
+                   player.getX() + 7 + player.getSize() > bomb.getX() &&
+                   player.getY() + 7 < bomb.getY() + bomb.getSize() &&
+                   player.getY() + 7 + player.getSize() > bomb.getY()) {
+               return true;
+           }
+       }
+       return false;
+   }
 }
