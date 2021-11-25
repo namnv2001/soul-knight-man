@@ -1,6 +1,7 @@
 package master.soulknight.Tiles;
 
 import master.soulknight.Entities.Bomb;
+import master.soulknight.Entities.Entity;
 import master.soulknight.Entities.Player;
 import master.soulknight.Tiles.Blocks.Block;
 
@@ -10,21 +11,8 @@ public class TileCollision {
     static double widthRatio = realWidth / TileManager.mapColumns;
     static double heightRatio = realHeight / TileManager.mapRows;
 
-    public static boolean isCollidedWithBlock(Player player) {
-//        for (int i = 0; i < TileManager.mapRows; i++) {
-//            for (int j = 0; j < TileManager.mapColumns; j++) {
-//                if (TileManager.getCollideMapValue(i, j) != 0) {
-//                    boolean isIntersection = squareSquareIntersect(i, j, player);
-//                    if (isIntersection) {
-//                        return true;
-//                    }
-//                }
-//            }
-//        }
-//        return false;
-
+    public static boolean isCollidedWithBlock(Entity player) {
         for ( Block block : TileManager.collideBlocks) {
-
             if(player.getX() + 7 < block.pos.x + block.getBlockWidth() &&
                player.getX() + 7 + player.getSize() > block.pos.x &&
                player.getY() + 7 < block.pos.y + block.getBlockHeight() &&
@@ -35,7 +23,7 @@ public class TileCollision {
         return false;
     }
 
-   public static boolean isCollidedWithBombs(Player player) {
+   public static boolean isCollidedWithBombs(Entity player) {
        for (Bomb bomb : TileManager.getBombs()) {
            if (player.getX() + 7 < bomb.getX() + bomb.getSize() &&
                    player.getX() + 7 + player.getSize() > bomb.getX() &&

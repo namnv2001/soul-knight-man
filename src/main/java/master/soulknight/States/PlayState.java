@@ -1,6 +1,7 @@
 package master.soulknight.States;
 
 import javafx.scene.canvas.GraphicsContext;
+import master.soulknight.Entities.Enemy.Enemy;
 import master.soulknight.Entities.Player;
 import master.soulknight.Graphics.SpriteSheet;
 import master.soulknight.Tiles.TileManager;
@@ -9,6 +10,7 @@ import master.soulknight.Util.Vector2f;
 public class PlayState extends GameState {
 
     public static Player player;
+    public static Enemy enemy;
     public static TileManager tm;
 
     protected final double scaling = 2;
@@ -17,10 +19,12 @@ public class PlayState extends GameState {
         super(gsm);
         tm = new TileManager("src/main/resources/levels/Level1.txt", scaling);
         player = new Player(new SpriteSheet("src/main/resources/Sprite/alchemist_0_0 #154237 - Copy.png"), new Vector2f(62, 62), 52, scaling);
+        enemy = new Enemy(new SpriteSheet("src/main/resources/Sprite/alchemist_0_0 #154237 - Copy.png"), new Vector2f(310, 310), 52, scaling);
     }
 
     @Override
     public void update() {
+        enemy.update();
         player.update();
     }
 
@@ -28,5 +32,6 @@ public class PlayState extends GameState {
     public void render(GraphicsContext gc) {
         tm.render(gc);
         player.render(gc);
+        enemy.render(gc);
     }
 }
