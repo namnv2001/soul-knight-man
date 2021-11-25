@@ -121,6 +121,7 @@ public class GamePanel extends Application {
     }
 
     public void render() {
+        gc.clearRect(0,0,width,height);
         if (gc != null) {
             gsm.render(gc);
         }

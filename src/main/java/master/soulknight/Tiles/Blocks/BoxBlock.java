@@ -28,9 +28,9 @@ public class BoxBlock extends Block{
         return null;
     }
 
-    @Override
-    public void render(GraphicsContext gc, int TILE_SIZE) {
-        gc.setFill(Color.YELLOW);
-        gc.fillRect(pos.x,pos.y,TILE_SIZE,TILE_SIZE);
-    }
+//    @Override
+//    public void render(GraphicsContext gc, int TILE_SIZE) {
+//        gc.setFill(Color.YELLOW);
+//        gc.fillRect(pos.x,pos.y,TILE_SIZE,TILE_SIZE);
+//    }
 }
