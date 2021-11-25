@@ -9,6 +9,7 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.Objects;
 
 
 public class SpriteSheet {
@@ -39,6 +40,23 @@ public class SpriteSheet {
             loadSpriteArray();
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    public SpriteSheet(String file, int w, int h) {
+        this.w = w;
+        this.h = h;
+        this.file = file;
+
+        System.out.println("Loading: " + file + "...");
+        try {
+            BufferedImage sprite = ImageIO.read(new FileInputStream(file));
+            SPRITESHEET = new Sprite(sprite);
+            wSprite = SPRITESHEET.image.getWidth() / w;
+            hSprite = SPRITESHEET.image.getHeight() / h;
+            loadSpriteArray();
+        } catch (Exception e) {
+            System.out.println("ERROR: could not load file: " + file);
         }
     }
 
