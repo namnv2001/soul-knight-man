@@ -23,7 +23,7 @@ public class Bomb extends Entity{
     }
 
     public void update() {
-        if(bombCounter == 100) {
+        if(bombCounter >= 100) {
             TileManager.addFlame(new Flame(new SpriteSheet("src/main/resources/Sprite/Flame - Copy.png"),new Vector2f(pos.x,pos.y),size,Entity.getSCALING(),bombRange));
             remove();
         }
@@ -31,6 +31,10 @@ public class Bomb extends Entity{
             leave();
         }
 
+    }
+
+    public void endCounter() {
+        bombCounter = 100;
     }
 
     public void remove() {

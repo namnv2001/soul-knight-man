@@ -3,7 +3,6 @@ package master.soulknight.Entities;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
-import master.soulknight.Graphics.Sprite;
 import master.soulknight.Graphics.SpriteSheet;
 import master.soulknight.Tiles.TileManager;
 import master.soulknight.Util.Vector2f;
@@ -12,17 +11,15 @@ import java.util.Iterator;
 
 public class Player extends Entity {
 
-    private Bomb bomb;
     private int bombsInHand;
     private int bombRange;
 
-    public static Sprite boom = new Sprite("src/main/resources/Sprite/MyVer.zip - Copy.png");
     private KeyCode direction;
 
     public Player(SpriteSheet sprite, Vector2f origin, int size, double SCALING) {
         super(sprite, origin, size, SCALING);
-        bombsInHand = 2;
-        bombRange = 3;
+        bombsInHand = 4;
+        bombRange = 1;
     }
 
     public void handleKeyPressedEvent(KeyCode keycode) {
@@ -55,7 +52,7 @@ public class Player extends Entity {
                 keepMoving();
                 if(bombsInHand > 0 && !TileManager.bombExist(getBombPos(pos))) {
                     bombsInHand--;
-                    bomb = new Bomb(new SpriteSheet("src/main/resources/Sprite/MyVer.zip - Copy.png"),getBombPos(pos),size,Entity.getSCALING(),bombRange);
+                    Bomb bomb = new Bomb(new SpriteSheet("src/main/resources/Sprite/MyVer.zip - Copy.png"), getBombPos(pos), size, Entity.getSCALING(), bombRange);
                     TileManager.addBomb(bomb);
                 }
             }

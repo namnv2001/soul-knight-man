@@ -32,16 +32,20 @@ public class Flame extends Bomb {
 
         for (int i = 1; i <= bombRange; i++) {
             if (leftBeforeCollide == -1) {
-                if (TileManager.colliedTile((int) (pos.x - i * realSize), (int) (pos.y))) leftBeforeCollide = i - 1;
+                if (TileManager.colliedTile((int) (pos.x - i * realSize), (int) (pos.y))
+                || TileManager.colliedBomb((int) (pos.x - i * realSize), (int) (pos.y))) leftBeforeCollide = i - 1;
             }
             if (rightBeforeCollide == -1) {
-                if (TileManager.colliedTile((int) (pos.x + i * realSize), (int) (pos.y))) rightBeforeCollide = i - 1;
+                if (TileManager.colliedTile((int) (pos.x + i * realSize), (int) (pos.y))
+                || TileManager.colliedBomb((int) (pos.x + i * realSize), (int) (pos.y))) rightBeforeCollide = i - 1;
             }
             if (downBeforeCollide == -1) {
-                if (TileManager.colliedTile((int) (pos.x), (int) (pos.y - i * realSize))) downBeforeCollide = i - 1;
+                if (TileManager.colliedTile((int) (pos.x), (int) (pos.y - i * realSize))
+                || TileManager.colliedBomb((int) (pos.x), (int) (pos.y - i * realSize))) downBeforeCollide = i - 1;
             }
             if (upBeforeCollide == -1) {
-                if (TileManager.colliedTile((int) (pos.x), (int) (pos.y + i * realSize))) upBeforeCollide = i - 1;
+                if (TileManager.colliedTile((int) (pos.x), (int) (pos.y + i * realSize))
+                || TileManager.colliedBomb((int) (pos.x), (int) (pos.y + i * realSize))) upBeforeCollide = i - 1;
             }
             if (i == bombRange) {
                 if (leftBeforeCollide == -1) leftBeforeCollide = bombRange;

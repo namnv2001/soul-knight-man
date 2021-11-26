@@ -63,6 +63,16 @@ public class TileManager {
         return false;
     }
 
+    public static boolean colliedBomb(int x, int y) {
+        for (Bomb bomb : bombs) {
+            if(bomb.getX() == x && bomb.getY() == y) {
+                bomb.endCounter();
+                return true;
+            }
+        }
+        return false;
+    }
+
     public static void replaceWithFloor(Block block) {
         collideBlocks.remove(block);
         block = new FloorBlock(TILE_SIZE, TILE_SIZE, grass.getFxImage(), new Vector2f(block.pos.x, block.pos.y));
