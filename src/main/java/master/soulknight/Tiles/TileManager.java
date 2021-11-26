@@ -2,6 +2,7 @@ package master.soulknight.Tiles;
 
 import javafx.scene.canvas.GraphicsContext;
 import master.soulknight.Entities.Bomb;
+import master.soulknight.Entities.Flame;
 import master.soulknight.Graphics.Sprite;
 import master.soulknight.Graphics.SpriteSheet;
 import master.soulknight.Tiles.Blocks.Block;
@@ -25,9 +26,10 @@ public class TileManager {
     public static int mapColumns;
 
     public static ArrayList<Block> collideBlocks = new ArrayList<>();
+    protected static ArrayList<Flame> flames = new ArrayList<>();
     protected static ArrayList<Bomb> bombs = new ArrayList<>();
-    protected ArrayList<Block> blocks = new ArrayList<>();
-    protected int TILE_SIZE = 31;
+    protected static ArrayList<Block> blocks = new ArrayList<>();
+    protected static int TILE_SIZE = 31;
     protected int level;
     protected int rows;
     protected int columns;
@@ -43,6 +45,52 @@ public class TileManager {
 
     public static void addBomb(Bomb bomb) {
         bombs.add(bomb);
+    }
+
+    public static void addFlame(Flame flame) {
+        flames.add(flame);
+    }
+
+    public static boolean colliedTile(int x, int y) {
+        for (Block block : collideBlocks) {
+            if (block.pos.x == x && block.pos.y == y) {
+                if(block.breakable()) {
+                    replaceWithFloor(block);
+                }
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static boolean colliedBomb(int x, int y) {
+        for (Bomb bomb : bombs) {
+            if(bomb.getX() == x && bomb.getY() == y) {
+                bomb.endCounter();
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static void replaceWithFloor(Block block) {
+        collideBlocks.remove(block);
+        block = new FloorBlock(TILE_SIZE, TILE_SIZE, grass.getFxImage(), new Vector2f(block.pos.x, block.pos.y));
+        blocks.add(block);
+    }
+
+    public static boolean bombExist(Vector2f pos) {
+        for (Bomb bomb : bombs) {
+            if (bomb.getX() == pos.x && bomb.getY() == pos.y) {
+                System.out.println("Bomb exist");
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static ArrayList<Flame> getFlames() {
+        return flames;
     }
 
     public void readMap(String path) {
@@ -82,8 +130,9 @@ public class TileManager {
                     } else {
                         block = new FloorBlock(TILE_SIZE, TILE_SIZE, grass.getFxImage()
                                 , new Vector2f(TILE_SIZE * j, TILE_SIZE * i));
+                        blocks.add(block);
                     }
-                    blocks.add(block);
+
                 }
             }
         } catch (IOException e) {
@@ -93,7 +142,10 @@ public class TileManager {
 
     public void render(GraphicsContext gc) {
         blocks.forEach(g -> g.render(gc, TILE_SIZE));
+        collideBlocks.forEach(g->g.render(gc,TILE_SIZE));
         bombs.forEach(g -> g.render(gc));
         bombs.forEach(Bomb::update);
+        flames.forEach(g -> g.render(gc));
+        flames.forEach(Flame::update);
     }
 }

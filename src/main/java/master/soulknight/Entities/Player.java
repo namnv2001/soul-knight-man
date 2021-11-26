@@ -3,27 +3,22 @@ package master.soulknight.Entities;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
-import master.soulknight.Graphics.Sprite;
 import master.soulknight.Graphics.SpriteSheet;
 import master.soulknight.Tiles.TileManager;
 import master.soulknight.Util.Vector2f;
 
 import java.util.Iterator;
 
-
 public class Player extends Entity {
 
-    private Bomb bomb;
     private int bombsInHand;
     private int bombRange;
-    private float x,y;
 
-    public static Sprite boom = new Sprite("src/main/resources/Bomb3.png");
     private KeyCode direction;
 
     public Player(SpriteSheet sprite, Vector2f origin, int size, double SCALING) {
         super(sprite, origin, size, SCALING);
-        bombsInHand = 1;
+        bombsInHand = 4;
         bombRange = 1;
     }
 
@@ -55,10 +50,9 @@ public class Player extends Entity {
             }
             if (keycode == KeyCode.SPACE) {
                 keepMoving();
-                if(bombsInHand > 0) {
+                if(bombsInHand > 0 && !TileManager.bombExist(getBombPos(pos))) {
                     bombsInHand--;
-                    bomb = new Bomb(new SpriteSheet("src/main/resources/Sprite/Bomb3.png"),
-                            getBombPos(pos),size,Entity.getSCALING(),bombRange);
+                    Bomb bomb = new Bomb(new SpriteSheet("src/main/resources/Sprite/MyVer.zip - Copy.png"), getBombPos(pos), size, Entity.getSCALING(), bombRange);
                     TileManager.addBomb(bomb);
                 }
             }
@@ -101,6 +95,7 @@ public class Player extends Entity {
             super.update();
         }
         bombClear();
+        clearFlame();
     }
 
     public void bombClear() {
@@ -112,18 +107,16 @@ public class Player extends Entity {
                 bombsInHand++;
             }
         }
-//        for(Bomb bomb : TileManager.getBombs()) {
-//            if(bomb.removed && !(TileManager.getBombs().isEmpty())) {
-//                TileManager.getBombs().remove(bomb);
-//                bombsInHand++;
-//            }
-//        }
     }
 
-    private static Vector2f getBombPos(Vector2f pos) {
+    public void clearFlame() {
+        TileManager.getFlames().removeIf(flame -> flame.removed);
+    }
+
+    public static Vector2f getBombPos(Vector2f pos) {
         int playerX = (int) Math.round(pos.x / (SpriteSheet.getTileSize() * getSCALING()));
         int playerY = (int) Math.round(pos.y / (SpriteSheet.getTileSize() * getSCALING()));
-        System.out.println(playerX + " " + playerY);
+//        System.out.println(playerX + " " + playerY);
         return new Vector2f((int)(playerX * SpriteSheet.getTileSize() * getSCALING()), (int)(playerY * SpriteSheet.getTileSize() * getSCALING()));
     }
 
@@ -132,5 +125,8 @@ public class Player extends Entity {
         gc.drawImage(ani.getImage().getFxImage(), pos.x, pos.y,
                 SpriteSheet.getTileSize() * Entity.getSCALING(),
                 SpriteSheet.getTileSize() * Entity.getSCALING());
+        gc.setFill(Color.BLUE);
+        gc.fillRect(pos.x + 7, pos.y + 7, getSize(), getSize());
+
     }
 }

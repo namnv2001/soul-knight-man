@@ -13,9 +13,8 @@ import master.soulknight.Util.Vector2f;
 public abstract class Entity {
 
     private static double SCALING;
-    private final int IDLE = 6;
-    private final int BOOM = 5;
-    private final int FALLEN = 4;
+//    private final int IDLE = 5;
+//    private final int FALLEN = 4;
     private final int UP = 3;
     private final int DOWN = 2;
     private final int RIGHT = 0;
@@ -33,7 +32,6 @@ public abstract class Entity {
     protected boolean right;
     protected boolean left;
     protected boolean fallen;
-    protected boolean placeBoom;
 
     protected int x;
     protected int y;
@@ -200,6 +198,10 @@ public abstract class Entity {
         return size;
     }
 
+    public Vector2f getPos() {
+        return pos;
+    }
+
     public void update() {
         animated();
         setHitBoxDirection();
@@ -213,10 +215,5 @@ public abstract class Entity {
         }
     }
 
-//    public void collidedUpdateUpDown() {
-//        animated();
-//        setHitBoxDirection();
-//        ani.update();
-//        pos.x += dx;
-//    }
+
 }
