@@ -18,7 +18,7 @@ public class Player extends Entity {
     private int bombRange;
     private float x,y;
 
-    public static Sprite boom = new Sprite("src/main/resources/Sprite/MyVer.zip - Copy.png");
+    public static Sprite boom = new Sprite("src/main/resources/Bomb3.png");
     private KeyCode direction;
 
     public Player(SpriteSheet sprite, Vector2f origin, int size, double SCALING) {
@@ -57,7 +57,8 @@ public class Player extends Entity {
                 keepMoving();
                 if(bombsInHand > 0) {
                     bombsInHand--;
-                    bomb = new Bomb(new SpriteSheet("src/main/resources/Sprite/MyVer.zip - Copy.png"),getBombPos(pos),size,Entity.getSCALING(),bombRange);
+                    bomb = new Bomb(new SpriteSheet("src/main/resources/Sprite/Bomb3.png"),
+                            getBombPos(pos),size,Entity.getSCALING(),bombRange);
                     TileManager.addBomb(bomb);
                 }
             }
