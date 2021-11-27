@@ -5,8 +5,8 @@ import javafx.scene.image.Image;
 import master.soulknight.Graphics.Animation;
 import master.soulknight.Graphics.Sprite;
 import master.soulknight.Graphics.SpriteSheet;
-import master.soulknight.States.PlayState;
 import master.soulknight.Tiles.TileCollision;
+import master.soulknight.Tiles.TileManager;
 import master.soulknight.Util.AABB;
 import master.soulknight.Util.Vector2f;
 
@@ -39,9 +39,9 @@ public abstract class Entity {
     protected float dx;
     protected float dy;
 
-    protected float speed = 2f;
+    public float speed = 2f;
     protected float acc = 3f;
-    protected float deacc = 0.3f;
+    protected float deacc = 0.4f;
 
     protected AABB hitBounds;
     protected AABB bounds;
@@ -209,7 +209,7 @@ public abstract class Entity {
         ani.update();
         pos.x += dx;
         pos.y += dy;
-        if (TileCollision.isCollidedWithBlock(PlayState.player) || (TileCollision.isCollidedWithBombs(PlayState.player) && !Bomb.firstTime)) {
+        if (TileCollision.isCollidedWithBlock(TileManager.player) || (TileCollision.isCollidedWithBombs(TileManager.player) && !Bomb.firstTime)) {
             pos.x -= dx;
             pos.y -= dy;
         }
