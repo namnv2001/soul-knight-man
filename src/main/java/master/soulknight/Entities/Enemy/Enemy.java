@@ -3,7 +3,6 @@ package master.soulknight.Entities.Enemy;
 import javafx.scene.canvas.GraphicsContext;
 import master.soulknight.Entities.Entity;
 import master.soulknight.Graphics.SpriteSheet;
-import master.soulknight.States.PlayState;
 import master.soulknight.Tiles.TileCollision;
 import master.soulknight.Util.Vector2f;
 
@@ -15,13 +14,13 @@ public class Enemy extends Entity {
     }
 
     public void changeDirection() {
-        if(up) {
+        if (up) {
             up = false;
             down = true;
-        } else if(down) {
+        } else if (down) {
             down = false;
             up = true;
-        } else if(right) {
+        } else if (right) {
             right = false;
             left = true;
         } else {
@@ -35,17 +34,14 @@ public class Enemy extends Entity {
         animated();
         move();
         super.update();
-        pos.x += dx;
-        pos.y += dy;
-        if(TileCollision.isCollidedWithBlock(PlayState.enemy)) {
+        if (TileCollision.isCollidedWithBlock(this) || TileCollision.isCollidedWithBombs(this)) {
             changeDirection();
             pos.x -= dx;
             pos.y -= dy;
         }
-
     }
 
-    public void render(GraphicsContext gc){
+    public void render(GraphicsContext gc) {
         gc.drawImage(ani.getImage().getFxImage(), pos.x, pos.y,
                 SpriteSheet.getTileSize() * Entity.getSCALING(),
                 SpriteSheet.getTileSize() * Entity.getSCALING());

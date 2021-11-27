@@ -2,15 +2,16 @@ package master.soulknight.Entities;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyCode;
-import javafx.scene.paint.Color;
 import master.soulknight.Graphics.SpriteSheet;
+import master.soulknight.States.PlayState;
 import master.soulknight.Tiles.TileManager;
 import master.soulknight.Util.Vector2f;
 
 import java.util.Iterator;
 
 public class Player extends Entity {
-
+    public boolean kill = false;
+    public Bomb bomb;
     private int bombsInHand;
     private int bombRange;
 
@@ -19,7 +20,15 @@ public class Player extends Entity {
     public Player(SpriteSheet sprite, Vector2f origin, int size, double SCALING) {
         super(sprite, origin, size, SCALING);
         bombsInHand = 4;
-        bombRange = 1;
+        bombRange = 2;
+        this.speed = 5f;
+    }
+
+    public static Vector2f getBombPos(Vector2f pos) {
+        int playerX = (int) Math.round(pos.x / (SpriteSheet.getTileSize() * getSCALING()));
+        int playerY = (int) Math.round(pos.y / (SpriteSheet.getTileSize() * getSCALING()));
+//        System.out.println(playerX + " " + playerY);
+        return new Vector2f((int) (playerX * SpriteSheet.getTileSize() * getSCALING()), (int) (playerY * SpriteSheet.getTileSize() * getSCALING()));
     }
 
     public void handleKeyPressedEvent(KeyCode keycode) {
@@ -50,9 +59,10 @@ public class Player extends Entity {
             }
             if (keycode == KeyCode.SPACE) {
                 keepMoving();
-                if(bombsInHand > 0 && !TileManager.bombExist(getBombPos(pos))) {
+                if (bombsInHand > 0 && !TileManager.bombExist(getBombPos(pos))) {
                     bombsInHand--;
-                    Bomb bomb = new Bomb(new SpriteSheet("src/main/resources/Sprite/MyVer.zip - Copy.png"), getBombPos(pos), size, Entity.getSCALING(), bombRange);
+                    bomb = new Bomb(new SpriteSheet("src/main/resources/Sprite/DS_DSi_-_Bomberman_-_Bomb.png"), getBombPos(pos), size, Entity.getSCALING(), bombRange);
+
                     TileManager.addBomb(bomb);
                 }
             }
@@ -60,8 +70,8 @@ public class Player extends Entity {
     }
 
     public void keepMoving() {
-        if(direction != null) {
-            switch(direction) {
+        if (direction != null) {
+            switch (direction) {
                 case A -> left = true;
                 case S -> down = true;
                 case D -> right = true;
@@ -91,7 +101,7 @@ public class Player extends Entity {
     }
 
     public void update() {
-        if (!fallen) {
+        if (!PlayState.gameOver) {
             super.update();
         }
         bombClear();
@@ -100,9 +110,9 @@ public class Player extends Entity {
 
     public void bombClear() {
         Iterator<Bomb> iterator = TileManager.getBombs().iterator();
-        while ( iterator.hasNext()) {
+        while (iterator.hasNext()) {
             Bomb bomb = iterator.next();
-            if(bomb.removed) {
+            if (bomb.removed) {
                 iterator.remove();
                 bombsInHand++;
             }
@@ -113,20 +123,13 @@ public class Player extends Entity {
         TileManager.getFlames().removeIf(flame -> flame.removed);
     }
 
-    public static Vector2f getBombPos(Vector2f pos) {
-        int playerX = (int) Math.round(pos.x / (SpriteSheet.getTileSize() * getSCALING()));
-        int playerY = (int) Math.round(pos.y / (SpriteSheet.getTileSize() * getSCALING()));
-//        System.out.println(playerX + " " + playerY);
-        return new Vector2f((int)(playerX * SpriteSheet.getTileSize() * getSCALING()), (int)(playerY * SpriteSheet.getTileSize() * getSCALING()));
-    }
-
     @Override
     public void render(GraphicsContext gc) {
         gc.drawImage(ani.getImage().getFxImage(), pos.x, pos.y,
                 SpriteSheet.getTileSize() * Entity.getSCALING(),
                 SpriteSheet.getTileSize() * Entity.getSCALING());
-        gc.setFill(Color.BLUE);
-        gc.fillRect(pos.x + 7, pos.y + 7, getSize(), getSize());
+//        gc.setFill(Color.BLUE);
+//        gc.fillRect(pos.x + 7, pos.y + 7, getSize(), getSize());
 
     }
 }
