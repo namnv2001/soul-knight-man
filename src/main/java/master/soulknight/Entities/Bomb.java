@@ -23,6 +23,8 @@ public class Bomb extends Entity{
     }
 
     public void update() {
+        ani.setDelay(10);
+        ani.update();
         if(bombCounter >= 100) {
             TileManager.addFlame(new Flame(new SpriteSheet("src/main/resources/Sprite/Flame - Copy.png"),new Vector2f(pos.x,pos.y),size,Entity.getSCALING(),bombRange));
             remove();

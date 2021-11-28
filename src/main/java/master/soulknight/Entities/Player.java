@@ -52,7 +52,8 @@ public class Player extends Entity {
                 keepMoving();
                 if(bombsInHand > 0 && !TileManager.bombExist(getBombPos(pos))) {
                     bombsInHand--;
-                    Bomb bomb = new Bomb(new SpriteSheet("src/main/resources/Sprite/MyVer.zip - Copy.png"), getBombPos(pos), size, Entity.getSCALING(), bombRange);
+                    Bomb bomb = new Bomb(new SpriteSheet("src/main/resources/Sprite/Bomb4.png"),
+                            getBombPos(pos), size, Entity.getSCALING(), bombRange);
                     TileManager.addBomb(bomb);
                 }
             }

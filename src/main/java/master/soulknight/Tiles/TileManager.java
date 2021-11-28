@@ -18,7 +18,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class TileManager {
-    public static final Sprite tileSheet = new Sprite("src/main/resources/Sprite/ss - Copy.png");
+    public static final Sprite tileSheet = new Sprite("src/main/resources/Sprite/map2 31x31.png");
     public static SpriteSheet grass = new SpriteSheet(2, 0, tileSheet);
     public static SpriteSheet wall = new SpriteSheet(1, 0, tileSheet);
     public static SpriteSheet box = new SpriteSheet(0, 0, tileSheet);
