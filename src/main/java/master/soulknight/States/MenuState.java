@@ -12,7 +12,7 @@ public class MenuState extends GameState {
     public MenuState(GameStateManager gsm) {
         super(gsm);
 
-        Sprite btnImage = GameStateManager.button.getSprite(0, 0);
+//        Sprite btnImage = GameStateManager.button.getSprite(0, 0);
 
 //        playBtn = new Button(btnImage, new Vector2f(GamePanel.width / 2, GamePanel.height / 2 - 48), 32, 16);
 
