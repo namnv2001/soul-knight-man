@@ -15,8 +15,8 @@ public class GamePanel extends Application {
     public static int oldTickCount;
     public static int tickCount;
 
-    public static int width = 1280;
-    public static int height = 720;
+    public static int width = 1364;
+    public static int height = 868;
 
     private GraphicsContext gc;
     private Canvas canvas;

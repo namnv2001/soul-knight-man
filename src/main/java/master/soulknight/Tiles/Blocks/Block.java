@@ -3,17 +3,12 @@ package master.soulknight.Tiles.Blocks;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
-import master.soulknight.Entities.Entity;
 import master.soulknight.Graphics.Sprite;
-import master.soulknight.Graphics.SpriteSheet;
 import master.soulknight.Util.AABB;
 import master.soulknight.Util.Vector2f;
 
-//import java.awt.*;
 
-public abstract class Block extends Rectangle {
+public abstract class Block {
     public Image img;
     public Vector2f pos;
     protected int width;
@@ -28,16 +23,13 @@ public abstract class Block extends Rectangle {
 
     public int getBlockWidth() {
         return width;
-
     }
 
     public int getBlockHeight() {
         return height;
     }
 
-    public abstract boolean update(AABB p);
-
-    public abstract boolean isInside(AABB p);
+    public abstract void update();
 
     public abstract Sprite getImage();
 
@@ -54,8 +46,6 @@ public abstract class Block extends Rectangle {
     }
 
     public void render(GraphicsContext gc, int TILE_SIZE) {
-
         gc.drawImage(img, pos.x, pos.y, TILE_SIZE, TILE_SIZE);
-
     }
 }

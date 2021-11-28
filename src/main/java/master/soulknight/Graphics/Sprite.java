@@ -33,6 +33,7 @@ public class Sprite {
             image = ImageIO.read(new FileInputStream(path));
             this.w = image.getWidth();
             this.h = image.getHeight();
+            System.out.println(w + " " + h);
             pixels = new int[w * h];
             ogpixels = image.getRGB(0, 0, w, h, ogpixels, 0, w);
             pixels = ogpixels;

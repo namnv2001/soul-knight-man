@@ -14,14 +14,10 @@ public class BoxBlock extends Block{
     }
 
     @Override
-    public boolean update(AABB p) {
-        return false;
+    public void update() {
+
     }
 
-    @Override
-    public boolean isInside(AABB p) {
-        return false;
-    }
 
     @Override
     public Sprite getImage() {
