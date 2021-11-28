@@ -12,16 +12,35 @@ import java.util.Iterator;
 public class Player extends Entity {
     public boolean kill = false;
     public Bomb bomb;
-    private int bombsInHand;
-    private int bombRange;
+    public int bombsInHand;
+    public int bombRange;
+
+    public void addBombsInHand() {
+        if(bombsInHand < 4) {
+            this.bombsInHand++;
+        }
+    }
+
+    public void addBombRange() {
+        if(bombRange < 4) {
+            this.bombRange++;
+        }
+    }
+
+    public void addSpeed() {
+        System.out.println("Speed");
+        if (this.speed < 5f) {
+            this.speed += 1f;
+        }
+    }
 
     private KeyCode direction;
 
     public Player(SpriteSheet sprite, Vector2f origin, int size, double SCALING) {
         super(sprite, origin, size, SCALING);
-        bombsInHand = 4;
-        bombRange = 2;
-        this.speed = 5f;
+        bombsInHand = 1;
+        bombRange = 1;
+
     }
 
     public static Vector2f getBombPos(Vector2f pos) {
@@ -61,7 +80,7 @@ public class Player extends Entity {
                 keepMoving();
                 if (bombsInHand > 0 && !TileManager.bombExist(getBombPos(pos))) {
                     bombsInHand--;
-                    bomb = new Bomb(new SpriteSheet("src/main/resources/Sprite/DS_DSi_-_Bomberman_-_Bomb.png"), getBombPos(pos), size, Entity.getSCALING(), bombRange);
+                    bomb = new Bomb(new SpriteSheet("src/main/resources/Sprite/Bombs.png"), getBombPos(pos), size, Entity.getSCALING(), bombRange);
 
                     TileManager.addBomb(bomb);
                 }

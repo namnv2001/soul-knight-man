@@ -7,10 +7,7 @@ import master.soulknight.Entities.Flame;
 import master.soulknight.Entities.Player;
 import master.soulknight.Graphics.Sprite;
 import master.soulknight.Graphics.SpriteSheet;
-import master.soulknight.Tiles.Blocks.Block;
-import master.soulknight.Tiles.Blocks.BoxBlock;
-import master.soulknight.Tiles.Blocks.FloorBlock;
-import master.soulknight.Tiles.Blocks.WallBlock;
+import master.soulknight.Tiles.Blocks.*;
 import master.soulknight.Util.Vector2f;
 
 import java.io.BufferedReader;
@@ -18,18 +15,37 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.Random;
 
 public class TileManager {
 
-    public static final Sprite tileSheet = new Sprite("src/main/resources/Sprite/ss - Copy.png");
-    public static SpriteSheet grass = new SpriteSheet(2, 0, tileSheet);
-    public static SpriteSheet wall = new SpriteSheet(1, 0, tileSheet);
-    public static SpriteSheet box = new SpriteSheet(0, 0, tileSheet);
+    public static final SpriteSheet itemTileSheet = new SpriteSheet("src/main/resources/Sprite/Items.png");
+    public static final SpriteSheet tileSheet = new SpriteSheet("src/main/resources/Sprite/TileSheet.png");
+
+    public static Sprite floor1 = tileSheet.getSpriteArray(0,1);
+    public static Sprite floor2 = tileSheet.getSpriteArray(1,1);
+    public static Sprite floor3 = tileSheet.getSpriteArray(2,1);
+//    public static Sprite[] floors = {floor1,floor2,floor3};
+
+    public static Sprite wall1 = tileSheet.getSpriteArray(0,0);
+    public static Sprite wall2 = tileSheet.getSpriteArray(1,0);
+    public static Sprite wall3 = tileSheet.getSpriteArray(2,0);
+    public static Sprite wall4 = tileSheet.getSpriteArray(3,0);
+//    public static Sprite[] walls = {wall1,wall2,wall3,wall4};
+
+    public static Sprite box = tileSheet.getSpriteArray(3,1);
+
+    public static Sprite exBombItem = itemTileSheet.getSpriteArray(0,0);
+    public static Sprite speedItem = itemTileSheet.getSpriteArray(2,0);
+    public static Sprite powerUpItem = itemTileSheet.getSpriteArray(1,0);
+
     public static int mapRows;
     public static int mapColumns;
     public static Player player;
     public static Enemy enemy;
     public static ArrayList<Block> collideBlocks = new ArrayList<>();
+    protected static ArrayList<Block> items = new ArrayList<>();
     protected static ArrayList<Enemy> enemies = new ArrayList<>();
     protected static ArrayList<Flame> flames = new ArrayList<>();
     protected static ArrayList<Bomb> bombs = new ArrayList<>();
@@ -121,21 +137,59 @@ public class TileManager {
             for (int i = 0; i < rows; i++) {
                 for (int j = 0; j < columns; j++) {
                     Block block;
-                    if (mapStr[i].charAt(j) == '#') {
-                        block = new WallBlock(TILE_SIZE, TILE_SIZE, wall.getFxImage()
+                    Block item;
+                    if (mapStr[i].charAt(j) == '1') {
+                        block = new WallBlock(TILE_SIZE, TILE_SIZE, wall4.getFxImage()
                                 , new Vector2f(TILE_SIZE * j, TILE_SIZE * i));
                         collideBlocks.add(block);
-                    } else if (mapStr[i].charAt(j) == '*') {
+                    } else if (mapStr[i].charAt(j) == '2') {
+                        block = new WallBlock(TILE_SIZE, TILE_SIZE, wall2.getFxImage()
+                                , new Vector2f(TILE_SIZE * j, TILE_SIZE * i));
+                        collideBlocks.add(block);
+                    } else if (mapStr[i].charAt(j) == '6') {
+                        block = new WallBlock(TILE_SIZE, TILE_SIZE, wall3.getFxImage()
+                                , new Vector2f(TILE_SIZE * j, TILE_SIZE * i));
+                        collideBlocks.add(block);
+                    } else if (mapStr[i].charAt(j) == '8') {
+                        block = new WallBlock(TILE_SIZE, TILE_SIZE, wall1.getFxImage()
+                                , new Vector2f(TILE_SIZE * j, TILE_SIZE * i));
+                        collideBlocks.add(block);
+                    } else if (mapStr[i].charAt(j) == '5') {
                         block = new BoxBlock(TILE_SIZE, TILE_SIZE, box.getFxImage()
                                 , new Vector2f(TILE_SIZE * j, TILE_SIZE * i));
-                        collideBlocks.add(block);
+                        Random random = new Random();
+                        int randNum = random.nextInt((5-1)+1) + 1;
+                        if ( randNum == 1) {
+                            item = new PowerUpItem(TILE_SIZE, TILE_SIZE, powerUpItem.getFxImage()
+                                    , new Vector2f(TILE_SIZE * j, TILE_SIZE * i));
+                            items.add(item);
+                        }
+                        if ( randNum == 2) {
+                            item = new ExBombItem(TILE_SIZE, TILE_SIZE, exBombItem.getFxImage()
+                                    , new Vector2f(TILE_SIZE * j, TILE_SIZE * i));
+                            items.add(item);
+                        }
+                        if ( randNum == 3) {
+                            item = new SpeedUpItem(TILE_SIZE, TILE_SIZE, speedItem.getFxImage()
+                                    , new Vector2f(TILE_SIZE * j, TILE_SIZE * i));
+                            items.add(item);
+                        }
+                       collideBlocks.add(block);
                     } else if (mapStr[i].charAt(j) == 'p') {
-                        player = new Player(new SpriteSheet("src/main/resources/Sprite/alchemist_0_0 #154237 - Copy.png"), new Vector2f(TILE_SIZE * j, TILE_SIZE * i), 52, scaling);
-                    } else if (mapStr[i].charAt(j) == '1') {
-                        enemy = new Enemy(new SpriteSheet("src/main/resources/Sprite/alchemist_0_0 #154237 - Copy.png"), new Vector2f(TILE_SIZE * j, TILE_SIZE * i), 52, scaling);
+                        player = new Player(new SpriteSheet("src/main/resources/Sprite/Character_1.png"), new Vector2f(TILE_SIZE * j, TILE_SIZE * i), 52, scaling);
+                    } else if (mapStr[i].charAt(j) == 'M') {
+                        enemy = new Enemy(new SpriteSheet("src/main/resources/Sprite/Character_1.png"), new Vector2f(TILE_SIZE * j, TILE_SIZE * i), 52, scaling);
                         enemies.add(enemy);
+                    } else if (mapStr[i].charAt(j) == '4') {
+                        block = new FloorBlock(TILE_SIZE, TILE_SIZE, floor2.getFxImage()
+                                , new Vector2f(TILE_SIZE * j, TILE_SIZE * i));
+                        floorBlocks.add(block);
+                    } else if (mapStr[i].charAt(j) == '7') {
+                        block = new FloorBlock(TILE_SIZE, TILE_SIZE, floor3.getFxImage()
+                                , new Vector2f(TILE_SIZE * j, TILE_SIZE * i));
+                        floorBlocks.add(block);
                     }
-                    block = new FloorBlock(TILE_SIZE, TILE_SIZE, grass.getFxImage()
+                    block = new FloorBlock(TILE_SIZE, TILE_SIZE, floor1.getFxImage()
                             , new Vector2f(TILE_SIZE * j, TILE_SIZE * i));
                     floorBlocks.add(block);
 
@@ -148,6 +202,15 @@ public class TileManager {
     }
 
     public void update() {
+        Iterator<Block> iterator = TileManager.items.iterator();
+        while (iterator.hasNext()) {
+            Block block = iterator.next();
+            if (TileCollision.isCollidedWithItem(player,block)) {
+                iterator.remove();
+                block.update();
+            }
+        }
+
         for (Enemy enemy : enemies) {
             if (TileCollision.isColliedWithEnemy(enemy, player)) {
                 gameOver = true;
@@ -171,6 +234,7 @@ public class TileManager {
 
     public void render(GraphicsContext gc) {
         floorBlocks.forEach(g -> g.render(gc, TILE_SIZE));
+        items.forEach(g -> g.render(gc,TILE_SIZE));
         collideBlocks.forEach(g -> g.render(gc, TILE_SIZE));
         bombs.forEach(g -> g.render(gc));
         flames.forEach(g -> g.render(gc));

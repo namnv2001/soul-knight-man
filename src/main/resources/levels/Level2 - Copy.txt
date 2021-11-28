@@ -1,0 +1,40 @@
+2 14 22
+8888888888888888888888
+8p32533677513447344348
+8736413241423737334738
+8761325246714363336378
+8355314232713662512238
+8666617256516577375348
+8333534171726362121268
+8325211636361537353568
+8573753345553211275238
+8621666626363325341338
+8335337354463442463338
+8721656226113743533778
+84537335435437734733M8
+8888888888888888888888
+
+
+Mô tả cấu trúc tệp cấu hình màn chơi:
+1/ Dòng đầu tiên bao gồm 3 số nguyên L, R, C:
+L - số thứ tự màn chơi
+R - số hàng của bản đồ
+C - số cột của bản đồ
+
+2/ R dòng tiếp theo, mỗi dòng có C kí tự. Mỗi kí tự đại diện cho một đối tượng trên bản đồ:
+Tiles:
+1, 2, 6, 8 - Wall
+5 - Brick
+9 - Portal
+
+Character:
+p - Bomber
+a - Balloon
+b - Oneal
+
+Items:
+B - Bomb Item
+F - Flame Item
+S - Speed Item
+
+Kí tự khác các kí tự trên - Grass (3, 4, 7)

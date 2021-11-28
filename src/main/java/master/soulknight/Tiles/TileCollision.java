@@ -23,6 +23,14 @@ public class TileCollision {
         return false;
     }
 
+    public static boolean isCollidedWithItem(Entity player, Block block) {
+
+        return player.getX() + 7 < block.pos.x + block.getBlockWidth() &&
+                player.getX() + 7 + player.getSize() > block.pos.x &&
+                player.getY() + 7 < block.pos.y + block.getBlockHeight() &&
+                player.getY() + 7 + player.getSize() > block.pos.y;
+    }
+
     public static boolean isCollidedWithFlames(Entity player) {
         for (Flame flame : TileManager.getFlames()) {
             if (player.getX() + 7 < flame.getX() + flame.getSize() &&
