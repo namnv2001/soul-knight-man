@@ -28,7 +28,7 @@ public class GameStateManager {
         map = new Vector2f(GamePanel.width, GamePanel.height);
         GameStateManager.gc = gc;
         states = new ArrayList<>();
-        button = new SpriteSheet("src/main/resources/Sprite/buttons-02-01.png", 122, 57);
+        button = new SpriteSheet("src/main/resources/Sprite/Menu/Buttons/info.png", 122, 57);
         Vector2f.setWorldVar(map.x, map.y);
         states.add(new MenuState(this));
     }
