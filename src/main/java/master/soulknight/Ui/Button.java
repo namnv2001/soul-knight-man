@@ -3,9 +3,7 @@ package master.soulknight.Ui;
 import master.soulknight.Util.AABB;
 import master.soulknight.Util.Vector2f;
 
-import java.awt.Image;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class Button {
