@@ -23,12 +23,16 @@ public class GameStateManager {
     public static SpriteSheet button;
     public static GraphicsContext gc;
 
+    public boolean isPlaying = GamePanel.isPlaying;
+
     public GameStateManager(GraphicsContext gc) {
-        map = new Vector2f(GamePanel.width, GamePanel.height);
-        GameStateManager.gc = gc;
-        states = new ArrayList<>();
-        Vector2f.setWorldVar(map.x, map.y);
-        states.add(new PlayState(this));
+        if (isPlaying) {
+            map = new Vector2f(GamePanel.width, GamePanel.height);
+            GameStateManager.gc = gc;
+            states = new ArrayList<>();
+            Vector2f.setWorldVar(map.x, map.y);
+            states.add(new PlayState(this));
+        }
     }
 
     public void pop(int state) {
@@ -54,14 +58,18 @@ public class GameStateManager {
     }
 
     public void update() {
-        for (int i = 0; i < states.size(); i++) {
-            states.get(i).update();
+        if (isPlaying) {
+            for (int i = 0; i < states.size(); i++) {
+                states.get(i).update();
+            }
         }
     }
 
     public void render(GraphicsContext gc) {
-        for (GameState state : states) {
-            state.render(gc);
+        if (isPlaying){
+            for (GameState state : states) {
+                state.render(gc);
+            }
         }
     }
 }

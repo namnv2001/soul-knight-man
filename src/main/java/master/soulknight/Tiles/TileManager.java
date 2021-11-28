@@ -26,13 +26,11 @@ public class TileManager {
     public static Sprite floor1 = tileSheet.getSpriteArray(0,1);
     public static Sprite floor2 = tileSheet.getSpriteArray(1,1);
     public static Sprite floor3 = tileSheet.getSpriteArray(2,1);
-//    public static Sprite[] floors = {floor1,floor2,floor3};
 
     public static Sprite wall1 = tileSheet.getSpriteArray(0,0);
     public static Sprite wall2 = tileSheet.getSpriteArray(1,0);
     public static Sprite wall3 = tileSheet.getSpriteArray(2,0);
     public static Sprite wall4 = tileSheet.getSpriteArray(3,0);
-//    public static Sprite[] walls = {wall1,wall2,wall3,wall4};
 
     public static Sprite box = tileSheet.getSpriteArray(3,1);
 

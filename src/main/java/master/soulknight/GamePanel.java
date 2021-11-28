@@ -2,6 +2,7 @@ package master.soulknight;
 
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
@@ -19,9 +20,11 @@ public class GamePanel extends Application {
     public static int height = 868;
 
     private GraphicsContext gc;
-    private Canvas canvas;
+    public static Canvas canvas;
 
     private GameStateManager gsm;
+
+    public static boolean isPlaying = false;
 
     public void initGraphics() {
         canvas = new Canvas(width, height);
@@ -31,6 +34,10 @@ public class GamePanel extends Application {
     public void init() {
         initGraphics();
         gsm = new GameStateManager(gc);
+    }
+
+    public void logout(Stage stage) {
+        stage.close();
     }
 
     @Override
@@ -57,61 +64,73 @@ public class GamePanel extends Application {
             @Override
             public void handle(long l) {
 
-                double now = System.nanoTime();
-                int updateCount = 0;
-                while (((now - lastUpdateTime[0]) > TBU) && (updateCount < MUBR)) {
-                    lastUpdateTime[0] += TBU;
-                    updateCount++;
-                    tickCount++;
-                    // (^^^^) We use this varible for the soul purpose of displaying it
+            double now = System.nanoTime();
+            int updateCount = 0;
+            while (((now - lastUpdateTime[0]) > TBU) && (updateCount < MUBR)) {
+                lastUpdateTime[0] += TBU;
+                updateCount++;
+                tickCount++;
+                // (^^^^) We use this varible for the soul purpose of displaying it
+            }
+
+            if ((now - lastUpdateTime[0]) > TBU) {
+                lastUpdateTime[0] = now - TBU;
+            }
+
+            render();
+            update();
+
+            lastRenderTime[0] = now;
+            frameCount[0]++;
+
+            int thisSecond = (int) (lastUpdateTime[0] / 1000000000);
+            if (thisSecond > lastSecondTime[0]) {
+                if (frameCount[0] != oldFrameCount) {
+                    System.out.println("NEW SECOND " + thisSecond + " " + frameCount[0]);
+                    oldFrameCount = frameCount[0];
                 }
-
-                if ((now - lastUpdateTime[0]) > TBU) {
-                    lastUpdateTime[0] = now - TBU;
+                if (tickCount != oldTickCount) {
+                    System.out.println("NEW SECOND (T) " + thisSecond + " " + tickCount);
+                    oldTickCount = tickCount;
                 }
+                tickCount = 0;
+                frameCount[0] = 0;
+                lastSecondTime[0] = thisSecond;
+            }
 
-                render();
-                update();
-
-                lastRenderTime[0] = now;
-                frameCount[0]++;
-
-                int thisSecond = (int) (lastUpdateTime[0] / 1000000000);
-                if (thisSecond > lastSecondTime[0]) {
-                    if (frameCount[0] != oldFrameCount) {
-                        System.out.println("NEW SECOND " + thisSecond + " " + frameCount[0]);
-                        oldFrameCount = frameCount[0];
-                    }
-                    if (tickCount != oldTickCount) {
-                        System.out.println("NEW SECOND (T) " + thisSecond + " " + tickCount);
-                        oldTickCount = tickCount;
-                    }
-                    tickCount = 0;
-                    frameCount[0] = 0;
-                    lastSecondTime[0] = thisSecond;
+            while (now - lastRenderTime[0] < TTBR && now - lastUpdateTime[0] < TBU) {
+                Thread.yield();
+                try {
+                    Thread.sleep(1);
+                } catch (Exception e) {
+                    System.out.println("ERROR: yielding thread");
                 }
-
-                while (now - lastRenderTime[0] < TTBR && now - lastUpdateTime[0] < TBU) {
-                    Thread.yield();
-                    try {
-                        Thread.sleep(1);
-                    } catch (Exception e) {
-                        System.out.println("ERROR: yielding thread");
-                    }
-                    now = System.nanoTime();
-                }
+                now = System.nanoTime();
+            }
             }
         };
-        timer.start();
-
-        Group root = new Group();
-        Scene scene = new Scene(root);
-        root.getChildren().add(canvas);
-        stage.setScene(scene);
-        stage.show();
-
-        scene.setOnKeyPressed(event -> TileManager.player.handleKeyPressedEvent(event.getCode()));
-        scene.setOnKeyReleased(event -> TileManager.player.handleKeyReleasedEvent(event.getCode()));
+        if (isPlaying) {
+            timer.start();
+        }
+        System.out.println(isPlaying);
+        if (!isPlaying) {
+            try {
+                FXMLLoader fxmlLoader = new FXMLLoader(GamePanel.class.getResource("Menu.fxml"));
+                Scene scene = new Scene(fxmlLoader.load());
+                stage.setScene(scene);
+                stage.show();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else {
+            Group root = new Group();
+            Scene scene = new Scene(root);
+            root.getChildren().add(canvas);
+            stage.setScene(scene);
+            stage.show();
+            scene.setOnKeyPressed(event -> TileManager.player.handleKeyPressedEvent(event.getCode()));
+            scene.setOnKeyReleased(event -> TileManager.player.handleKeyReleasedEvent(event.getCode()));
+        }
     }
 
     public void update() {
