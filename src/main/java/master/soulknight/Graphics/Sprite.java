@@ -5,10 +5,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.image.PixelWriter;
 import javafx.scene.image.WritableImage;
 
-import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
-import java.io.FileInputStream;
-import java.io.IOException;
+
 
 public class Sprite {
 
@@ -16,29 +14,14 @@ public class Sprite {
     public BufferedImage image;
     public int[] pixels;
     private int[] ogpixels;
-    private int w;
-    private int h;
 
     public Sprite(BufferedImage image) {
         this.image = image;
-        this.w = image.getWidth();
-        this.h = image.getHeight();
+        int w = image.getWidth();
+        int h = image.getHeight();
         pixels = new int[w * h];
         ogpixels = image.getRGB(0, 0, w, h, ogpixels, 0, w);
         pixels = ogpixels;
-    }
-
-    public Sprite(String path) {
-        try {
-            image = ImageIO.read(new FileInputStream(path));
-            this.w = image.getWidth();
-            this.h = image.getHeight();
-            pixels = new int[w * h];
-            ogpixels = image.getRGB(0, 0, w, h, ogpixels, 0, w);
-            pixels = ogpixels;
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
     public Sprite getSubImage(int x, int y, int w, int h) {

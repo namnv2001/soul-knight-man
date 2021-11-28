@@ -5,17 +5,16 @@ import javafx.scene.image.Image;
 import master.soulknight.Graphics.Animation;
 import master.soulknight.Graphics.Sprite;
 import master.soulknight.Graphics.SpriteSheet;
-import master.soulknight.States.PlayState;
 import master.soulknight.Tiles.TileCollision;
+import master.soulknight.Tiles.TileManager;
 import master.soulknight.Util.AABB;
 import master.soulknight.Util.Vector2f;
 
 public abstract class Entity {
 
     private static double SCALING;
-    private final int IDLE = 6;
-    private final int BOOM = 5;
-    private final int FALLEN = 4;
+//    private final int IDLE = 5;
+//    private final int FALLEN = 4;
     private final int UP = 3;
     private final int DOWN = 2;
     private final int RIGHT = 0;
@@ -33,7 +32,6 @@ public abstract class Entity {
     protected boolean right;
     protected boolean left;
     protected boolean fallen;
-    protected boolean placeBoom;
 
     protected int x;
     protected int y;
@@ -41,9 +39,9 @@ public abstract class Entity {
     protected float dx;
     protected float dy;
 
-    protected float speed = 2f;
+    public float speed = 2f;
     protected float acc = 3f;
-    protected float deacc = 0.3f;
+    protected float deacc = 0.4f;
 
     protected AABB hitBounds;
     protected AABB bounds;
@@ -200,6 +198,10 @@ public abstract class Entity {
         return size;
     }
 
+    public Vector2f getPos() {
+        return pos;
+    }
+
     public void update() {
         animated();
         setHitBoxDirection();
@@ -207,16 +209,11 @@ public abstract class Entity {
         ani.update();
         pos.x += dx;
         pos.y += dy;
-        if (TileCollision.isCollidedWithBlock(PlayState.player) || (TileCollision.isCollidedWithBombs(PlayState.player) && !Bomb.firstTime)) {
+        if (TileCollision.isCollidedWithBlock(TileManager.player) || (TileCollision.isCollidedWithBombs(TileManager.player) && !Bomb.firstTime)) {
             pos.x -= dx;
             pos.y -= dy;
         }
     }
 
-//    public void collidedUpdateUpDown() {
-//        animated();
-//        setHitBoxDirection();
-//        ani.update();
-//        pos.x += dx;
-//    }
+
 }

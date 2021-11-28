@@ -14,14 +14,10 @@ public class WallBlock extends Block {
     }
 
     @Override
-    public boolean update(AABB p) {
-        return true;
+    public void update() {
+
     }
 
-    @Override
-    public boolean isInside(AABB p) {
-        return false;
-    }
 
     @Override
     public Sprite getImage() {
@@ -29,8 +25,13 @@ public class WallBlock extends Block {
     }
 
     @Override
-    public void render(GraphicsContext gc, int TILE_SIZE) {
-        gc.setFill(Color.RED);
-        gc.fillRect(pos.x,pos.y,TILE_SIZE,TILE_SIZE);
+    public boolean breakable() {
+        return false;
     }
+
+//    @Override
+//    public void render(GraphicsContext gc, int TILE_SIZE) {
+//        gc.setFill(Color.RED);
+//        gc.fillRect(pos.x,pos.y,TILE_SIZE,TILE_SIZE);
+//    }
 }

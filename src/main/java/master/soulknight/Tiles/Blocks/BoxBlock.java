@@ -14,23 +14,19 @@ public class BoxBlock extends Block{
     }
 
     @Override
-    public boolean update(AABB p) {
-        return false;
+    public void update() {
+
     }
 
-    @Override
-    public boolean isInside(AABB p) {
-        return false;
-    }
 
     @Override
     public Sprite getImage() {
         return null;
     }
 
-    @Override
-    public void render(GraphicsContext gc, int TILE_SIZE) {
-        gc.setFill(Color.YELLOW);
-        gc.fillRect(pos.x,pos.y,TILE_SIZE,TILE_SIZE);
-    }
+//    @Override
+//    public void render(GraphicsContext gc, int TILE_SIZE) {
+//        gc.setFill(Color.YELLOW);
+//        gc.fillRect(pos.x,pos.y,TILE_SIZE,TILE_SIZE);
+//    }
 }

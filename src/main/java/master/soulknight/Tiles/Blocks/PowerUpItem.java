@@ -3,29 +3,23 @@ package master.soulknight.Tiles.Blocks;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import master.soulknight.Graphics.Sprite;
+import master.soulknight.Tiles.TileManager;
 import master.soulknight.Util.AABB;
 import master.soulknight.Util.Vector2f;
 
-public class FloorBlock extends Block{
-
-    public FloorBlock(int width, int height, Image img, Vector2f pos) {
+public class PowerUpItem extends Block{
+    public PowerUpItem(int width, int height, Image img, Vector2f pos) {
         super(width, height, img, pos);
     }
 
     @Override
     public void update() {
-
+        TileManager.player.addBombRange();
     }
-
 
     @Override
     public Sprite getImage() {
         return null;
-    }
-
-    @Override
-    public boolean solid() {
-        return false;
     }
 
     public void render(GraphicsContext gc, int TILE_SIZE) {

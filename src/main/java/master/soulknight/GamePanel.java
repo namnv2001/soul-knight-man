@@ -8,15 +8,15 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.stage.Stage;
 import master.soulknight.States.GameStateManager;
-import master.soulknight.States.PlayState;
+import master.soulknight.Tiles.TileManager;
 
 public class GamePanel extends Application {
     public static int oldFrameCount;
     public static int oldTickCount;
     public static int tickCount;
 
-    public static int width = 1280;
-    public static int height = 720;
+    public static int width = 1364;
+    public static int height = 868;
 
     private GraphicsContext gc;
     private Canvas canvas;
@@ -56,6 +56,7 @@ public class GamePanel extends Application {
         AnimationTimer timer = new AnimationTimer() {
             @Override
             public void handle(long l) {
+
                 double now = System.nanoTime();
                 int updateCount = 0;
                 while (((now - lastUpdateTime[0]) > TBU) && (updateCount < MUBR)) {
@@ -102,18 +103,15 @@ public class GamePanel extends Application {
             }
         };
         timer.start();
+
         Group root = new Group();
         Scene scene = new Scene(root);
         root.getChildren().add(canvas);
         stage.setScene(scene);
         stage.show();
 
-        scene.setOnKeyPressed(event -> {
-            PlayState.player.handleKeyPressedEvent(event.getCode());
-        });
-        scene.setOnKeyReleased(event -> {
-            PlayState.player.handleKeyReleasedEvent(event.getCode());
-        });
+        scene.setOnKeyPressed(event -> TileManager.player.handleKeyPressedEvent(event.getCode()));
+        scene.setOnKeyReleased(event -> TileManager.player.handleKeyReleasedEvent(event.getCode()));
     }
 
     public void update() {
@@ -121,6 +119,7 @@ public class GamePanel extends Application {
     }
 
     public void render() {
+        gc.clearRect(0,0,width,height);
         if (gc != null) {
             gsm.render(gc);
         }

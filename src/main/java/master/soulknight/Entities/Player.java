@@ -2,29 +2,52 @@ package master.soulknight.Entities;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyCode;
-import javafx.scene.paint.Color;
-import master.soulknight.Graphics.Sprite;
 import master.soulknight.Graphics.SpriteSheet;
+import master.soulknight.States.PlayState;
 import master.soulknight.Tiles.TileManager;
 import master.soulknight.Util.Vector2f;
 
 import java.util.Iterator;
 
-
 public class Player extends Entity {
+    public boolean kill = false;
+    public Bomb bomb;
+    public int bombsInHand;
+    public int bombRange;
 
-    private Bomb bomb;
-    private int bombsInHand;
-    private int bombRange;
-    private float x,y;
+    public void addBombsInHand() {
+        if(bombsInHand < 4) {
+            this.bombsInHand++;
+        }
+    }
 
-    public static Sprite boom = new Sprite("src/main/resources/Sprite/MyVer.zip - Copy.png");
+    public void addBombRange() {
+        if(bombRange < 4) {
+            this.bombRange++;
+        }
+    }
+
+    public void addSpeed() {
+        System.out.println("Speed");
+        if (this.speed < 5f) {
+            this.speed += 1f;
+        }
+    }
+
     private KeyCode direction;
 
     public Player(SpriteSheet sprite, Vector2f origin, int size, double SCALING) {
         super(sprite, origin, size, SCALING);
         bombsInHand = 1;
         bombRange = 1;
+
+    }
+
+    public static Vector2f getBombPos(Vector2f pos) {
+        int playerX = (int) Math.round(pos.x / (SpriteSheet.getTileSize() * getSCALING()));
+        int playerY = (int) Math.round(pos.y / (SpriteSheet.getTileSize() * getSCALING()));
+//        System.out.println(playerX + " " + playerY);
+        return new Vector2f((int) (playerX * SpriteSheet.getTileSize() * getSCALING()), (int) (playerY * SpriteSheet.getTileSize() * getSCALING()));
     }
 
     public void handleKeyPressedEvent(KeyCode keycode) {
@@ -55,9 +78,10 @@ public class Player extends Entity {
             }
             if (keycode == KeyCode.SPACE) {
                 keepMoving();
-                if(bombsInHand > 0) {
+                if (bombsInHand > 0 && !TileManager.bombExist(getBombPos(pos))) {
                     bombsInHand--;
-                    bomb = new Bomb(new SpriteSheet("src/main/resources/Sprite/MyVer.zip - Copy.png"),getBombPos(pos),size,Entity.getSCALING(),bombRange);
+                    bomb = new Bomb(new SpriteSheet("src/main/resources/Sprite/Bombs.png"), getBombPos(pos), size, Entity.getSCALING(), bombRange);
+
                     TileManager.addBomb(bomb);
                 }
             }
@@ -65,8 +89,8 @@ public class Player extends Entity {
     }
 
     public void keepMoving() {
-        if(direction != null) {
-            switch(direction) {
+        if (direction != null) {
+            switch (direction) {
                 case A -> left = true;
                 case S -> down = true;
                 case D -> right = true;
@@ -96,34 +120,26 @@ public class Player extends Entity {
     }
 
     public void update() {
-        if (!fallen) {
+        if (!PlayState.gameOver) {
             super.update();
         }
         bombClear();
+        clearFlame();
     }
 
     public void bombClear() {
         Iterator<Bomb> iterator = TileManager.getBombs().iterator();
-        while ( iterator.hasNext()) {
+        while (iterator.hasNext()) {
             Bomb bomb = iterator.next();
-            if(bomb.removed) {
+            if (bomb.removed) {
                 iterator.remove();
                 bombsInHand++;
             }
         }
-//        for(Bomb bomb : TileManager.getBombs()) {
-//            if(bomb.removed && !(TileManager.getBombs().isEmpty())) {
-//                TileManager.getBombs().remove(bomb);
-//                bombsInHand++;
-//            }
-//        }
     }
 
-    private static Vector2f getBombPos(Vector2f pos) {
-        int playerX = (int) Math.round(pos.x / (SpriteSheet.getTileSize() * getSCALING()));
-        int playerY = (int) Math.round(pos.y / (SpriteSheet.getTileSize() * getSCALING()));
-        System.out.println(playerX + " " + playerY);
-        return new Vector2f((int)(playerX * SpriteSheet.getTileSize() * getSCALING()), (int)(playerY * SpriteSheet.getTileSize() * getSCALING()));
+    public void clearFlame() {
+        TileManager.getFlames().removeIf(flame -> flame.removed);
     }
 
     @Override
@@ -131,8 +147,8 @@ public class Player extends Entity {
         gc.drawImage(ani.getImage().getFxImage(), pos.x, pos.y,
                 SpriteSheet.getTileSize() * Entity.getSCALING(),
                 SpriteSheet.getTileSize() * Entity.getSCALING());
-        gc.setFill(Color.BLUE);
-        gc.fillRect(pos.x + 7, pos.y + 7, getSize(), getSize());
+//        gc.setFill(Color.BLUE);
+//        gc.fillRect(pos.x + 7, pos.y + 7, getSize(), getSize());
 
     }
 }
