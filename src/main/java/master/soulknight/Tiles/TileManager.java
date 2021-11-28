@@ -20,6 +20,7 @@ import java.util.Random;
 
 public class TileManager {
 
+
     public static final SpriteSheet itemTileSheet = new SpriteSheet("src/main/resources/Sprite/Items.png");
     public static final SpriteSheet tileSheet = new SpriteSheet("src/main/resources/Sprite/TileSheet.png");
 
