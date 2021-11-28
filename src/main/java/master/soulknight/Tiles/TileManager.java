@@ -20,23 +20,25 @@ import java.util.Random;
 
 public class TileManager {
 
-    public static final Sprite itemTileSheet = new Sprite("src/main/resources/Sprite/boost - Copy.png");
-    public static final Sprite tileSheet = new Sprite("src/main/resources/Sprite/ss - Copy.png");
+    public static final SpriteSheet itemTileSheet = new SpriteSheet("src/main/resources/Sprite/Items.png");
+    public static final SpriteSheet tileSheet = new SpriteSheet("src/main/resources/Sprite/TileSheet.png");
 
-    public static SpriteSheet exBombItem = new SpriteSheet(0,0,itemTileSheet);
-    public static SpriteSheet speedItem = new SpriteSheet(2,0,itemTileSheet);
-    public static SpriteSheet powerUpItem = new SpriteSheet(1,0,itemTileSheet);
+    public static Sprite floor1 = tileSheet.getSpriteArray(0,1);
+    public static Sprite floor2 = tileSheet.getSpriteArray(1,1);
+    public static Sprite floor3 = tileSheet.getSpriteArray(2,1);
+//    public static Sprite[] floors = {floor1,floor2,floor3};
 
-    public static SpriteSheet floor1 = new SpriteSheet(2, 0, tileSheet);
-    public static SpriteSheet floor2 = new SpriteSheet(2, 0, tileSheet);
-    public static SpriteSheet floor3 = new SpriteSheet(2, 0, tileSheet);
+    public static Sprite wall1 = tileSheet.getSpriteArray(0,0);
+    public static Sprite wall2 = tileSheet.getSpriteArray(1,0);
+    public static Sprite wall3 = tileSheet.getSpriteArray(2,0);
+    public static Sprite wall4 = tileSheet.getSpriteArray(3,0);
+//    public static Sprite[] walls = {wall1,wall2,wall3,wall4};
 
-    public static SpriteSheet wall1 = new SpriteSheet(1, 0, tileSheet);
-    public static SpriteSheet wall2 = new SpriteSheet(1, 0, tileSheet);
-    public static SpriteSheet wall3 = new SpriteSheet(1, 0, tileSheet);
-    public static SpriteSheet wall4 = new SpriteSheet(1, 0, tileSheet);
+    public static Sprite box = tileSheet.getSpriteArray(3,1);
 
-    public static SpriteSheet box = new SpriteSheet(0, 0, tileSheet);
+    public static Sprite exBombItem = itemTileSheet.getSpriteArray(0,0);
+    public static Sprite speedItem = itemTileSheet.getSpriteArray(2,0);
+    public static Sprite powerUpItem = itemTileSheet.getSpriteArray(1,0);
 
     public static int mapRows;
     public static int mapColumns;
@@ -137,7 +139,7 @@ public class TileManager {
                     Block block;
                     Block item;
                     if (mapStr[i].charAt(j) == '1') {
-                        block = new WallBlock(TILE_SIZE, TILE_SIZE, wall1.getFxImage()
+                        block = new WallBlock(TILE_SIZE, TILE_SIZE, wall4.getFxImage()
                                 , new Vector2f(TILE_SIZE * j, TILE_SIZE * i));
                         collideBlocks.add(block);
                     } else if (mapStr[i].charAt(j) == '2') {
@@ -149,7 +151,7 @@ public class TileManager {
                                 , new Vector2f(TILE_SIZE * j, TILE_SIZE * i));
                         collideBlocks.add(block);
                     } else if (mapStr[i].charAt(j) == '8') {
-                        block = new WallBlock(TILE_SIZE, TILE_SIZE, wall4.getFxImage()
+                        block = new WallBlock(TILE_SIZE, TILE_SIZE, wall1.getFxImage()
                                 , new Vector2f(TILE_SIZE * j, TILE_SIZE * i));
                         collideBlocks.add(block);
                     } else if (mapStr[i].charAt(j) == '5') {
@@ -172,11 +174,11 @@ public class TileManager {
                                     , new Vector2f(TILE_SIZE * j, TILE_SIZE * i));
                             items.add(item);
                         }
-                        collideBlocks.add(block);
+                       collideBlocks.add(block);
                     } else if (mapStr[i].charAt(j) == 'p') {
-                        player = new Player(new SpriteSheet("src/main/resources/Sprite/alchemist_0_0 #154237 - Copy.png"), new Vector2f(TILE_SIZE * j, TILE_SIZE * i), 52, scaling);
+                        player = new Player(new SpriteSheet("src/main/resources/Sprite/Character_1.png"), new Vector2f(TILE_SIZE * j, TILE_SIZE * i), 52, scaling);
                     } else if (mapStr[i].charAt(j) == 'M') {
-                        enemy = new Enemy(new SpriteSheet("src/main/resources/Sprite/alchemist_0_0 #154237 - Copy.png"), new Vector2f(TILE_SIZE * j, TILE_SIZE * i), 52, scaling);
+                        enemy = new Enemy(new SpriteSheet("src/main/resources/Sprite/Character_1.png"), new Vector2f(TILE_SIZE * j, TILE_SIZE * i), 52, scaling);
                         enemies.add(enemy);
                     } else if (mapStr[i].charAt(j) == '4') {
                         block = new FloorBlock(TILE_SIZE, TILE_SIZE, floor2.getFxImage()
@@ -208,12 +210,6 @@ public class TileManager {
                 block.update();
             }
         }
-//        for (Block block : items) {
-//            if(TileCollision.isCollidedWithItem(player,block)) {
-//                items.remove(block);
-//                block.update();
-//            }
-//        }
 
         for (Enemy enemy : enemies) {
             if (TileCollision.isColliedWithEnemy(enemy, player)) {
