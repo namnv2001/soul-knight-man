@@ -28,17 +28,21 @@ public class GameStateManager {
         GameStateManager.gc = gc;
         states = new ArrayList<>();
         Vector2f.setWorldVar(map.x, map.y);
-        states.add(new PlayState(this));
+        states.add(new MenuState(this));
     }
 
     public void pop(int state) {
         states.remove(state);
     }
 
+    public boolean isMenuState() {
+        return states.get(states.size() - 1) instanceof MenuState;
+    }
+
     public void add(int state) {
-        if(states.get(state) != null) {
-            return;
-        }
+//        if(states.get(state) != null) {
+//            return;
+//        }
         if(state == PLAY){
             states.add(new PlayState(this));
         }

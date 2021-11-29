@@ -15,6 +15,10 @@ public class SpriteSheet {
     private int wSprite;
     private int hSprite;
 
+    public Sprite getSPRITESHEET() {
+        return SPRITESHEET;
+    }
+
     public SpriteSheet(String file) {
         w = TILE_SIZE;
         h = TILE_SIZE;
