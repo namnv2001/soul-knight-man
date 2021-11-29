@@ -16,9 +16,9 @@ public class MenuState extends GameState {
     public MenuState(GameStateManager gsm) {
         super(gsm);
 
-        BufferedImage btnImage = GameStateManager.button.getSubImage(0, 0, 121, 26);
+        //BufferedImage btnImage = GameStateManager.button.getSubImage(0, 0, 121, 26);
 
-        playBtn = new Button(btnImage, new Vector2f(GamePanel.width / 2, GamePanel.height / 2 - 48), 32, 16);
+        //playBtn = new Button(btnImage, new Vector2f(GamePanel.width / 2, GamePanel.height / 2 - 48), 32, 16);
 
     }
 

@@ -140,15 +140,15 @@ public class TileManager {
                     Block block;
                     Block item;
                     if (mapStr[i].charAt(j) == '1') {
-                        block = new WallBlock(TILE_SIZE, TILE_SIZE, wall4.getFxImage()
+                        block = new WallBlock(TILE_SIZE, TILE_SIZE, wall1.getFxImage()
                                 , new Vector2f(TILE_SIZE * j, TILE_SIZE * i));
                         collideBlocks.add(block);
                     } else if (mapStr[i].charAt(j) == '2') {
-                        block = new WallBlock(TILE_SIZE, TILE_SIZE, wall2.getFxImage()
+                        block = new WallBlock(TILE_SIZE, TILE_SIZE, wall1.getFxImage()
                                 , new Vector2f(TILE_SIZE * j, TILE_SIZE * i));
                         collideBlocks.add(block);
                     } else if (mapStr[i].charAt(j) == '6') {
-                        block = new WallBlock(TILE_SIZE, TILE_SIZE, wall3.getFxImage()
+                        block = new WallBlock(TILE_SIZE, TILE_SIZE, wall1.getFxImage()
                                 , new Vector2f(TILE_SIZE * j, TILE_SIZE * i));
                         collideBlocks.add(block);
                     } else if (mapStr[i].charAt(j) == '8') {
@@ -190,7 +190,7 @@ public class TileManager {
                                 , new Vector2f(TILE_SIZE * j, TILE_SIZE * i));
                         floorBlocks.add(block);
                     }
-                    block = new FloorBlock(TILE_SIZE, TILE_SIZE, floor1.getFxImage()
+                    block = new FloorBlock(TILE_SIZE, TILE_SIZE, floor3.getFxImage()
                             , new Vector2f(TILE_SIZE * j, TILE_SIZE * i));
                     floorBlocks.add(block);
 

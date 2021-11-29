@@ -11,6 +11,7 @@ public class Enemy extends Entity {
     public Enemy(SpriteSheet sprite, Vector2f origin, int size, double SCALING) {
         super(sprite, origin, size, SCALING);
         up = true;
+
     }
 
     public void changeDirection() {
@@ -32,6 +33,9 @@ public class Enemy extends Entity {
     @Override
     public void update() {
         animated();
+        if ( ani.getDelay() != 10) {
+            this.ani.setDelay(10);
+        }
         move();
         super.update();
         if (TileCollision.isCollidedWithBlock(this) || TileCollision.isCollidedWithBombs(this)) {

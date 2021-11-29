@@ -17,14 +17,13 @@ public class PlayState extends GameState {
 
     public PlayState(GameStateManager gsm) {
         super(gsm);
-        tm = new TileManager("src/main/resources/levels/Level2 - Copy.txt", scaling);
+        tm = new TileManager("src/main/resources/levels/Level2.txt", scaling);
     }
 
     @Override
     public void update() {
         gameOver = tm.gameOver;
         tm.update();
-
     }
 
     @Override

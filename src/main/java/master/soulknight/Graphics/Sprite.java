@@ -7,7 +7,6 @@ import javafx.scene.image.WritableImage;
 
 import java.awt.image.BufferedImage;
 
-
 public class Sprite {
 
     private static final int TRANSPARENT_COLOR = 0xffff00ff;
