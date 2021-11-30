@@ -17,7 +17,7 @@ public class GameStateManager {
     public static final int PLAY = 1;
     public static final int PAUSE = 2;
     public static final int GAMEOVER = 3;
-    public static final int EDIT = 4;
+    public static final int INFO = 4;
 
     public static SpriteSheet ui;
     public static SpriteSheet button;
@@ -39,6 +39,10 @@ public class GameStateManager {
         return states.get(states.size() - 1) instanceof MenuState;
     }
 
+    public boolean isInfoState() {
+        return states.get(states.size() - 1) instanceof InfoState;
+    }
+
     public void add(int state) {
 //        if(states.get(state) != null) {
 //            return;
@@ -54,6 +58,9 @@ public class GameStateManager {
         }
         if(state == GAMEOVER){
             states.add(new GameOverState(this));
+        }
+        if (state == INFO) {
+            states.add(new InfoState(this));
         }
     }
 
