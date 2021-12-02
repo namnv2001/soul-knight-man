@@ -29,7 +29,7 @@ public class GameStateManager {
         GameStateManager.gc = gc;
         states = new ArrayList<>();
         Vector2f.setWorldVar(map.x, map.y);
-        states.add(new PlayState(this));
+        states.add(new MenuState(this));
     }
 
     public void pop(int state) {
