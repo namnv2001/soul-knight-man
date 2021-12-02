@@ -15,7 +15,7 @@ public class MenuState extends GameState {
         super(gsm);
 
         try {
-            image = new Image(new FileInputStream("src/main/resources/Sprite/Menu/menu-background.png"));
+            image = new Image(new FileInputStream("src/main/resources/Sprite/menu.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }
