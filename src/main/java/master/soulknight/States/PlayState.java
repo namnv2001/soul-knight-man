@@ -19,7 +19,6 @@ public class PlayState extends GameState {
     public void update() {
         gameOver = tm.gameOver;
         tm.update();
-
     }
 
     @Override
