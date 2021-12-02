@@ -3,9 +3,9 @@ package master.soulknight.States;
 import javafx.scene.canvas.GraphicsContext;
 import master.soulknight.GamePanel;
 import master.soulknight.Graphics.SpriteSheet;
-import master.soulknight.Util.KeyHandler;
-import master.soulknight.Util.MouseHandler;
 import master.soulknight.Util.Vector2f;
+import master.soulknight.Util.MouseHandler;
+import master.soulknight.Util.KeyHandler;
 
 import java.util.ArrayList;
 
@@ -19,7 +19,7 @@ public class GameStateManager {
     public static final int PLAY = 1;
     public static final int PAUSE = 2;
     public static final int GAMEOVER = 3;
-    public static final int EDIT = 4;
+    public static final int INFO = 4;
 
     public static SpriteSheet ui;
     public static SpriteSheet button;
@@ -41,11 +41,6 @@ public class GameStateManager {
         return states.get(states.size() - 1) instanceof MenuState;
     }
 
-    public boolean isPlayState() {
-        return states.get(states.size() - 1) instanceof PlayState;
-    }
-
-
     public void add(int state) {
 //        if(states.get(state) != null) {
 //            return;
@@ -61,6 +56,9 @@ public class GameStateManager {
         }
         if(state == GAMEOVER){
             states.add(new GameOverState(this));
+        }
+        if (state == INFO) {
+            states.add(new InfoState(this));
         }
     }
 
