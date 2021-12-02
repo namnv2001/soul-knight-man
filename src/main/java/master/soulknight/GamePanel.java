@@ -7,6 +7,7 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.stage.Stage;
+import master.soulknight.States.GameState;
 import master.soulknight.States.GameStateManager;
 import master.soulknight.States.MenuState;
 import master.soulknight.Tiles.TileManager;
@@ -113,7 +114,7 @@ public class GamePanel extends Application {
 
         scene.setOnKeyPressed(event -> TileManager.player.handleKeyPressedEvent(event.getCode()));
         scene.setOnKeyReleased(event -> TileManager.player.handleKeyReleasedEvent(event.getCode()));
-        scene.setOnMouseClicked(event -> MenuState.mouseEvent(event.getSceneX(),event.getSceneY()));
+        scene.setOnMouseClicked(event -> GameState.mouseEvent(event.getSceneX(),event.getSceneY()));
     }
 
     public void update() {
