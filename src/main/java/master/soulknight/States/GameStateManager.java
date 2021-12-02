@@ -81,6 +81,7 @@ public class GameStateManager {
     public void render(GraphicsContext gc) {
         for (GameState state : states) {
             state.render(gc);
+
         }
     }
 }
