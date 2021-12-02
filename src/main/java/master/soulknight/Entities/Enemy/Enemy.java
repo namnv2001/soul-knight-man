@@ -11,7 +11,6 @@ public class Enemy extends Entity {
     public Enemy(SpriteSheet sprite, Vector2f origin, int size, double SCALING) {
         super(sprite, origin, size, SCALING);
         up = true;
-
     }
 
     public void changeDirection() {
@@ -34,7 +33,7 @@ public class Enemy extends Entity {
     public void update() {
         animated();
         if ( ani.getDelay() != 10) {
-            this.ani.setDelay(10);
+            this.ani.setDelay(10);  //delay monster
         }
         move();
         super.update();

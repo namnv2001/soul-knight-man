@@ -1,12 +1,7 @@
 package master.soulknight.States;
 
 import javafx.scene.canvas.GraphicsContext;
-import master.soulknight.Entities.Enemy.Enemy;
-import master.soulknight.Entities.Player;
-import master.soulknight.Graphics.SpriteSheet;
-import master.soulknight.Tiles.TileCollision;
 import master.soulknight.Tiles.TileManager;
-import master.soulknight.Util.Vector2f;
 
 public class PlayState extends GameState {
 

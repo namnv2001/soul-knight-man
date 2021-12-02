@@ -4,7 +4,6 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import master.soulknight.Graphics.Sprite;
 import master.soulknight.Tiles.TileManager;
-import master.soulknight.Util.AABB;
 import master.soulknight.Util.Vector2f;
 
 public class PowerUpItem extends Block{
