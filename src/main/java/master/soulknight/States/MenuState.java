@@ -13,7 +13,6 @@ public class MenuState extends GameState {
 
     public MenuState(GameStateManager gsm) {
         super(gsm);
-
         try {
             image = new Image(new FileInputStream("src/main/resources/Sprite/menu.png"));
         } catch (IOException e) {
@@ -23,6 +22,7 @@ public class MenuState extends GameState {
 
     @Override
     public void update() {
+
     }
 
     @Override
@@ -38,6 +38,4 @@ public class MenuState extends GameState {
     public void render(GraphicsContext gc) {
         gc.drawImage(image, 0, 0);
     }
-
-
 }

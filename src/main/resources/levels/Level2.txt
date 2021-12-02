@@ -14,7 +14,6 @@
 84537335435437734733M8
 8888888888888888888888
 
-
 Mô tả cấu trúc tệp cấu hình màn chơi:
 1/ Dòng đầu tiên bao gồm 3 số nguyên L, R, C:
 L - số thứ tự màn chơi
@@ -23,18 +22,13 @@ C - số cột của bản đồ
 
 2/ R dòng tiếp theo, mỗi dòng có C kí tự. Mỗi kí tự đại diện cho một đối tượng trên bản đồ:
 Tiles:
-1, 2, 6, 8 - Wall
-5 - Brick
-9 - Portal
+1, 2 - Wall
+3 - Brick
+ - Portal
 
 Character:
 p - Bomber
-a - Balloon
-b - Oneal
+a - SnowApe
+b - Monkey
 
-Items:
-B - Bomb Item
-F - Flame Item
-S - Speed Item
-
-Kí tự khác các kí tự trên - Grass (3, 4, 7)
+Kí tự khác các kí tự trên - Floor

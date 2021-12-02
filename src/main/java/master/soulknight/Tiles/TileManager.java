@@ -24,6 +24,7 @@ public class TileManager {
 
 
     public static final SpriteSheet itemTileSheet = new SpriteSheet("src/main/resources/Sprite/Items.png");
+
     public static final SpriteSheet tileSheet = new SpriteSheet("src/main/resources/Sprite/TileSheet.png");
 
     public final Sprite floor1 = tileSheet.getSpriteArray(0,1);
@@ -217,8 +218,6 @@ public class TileManager {
                     block = new FloorBlock(realSize, realSize, floor3.getFxImage()
                             , new Vector2f(realSize * j, realSize * i));
                     floorBlocks.add(block);
-
-
                 }
             }
         } catch (IOException e) {

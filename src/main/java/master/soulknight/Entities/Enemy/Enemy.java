@@ -33,6 +33,7 @@ public class Enemy extends Entity {
     @Override
     public void update() {
         animated();
+
         if (ani.getDelay() != 10) {
             this.ani.setDelay(10);
         }

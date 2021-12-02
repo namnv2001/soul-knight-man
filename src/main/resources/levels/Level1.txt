@@ -28,13 +28,7 @@ x - Portal
 
 Character:
 p - Bomber
-1 - Balloon
-2 - Oneal
+a - SnowApe
+b - Monkey
 
-Items:
-b - Bomb Item
-f - Flame Item
-s - Speed Item
-F - Flame Item but covered
-
-Kí tự khác các kí tự trên - Grass
+Kí tự khác các kí tự trên - Floor

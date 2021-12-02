@@ -9,6 +9,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
+import master.soulknight.States.GameState;
 import master.soulknight.States.GameStateManager;
 import master.soulknight.Util.KeyHandler;
 import master.soulknight.Util.MouseHandler;
