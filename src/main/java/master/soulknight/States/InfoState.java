@@ -15,7 +15,7 @@ public class InfoState extends GameState {
     public InfoState(GameStateManager gsm) {
         super(gsm);
         try {
-            backgroundImage = new Image(new FileInputStream("src/main/resources/Sprite/info.png"));
+            backgroundImage = new Image(new FileInputStream("src/main/resources/Sprite/Info.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }
