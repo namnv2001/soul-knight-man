@@ -4,6 +4,8 @@ import javafx.scene.canvas.GraphicsContext;
 import master.soulknight.GamePanel;
 import master.soulknight.Graphics.SpriteSheet;
 import master.soulknight.Util.Vector2f;
+import master.soulknight.Util.MouseHandler;
+import master.soulknight.Util.KeyHandler;
 
 import java.util.ArrayList;
 
@@ -75,6 +77,12 @@ public class GameStateManager {
     public void update() {
         for (int i = 0; i < states.size(); i++) {
             states.get(i).update();
+        }
+    }
+
+    public void input(KeyHandler keyHandler, MouseHandler mouseHandler) {
+        for(GameState state : states) {
+            state.input(keyHandler,mouseHandler);
         }
     }
 

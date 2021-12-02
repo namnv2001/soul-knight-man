@@ -5,7 +5,6 @@ import javafx.scene.image.Image;
 import master.soulknight.Graphics.Animation;
 import master.soulknight.Graphics.Sprite;
 import master.soulknight.Graphics.SpriteSheet;
-import master.soulknight.Tiles.TileCollision;
 import master.soulknight.Tiles.TileManager;
 import master.soulknight.Util.AABB;
 import master.soulknight.Util.Vector2f;
@@ -13,33 +12,27 @@ import master.soulknight.Util.Vector2f;
 public abstract class Entity {
 
     private static double SCALING;
-//    private final int IDLE = 5;
-//    private final int FALLEN = 4;
     private final int UP = 3;
     private final int DOWN = 2;
     private final int RIGHT = 0;
     private final int LEFT = 1;
+    public float speed = 2f;
     protected int currentAnimation;
     protected int currentDirection = RIGHT;
-
+    protected TileManager tm;
     protected Animation ani;
     protected SpriteSheet sprite;
     protected Vector2f pos;
     protected int size;
-
     protected boolean up;
     protected boolean down;
     protected boolean right;
     protected boolean left;
     protected boolean fallen;
-
     protected int x;
     protected int y;
-
     protected float dx;
     protected float dy;
-
-    public float speed = 2f;
     protected float acc = 3f;
     protected float deacc = 0.4f;
 
@@ -50,6 +43,20 @@ public abstract class Entity {
     private int directionVar;
 
     public Entity(SpriteSheet sprite, Vector2f origin, int size, double SCALING) {
+        this.sprite = sprite;
+        pos = origin;
+        this.size = size;
+        Entity.SCALING = SCALING;
+
+        bounds = new AABB(origin, size, size);
+        hitBounds = new AABB(new Vector2f(origin.x + (size / 2), origin.y), size, size);
+
+        ani = new Animation();
+        setAnimation(RIGHT, sprite.getSpriteArray(RIGHT), 10);
+    }
+
+    public Entity(SpriteSheet sprite, Vector2f origin, int size, double SCALING, TileManager tm) {
+        this.tm = tm;
         this.sprite = sprite;
         pos = origin;
         this.size = size;
@@ -209,11 +216,5 @@ public abstract class Entity {
         ani.update();
         pos.x += dx;
         pos.y += dy;
-        if (TileCollision.isCollidedWithBlock(TileManager.player) || (TileCollision.isCollidedWithBombs(TileManager.player) && !Bomb.firstTime)) {
-            pos.x -= dx;
-            pos.y -= dy;
-        }
     }
-
-
 }
