@@ -27,10 +27,19 @@ public class MenuState extends GameState {
 
     @Override
     public void input(KeyHandler keyHandler, MouseHandler mouseHandler) {
-        if (mouseHandler.getPos() == null) {
-        } else if (mouseHandler.getPos().x > 0 && mouseHandler.getPos().y > 0 && gsm.isMenuState()) {
-            gsm.pop(0);
-            gsm.add(1);
+        if (mouseHandler.getPos() != null) {
+            double x = mouseHandler.getPos().x;
+            double y = mouseHandler.getPos().y;
+            // To pick champ state
+            if (gsm.isMenuState() && x >= 131 && x <= 341 && y >= 545 && y <= 716) {
+                gsm.pop(0);
+                gsm.add(5);
+            }
+            // To info state
+            if (gsm.isMenuState() && x >= 419 && x <= 629 && y >= 545 && y <= 716) {
+                gsm.pop(0);
+                gsm.add(4);
+            }
         }
     }
 
