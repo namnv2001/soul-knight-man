@@ -21,7 +21,8 @@ import java.util.Random;
 public class TileManager {
 
     public static final SpriteSheet itemTileSheet = new SpriteSheet("src/main/resources/Sprite/Items.png");
-    public static final SpriteSheet tileSheet = new SpriteSheet("src/main/resources/Sprite/map1.png");
+    public static final SpriteSheet tileSheet = new SpriteSheet("src/main/resources/Sprite/map2" +
+            ".png");
 
     public static Sprite wall1 = tileSheet.getSpriteArray(0,0);
     public static Sprite wall2 = tileSheet.getSpriteArray(1,0);
