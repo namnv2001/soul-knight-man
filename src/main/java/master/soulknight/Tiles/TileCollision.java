@@ -5,14 +5,11 @@ import master.soulknight.Entities.Entity;
 import master.soulknight.Entities.Flame;
 import master.soulknight.Tiles.Blocks.Block;
 
-public class TileCollision {
-    static double realWidth = TileManager.mapColumns * 62;
-    static double realHeight = TileManager.mapRows * 62;
-    static double widthRatio = realWidth / TileManager.mapColumns;
-    static double heightRatio = realHeight / TileManager.mapRows;
+import java.util.ArrayList;
 
-    public static boolean isCollidedWithBlock(Entity player) {
-        for (Block block : TileManager.collideBlocks) {
+public class TileCollision {
+    public static boolean isCollidedWithBlock(Entity player, ArrayList<Block> collideBlocks) {
+        for (Block block : collideBlocks) {
             if (player.getX() + 7 < block.pos.x + block.getBlockWidth() &&
                     player.getX() + 7 + player.getSize() > block.pos.x &&
                     player.getY() + 7 < block.pos.y + block.getBlockHeight() &&
@@ -31,8 +28,8 @@ public class TileCollision {
                 player.getY() + 7 + player.getSize() > block.pos.y;
     }
 
-    public static boolean isCollidedWithFlames(Entity player) {
-        for (Flame flame : TileManager.getFlames()) {
+    public static boolean isCollidedWithFlames(Entity player, ArrayList<Flame> flames) {
+        for (Flame flame : flames) {
             if (player.getX() + 7 < flame.getX() + flame.getSize() &&
                     player.getX() + 7 + player.getSize() > flame.getX() &&
                     player.getY() + 7 < flame.getY() + flame.getSize() &&
@@ -43,8 +40,8 @@ public class TileCollision {
         return false;
     }
 
-    public static boolean isCollidedWithBombs(Entity player) {
-        for (Bomb bomb : TileManager.getBombs()) {
+    public static boolean isCollidedWithBombs(Entity player, ArrayList<Bomb> bombs) {
+        for (Bomb bomb : bombs) {
             if (player.getX() + 7 < bomb.getX() + bomb.getSize() &&
                     player.getX() + 7 + player.getSize() > bomb.getX() &&
                     player.getY() + 7 < bomb.getY() + bomb.getSize() &&
@@ -62,5 +59,15 @@ public class TileCollision {
                 player.getY() + 7 + player.getSize() > enemy.getY();
     }
 
-
+    public static boolean isColliedWithPortals(Entity player, ArrayList<Block> portals) {
+        for (Block block : portals) {
+            if (player.getX() + 7 < block.pos.x + block.getBlockWidth() &&
+                    player.getX() + 7 + player.getSize() > block.pos.x &&
+                    player.getY() + 7 < block.pos.y + block.getBlockHeight() &&
+                    player.getY() + 7 + player.getSize() > block.pos.y) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

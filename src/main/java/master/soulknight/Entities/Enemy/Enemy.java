@@ -4,14 +4,14 @@ import javafx.scene.canvas.GraphicsContext;
 import master.soulknight.Entities.Entity;
 import master.soulknight.Graphics.SpriteSheet;
 import master.soulknight.Tiles.TileCollision;
+import master.soulknight.Tiles.TileManager;
 import master.soulknight.Util.Vector2f;
 
 public class Enemy extends Entity {
 
-    public Enemy(SpriteSheet sprite, Vector2f origin, int size, double SCALING) {
-        super(sprite, origin, size, SCALING);
+    public Enemy(SpriteSheet sprite, Vector2f origin, int size, double SCALING, TileManager tm) {
+        super(sprite, origin, size, SCALING, tm);
         up = true;
-
     }
 
     public void changeDirection() {
@@ -33,12 +33,12 @@ public class Enemy extends Entity {
     @Override
     public void update() {
         animated();
-        if ( ani.getDelay() != 10) {
+        if (ani.getDelay() != 10) {
             this.ani.setDelay(10);
         }
         move();
         super.update();
-        if (TileCollision.isCollidedWithBlock(this) || TileCollision.isCollidedWithBombs(this)) {
+        if (TileCollision.isCollidedWithBlock(this, tm.collideBlocks) || TileCollision.isCollidedWithBombs(this, tm.getBombs())) {
             changeDirection();
             pos.x -= dx;
             pos.y -= dy;

@@ -7,7 +7,9 @@ import master.soulknight.Entities.Flame;
 import master.soulknight.Entities.Player;
 import master.soulknight.Graphics.Sprite;
 import master.soulknight.Graphics.SpriteSheet;
+import master.soulknight.States.PlayState;
 import master.soulknight.Tiles.Blocks.*;
+import master.soulknight.Util.KeyHandler;
 import master.soulknight.Util.Vector2f;
 
 import java.io.BufferedReader;
@@ -24,59 +26,94 @@ public class TileManager {
     public static final SpriteSheet itemTileSheet = new SpriteSheet("src/main/resources/Sprite/Items.png");
     public static final SpriteSheet tileSheet = new SpriteSheet("src/main/resources/Sprite/TileSheet.png");
 
-    public static Sprite floor1 = tileSheet.getSpriteArray(0,1);
-    public static Sprite floor2 = tileSheet.getSpriteArray(1,1);
-    public static Sprite floor3 = tileSheet.getSpriteArray(2,1);
+    public final Sprite floor1 = tileSheet.getSpriteArray(0,1);
+    public final Sprite floor2 = tileSheet.getSpriteArray(1,1);
+    public final Sprite floor3 = tileSheet.getSpriteArray(2,1);
 //    public static Sprite[] floors = {floor1,floor2,floor3};
 
-    public static Sprite wall1 = tileSheet.getSpriteArray(0,0);
-    public static Sprite wall2 = tileSheet.getSpriteArray(1,0);
-    public static Sprite wall3 = tileSheet.getSpriteArray(2,0);
-    public static Sprite wall4 = tileSheet.getSpriteArray(3,0);
+    public final Sprite wall1 = tileSheet.getSpriteArray(0,0);
+    public final Sprite wall2 = tileSheet.getSpriteArray(1,0);
+    public final Sprite wall3 = tileSheet.getSpriteArray(2,0);
+    public final Sprite wall4 = tileSheet.getSpriteArray(3,0);
 //    public static Sprite[] walls = {wall1,wall2,wall3,wall4};
 
-    public static Sprite box = tileSheet.getSpriteArray(3,1);
+    public final Sprite box = tileSheet.getSpriteArray(3,1);
 
-    public static Sprite exBombItem = itemTileSheet.getSpriteArray(0,0);
-    public static Sprite speedItem = itemTileSheet.getSpriteArray(2,0);
-    public static Sprite powerUpItem = itemTileSheet.getSpriteArray(1,0);
+    public final Sprite exBombItem = itemTileSheet.getSpriteArray(0,0);
+    public final Sprite speedItem = itemTileSheet.getSpriteArray(2,0);
+    public final Sprite powerUpItem = itemTileSheet.getSpriteArray(1,0);
 
     public static int mapRows;
     public static int mapColumns;
-    public static Player player;
-    public static Enemy enemy;
-    public static ArrayList<Block> collideBlocks = new ArrayList<>();
-    protected static ArrayList<Block> items = new ArrayList<>();
-    protected static ArrayList<Enemy> enemies = new ArrayList<>();
-    protected static ArrayList<Flame> flames = new ArrayList<>();
-    protected static ArrayList<Bomb> bombs = new ArrayList<>();
-    protected static ArrayList<Block> floorBlocks = new ArrayList<>();
+
+    public Player player;
+    public Enemy enemy;
+
+//    public ArrayList<Block> tmCollideBlocks = new ArrayList<>();
+    public ArrayList<Block> collideBlocks = new ArrayList<>();
+
+    protected ArrayList<Block> portals = new ArrayList<>();
+    protected ArrayList<Block> items = new ArrayList<>();
+    protected ArrayList<Enemy> enemies = new ArrayList<>();
+    protected ArrayList<Flame> flames = new ArrayList<>();
+    protected ArrayList<Bomb> bombs = new ArrayList<>();
+    protected ArrayList<Block> floorBlocks = new ArrayList<>();
+
     protected static int TILE_SIZE = 31;
-    public boolean gameOver = false;
+    protected int realSize = 31;
     protected double scaling;
     protected int level;
     protected int rows;
     protected int columns;
 
+    public boolean gameOver = false;
+
     public TileManager(String path, double scaling) {
         this.scaling = scaling;
-        TILE_SIZE *= scaling;
+        realSize *= scaling;
         readMap(path);
     }
 
-    public static ArrayList<Bomb> getBombs() {
+    public Player getPlayer() {
+        return player;
+    }
+
+    // Bomb------------------------------------------------------------------------------
+    public ArrayList<Bomb> getBombs() {
         return bombs;
     }
 
-    public static void addBomb(Bomb bomb) {
+    public void addBomb(Bomb bomb) {
         bombs.add(bomb);
     }
 
-    public static void addFlame(Flame flame) {
+    public boolean colliedBomb(int x, int y) {
+        for (Bomb bomb : bombs) {
+            if (bomb.getX() == x && bomb.getY() == y) {
+                bomb.endCounter();
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean bombExist(Vector2f pos) {
+        for (Bomb bomb : bombs) {
+            if (bomb.getX() == pos.x && bomb.getY() == pos.y) {
+                System.out.println("Bomb exist");
+                return true;
+            }
+        }
+        return false;
+    }
+    // ----------------------------------------------------------------------------------
+
+    // Flame-----------------------------------------------------------------------------
+    public void addFlame(Flame flame) {
         flames.add(flame);
     }
 
-    public static boolean colliedTile(int x, int y) {
+    public boolean colliedTile(int x, int y) {
         for (Block block : collideBlocks) {
             if (block.pos.x == x && block.pos.y == y) {
                 if (block.breakable()) {
@@ -88,29 +125,11 @@ public class TileManager {
         return false;
     }
 
-    public static boolean colliedBomb(int x, int y) {
-        for (Bomb bomb : bombs) {
-            if (bomb.getX() == x && bomb.getY() == y) {
-                bomb.endCounter();
-                return true;
-            }
-        }
-        return false;
-    }
-
-    public static boolean bombExist(Vector2f pos) {
-        for (Bomb bomb : bombs) {
-            if (bomb.getX() == pos.x && bomb.getY() == pos.y) {
-                System.out.println("Bomb exist");
-                return true;
-            }
-        }
-        return false;
-    }
-
-    public static ArrayList<Flame> getFlames() {
+    public ArrayList<Flame> getFlames() {
         return flames;
     }
+    // ----------------------------------------------------------------------------------
+
 
     public void readMap(String path) {
         try {
@@ -133,65 +152,70 @@ public class TileManager {
                 mapStr[count] += line;
                 count++;
             }
-            System.out.println(TILE_SIZE);
+            System.out.println(realSize);
 
             for (int i = 0; i < rows; i++) {
                 for (int j = 0; j < columns; j++) {
                     Block block;
                     Block item;
+
                     if (mapStr[i].charAt(j) == '1') {
-                        block = new WallBlock(TILE_SIZE, TILE_SIZE, wall1.getFxImage()
-                                , new Vector2f(TILE_SIZE * j, TILE_SIZE * i));
+                        block = new WallBlock(realSize, realSize, wall1.getFxImage()
+                                , new Vector2f(realSize * j, realSize * i));
                         collideBlocks.add(block);
                     } else if (mapStr[i].charAt(j) == '2') {
-                        block = new WallBlock(TILE_SIZE, TILE_SIZE, wall1.getFxImage()
-                                , new Vector2f(TILE_SIZE * j, TILE_SIZE * i));
+                        block = new WallBlock(realSize, realSize, wall1.getFxImage()
+                                , new Vector2f(realSize * j, realSize * i));
                         collideBlocks.add(block);
                     } else if (mapStr[i].charAt(j) == '6') {
-                        block = new WallBlock(TILE_SIZE, TILE_SIZE, wall1.getFxImage()
-                                , new Vector2f(TILE_SIZE * j, TILE_SIZE * i));
+                        block = new WallBlock(realSize, realSize, wall1.getFxImage()
+                                , new Vector2f(realSize * j, realSize * i));
                         collideBlocks.add(block);
                     } else if (mapStr[i].charAt(j) == '8') {
-                        block = new WallBlock(TILE_SIZE, TILE_SIZE, wall1.getFxImage()
-                                , new Vector2f(TILE_SIZE * j, TILE_SIZE * i));
+                        block = new WallBlock(realSize, realSize, wall1.getFxImage()
+                                , new Vector2f(realSize * j, realSize * i));
                         collideBlocks.add(block);
                     } else if (mapStr[i].charAt(j) == '5') {
-                        block = new BoxBlock(TILE_SIZE, TILE_SIZE, box.getFxImage()
-                                , new Vector2f(TILE_SIZE * j, TILE_SIZE * i));
+                        block = new BoxBlock(realSize, realSize, box.getFxImage()
+                                , new Vector2f(realSize * j, realSize * i));
                         Random random = new Random();
                         int randNum = random.nextInt((5-1)+1) + 1;
                         if ( randNum == 1) {
-                            item = new PowerUpItem(TILE_SIZE, TILE_SIZE, powerUpItem.getFxImage()
-                                    , new Vector2f(TILE_SIZE * j, TILE_SIZE * i));
+                            item = new PowerUpItem(realSize, realSize, powerUpItem.getFxImage()
+                                    , new Vector2f(realSize * j, realSize * i), player);
                             items.add(item);
                         }
                         if ( randNum == 2) {
-                            item = new ExBombItem(TILE_SIZE, TILE_SIZE, exBombItem.getFxImage()
-                                    , new Vector2f(TILE_SIZE * j, TILE_SIZE * i));
+                            item = new ExBombItem(realSize, realSize, exBombItem.getFxImage()
+                                    , new Vector2f(realSize * j, realSize * i), player);
                             items.add(item);
                         }
                         if ( randNum == 3) {
-                            item = new SpeedUpItem(TILE_SIZE, TILE_SIZE, speedItem.getFxImage()
-                                    , new Vector2f(TILE_SIZE * j, TILE_SIZE * i));
+                            item = new SpeedUpItem(realSize, realSize, speedItem.getFxImage()
+                                    , new Vector2f(realSize * j, realSize * i), player);
                             items.add(item);
                         }
                        collideBlocks.add(block);
                     } else if (mapStr[i].charAt(j) == 'p') {
-                        player = new Player(new SpriteSheet("src/main/resources/Sprite/Character_1.png"), new Vector2f(TILE_SIZE * j, TILE_SIZE * i), 52, scaling);
+                        player = new Player(new SpriteSheet("src/main/resources/Sprite/Character_1.png"), new Vector2f(realSize * j, realSize * i), 52, scaling, this);
                     } else if (mapStr[i].charAt(j) == 'M') {
-                        enemy = new Enemy(new SpriteSheet("src/main/resources/Sprite/Character_1.png"), new Vector2f(TILE_SIZE * j, TILE_SIZE * i), 52, scaling);
+                        enemy = new Enemy(new SpriteSheet("src/main/resources/Sprite/Character_1.png"), new Vector2f(realSize * j, realSize * i), 52, scaling, this);
                         enemies.add(enemy);
                     } else if (mapStr[i].charAt(j) == '4') {
-                        block = new FloorBlock(TILE_SIZE, TILE_SIZE, floor2.getFxImage()
-                                , new Vector2f(TILE_SIZE * j, TILE_SIZE * i));
+                        block = new FloorBlock(realSize, realSize, floor3.getFxImage()
+                                , new Vector2f(realSize * j, realSize * i));
                         floorBlocks.add(block);
                     } else if (mapStr[i].charAt(j) == '7') {
-                        block = new FloorBlock(TILE_SIZE, TILE_SIZE, floor3.getFxImage()
-                                , new Vector2f(TILE_SIZE * j, TILE_SIZE * i));
+                        block = new FloorBlock(realSize, realSize, floor3.getFxImage()
+                                , new Vector2f(realSize * j, realSize * i));
                         floorBlocks.add(block);
+                    } else if (mapStr[i].charAt(j) == 'P') {
+                        block = new Portal(realSize, realSize, wall4.getFxImage()
+                                , new Vector2f(realSize * j, realSize * i));
+                        portals.add(block);
                     }
-                    block = new FloorBlock(TILE_SIZE, TILE_SIZE, floor3.getFxImage()
-                            , new Vector2f(TILE_SIZE * j, TILE_SIZE * i));
+                    block = new FloorBlock(realSize, realSize, floor3.getFxImage()
+                            , new Vector2f(realSize * j, realSize * i));
                     floorBlocks.add(block);
 
 
@@ -203,7 +227,7 @@ public class TileManager {
     }
 
     public void update() {
-        Iterator<Block> iterator = TileManager.items.iterator();
+        Iterator<Block> iterator = items.iterator();
         while (iterator.hasNext()) {
             Block block = iterator.next();
             if (TileCollision.isCollidedWithItem(player,block)) {
@@ -217,16 +241,20 @@ public class TileManager {
                 gameOver = true;
             }
         }
-        if (TileCollision.isCollidedWithFlames(player)) {
+        if (TileCollision.isCollidedWithFlames(player, flames)) {
             gameOver = true;
         }
         for (int i = 0; i < enemies.size(); i++) {
-            if (TileCollision.isCollidedWithFlames(enemies.get(i))) {
+            if (TileCollision.isCollidedWithFlames(enemies.get(i),flames)) {
                 enemies.remove(enemies.get(i));
             }
         }
         if (!gameOver) {
             enemies.forEach(Enemy::update);
+        }
+        if (TileCollision.isColliedWithPortals(player, portals)) {
+            System.out.println("Portal hit");
+            PlayState.levelUp();
         }
         player.update();
         bombs.forEach(Bomb::update);
@@ -234,14 +262,19 @@ public class TileManager {
     }
 
     public void render(GraphicsContext gc) {
-        floorBlocks.forEach(g -> g.render(gc, TILE_SIZE));
-        items.forEach(g -> g.render(gc,TILE_SIZE));
-        collideBlocks.forEach(g -> g.render(gc, TILE_SIZE));
+        floorBlocks.forEach(g -> g.render(gc, realSize));
+        items.forEach(g -> g.render(gc,realSize));
+        collideBlocks.forEach(g -> g.render(gc, realSize));
         bombs.forEach(g -> g.render(gc));
         flames.forEach(g -> g.render(gc));
+        portals.forEach(g -> g.render(gc, realSize));
         if (!gameOver) {
             enemies.forEach(g -> g.render(gc));
             player.render(gc);
         }
+    }
+
+    public void input(KeyHandler keyHandler) {
+        player.input(keyHandler);
     }
 }

@@ -18,6 +18,14 @@ public class Bomb extends Entity {
     protected int downBeforeCollide = -1;
     private int bombCounter;
 
+    public Bomb(SpriteSheet sprite, Vector2f origin, int size, double SCALING, int bombRange, TileManager tm) {
+        super(sprite, origin, size, SCALING, tm);
+        Bomb.bombRange = bombRange;
+        bombCounter = 0;
+        removed = false;
+        firstTime = true;
+    }
+
     public Bomb(SpriteSheet sprite, Vector2f origin, int size, double SCALING, int bombRange) {
         super(sprite, origin, size, SCALING);
         Bomb.bombRange = bombRange;
@@ -33,7 +41,7 @@ public class Bomb extends Entity {
             generateFlames();
             remove();
         }
-        if (!TileCollision.isCollidedWithBombs(TileManager.player)) {
+        if (!TileCollision.isCollidedWithBombs(tm.getPlayer(), tm.getBombs())) {
             leave();
         }
 
@@ -42,23 +50,23 @@ public class Bomb extends Entity {
     public void generateFlames() {
         for (int i = 1; i <= bombRange; i++) {
             if (leftBeforeCollide == -1) {
-                if (TileManager.colliedTile((int) (pos.x - i * realSize), (int) (pos.y))
-                        || TileManager.colliedBomb((int) (pos.x - i * realSize), (int) (pos.y)))
+                if (tm.colliedTile((int) (pos.x - i * realSize), (int) (pos.y))
+                        || tm.colliedBomb((int) (pos.x - i * realSize), (int) (pos.y)))
                     leftBeforeCollide = i - 1;
             }
             if (rightBeforeCollide == -1) {
-                if (TileManager.colliedTile((int) (pos.x + i * realSize), (int) (pos.y))
-                        || TileManager.colliedBomb((int) (pos.x + i * realSize), (int) (pos.y)))
+                if (tm.colliedTile((int) (pos.x + i * realSize), (int) (pos.y))
+                        || tm.colliedBomb((int) (pos.x + i * realSize), (int) (pos.y)))
                     rightBeforeCollide = i - 1;
             }
             if (downBeforeCollide == -1) {
-                if (TileManager.colliedTile((int) (pos.x), (int) (pos.y + i * realSize))
-                        || TileManager.colliedBomb((int) (pos.x), (int) (pos.y + i * realSize)))
+                if (tm.colliedTile((int) (pos.x), (int) (pos.y + i * realSize))
+                        || tm.colliedBomb((int) (pos.x), (int) (pos.y + i * realSize)))
                     downBeforeCollide = i - 1;
             }
             if (upBeforeCollide == -1) {
-                if (TileManager.colliedTile((int) (pos.x), (int) (pos.y - i * realSize))
-                        || TileManager.colliedBomb((int) (pos.x), (int) (pos.y - i * realSize)))
+                if (tm.colliedTile((int) (pos.x), (int) (pos.y - i * realSize))
+                        || tm.colliedBomb((int) (pos.x), (int) (pos.y - i * realSize)))
                     upBeforeCollide = i - 1;
             }
             if (i == bombRange) {
@@ -73,27 +81,22 @@ public class Bomb extends Entity {
         System.out.println(upBeforeCollide);
         System.out.println(downBeforeCollide);
         for (int i = 1; i <= bombRange; i++) {
-//            gc.drawImage(ani.getImage().getFxImage(), (int) (pos.x), (int) (pos.y), realSize, realSize);
             String flamePath = "src/main/resources/Sprite/Flame - Copy.png";
-            TileManager.addFlame(new Flame(new SpriteSheet(flamePath), new Vector2f(pos.x, pos.y), size, Entity.getSCALING(), bombRange));
+            tm.addFlame(new Flame(new SpriteSheet(flamePath), new Vector2f(pos.x, pos.y), size, Entity.getSCALING(), bombRange));
             if (i <= rightBeforeCollide) {
-//                gc.drawImage(ani.getImage().getFxImage(), (int) (pos.x) + i * realSize, (int) (pos.y), realSize, realSize);
-                TileManager.addFlame(new Flame(new SpriteSheet(flamePath), new Vector2f((float) (pos.x + i * realSize), pos.y), size, Entity.getSCALING(), bombRange));
+                tm.addFlame(new Flame(new SpriteSheet(flamePath), new Vector2f((float) (pos.x + i * realSize), pos.y), size, Entity.getSCALING(), bombRange));
             }
 
             if (i <= leftBeforeCollide) {
-//                gc.drawImage(ani.getImage().getFxImage(), (int) (pos.x) - i * realSize, (int) (pos.y), realSize, realSize);
-                TileManager.addFlame(new Flame(new SpriteSheet(flamePath), new Vector2f((float) (pos.x - i * realSize), pos.y), size, Entity.getSCALING(), bombRange));
+                tm.addFlame(new Flame(new SpriteSheet(flamePath), new Vector2f((float) (pos.x - i * realSize), pos.y), size, Entity.getSCALING(), bombRange));
             }
 
             if (i <= upBeforeCollide) {
-//                gc.drawImage(ani.getImage().getFxImage(), (int) (pos.x), (int) (pos.y) - i * realSize, realSize, realSize);
-                TileManager.addFlame(new Flame(new SpriteSheet(flamePath), new Vector2f( (pos.x), (float) (pos.y - i * realSize)), size, Entity.getSCALING(), bombRange));
+                tm.addFlame(new Flame(new SpriteSheet(flamePath), new Vector2f((pos.x), (float) (pos.y - i * realSize)), size, Entity.getSCALING(), bombRange));
             }
 
             if (i <= downBeforeCollide) {
-//                gc.drawImage(ani.getImage().getFxImage(), (int) (pos.x), (int) (pos.y) + i * realSize, realSize, realSize);
-                TileManager.addFlame(new Flame(new SpriteSheet(flamePath), new Vector2f( (pos.x), (float) (pos.y + i * realSize)), size, Entity.getSCALING(), bombRange));
+                tm.addFlame(new Flame(new SpriteSheet(flamePath), new Vector2f((pos.x), (float) (pos.y + i * realSize)), size, Entity.getSCALING(), bombRange));
             }
         }
     }

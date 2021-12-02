@@ -3,6 +3,8 @@ package master.soulknight.States;
 import javafx.scene.canvas.GraphicsContext;
 import master.soulknight.GamePanel;
 import master.soulknight.Graphics.SpriteSheet;
+import master.soulknight.Util.KeyHandler;
+import master.soulknight.Util.MouseHandler;
 import master.soulknight.Util.Vector2f;
 
 import java.util.ArrayList;
@@ -39,6 +41,11 @@ public class GameStateManager {
         return states.get(states.size() - 1) instanceof MenuState;
     }
 
+    public boolean isPlayState() {
+        return states.get(states.size() - 1) instanceof PlayState;
+    }
+
+
     public void add(int state) {
 //        if(states.get(state) != null) {
 //            return;
@@ -60,6 +67,12 @@ public class GameStateManager {
     public void update() {
         for (int i = 0; i < states.size(); i++) {
             states.get(i).update();
+        }
+    }
+
+    public void input(KeyHandler keyHandler, MouseHandler mouseHandler) {
+        for(GameState state : states) {
+            state.input(keyHandler,mouseHandler);
         }
     }
 

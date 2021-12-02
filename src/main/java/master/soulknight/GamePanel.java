@@ -1,15 +1,18 @@
 package master.soulknight;
 
-import javafx.animation.AnimationTimer;
 import javafx.application.Application;
+import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import master.soulknight.States.GameStateManager;
-import master.soulknight.States.MenuState;
-import master.soulknight.Tiles.TileManager;
+import master.soulknight.Util.KeyHandler;
+import master.soulknight.Util.MouseHandler;
+import master.soulknight.Util.StatusTimer;
 
 public class GamePanel extends Application {
     public static int oldFrameCount;
@@ -32,11 +35,25 @@ public class GamePanel extends Application {
     public void init() {
         initGraphics();
         gsm = new GameStateManager(gc);
+
     }
 
     @Override
     public void start(Stage stage) {
+        init();
 
+        Group root = new Group();
+        Scene scene = new Scene(root);
+        root.getChildren().add(canvas);
+
+        KeyHandler keyHandler = new KeyHandler();
+        MouseHandler mouseHandler = new MouseHandler();
+
+        scene.setOnKeyPressed(keyHandler);
+        scene.setOnKeyReleased(keyHandler);
+        scene.setOnMouseClicked(mouseHandler);
+
+        // ----------------------------------------------------------------------------------
         final double GAME_HERTZ = 64.0;
         final double TBU = 1000000000 / GAME_HERTZ; // Time Before Update
 
@@ -54,10 +71,12 @@ public class GamePanel extends Application {
 
         tickCount = 0;
         oldTickCount = 0;
-        AnimationTimer timer = new AnimationTimer() {
+        // ---------------------------------------------------------------------------------
+        StatusTimer timer = new StatusTimer() {
             @Override
             public void handle(long l) {
 
+                //--------------------------------------------------------------------------
                 double now = System.nanoTime();
                 int updateCount = 0;
                 while (((now - lastUpdateTime[0]) > TBU) && (updateCount < MUBR)) {
@@ -71,8 +90,11 @@ public class GamePanel extends Application {
                     lastUpdateTime[0] = now - TBU;
                 }
 
+                //--------------------------------------------------------------------------
                 render();
+                input(keyHandler, mouseHandler);
                 update();
+                //--------------------------------------------------------------------------
 
                 lastRenderTime[0] = now;
                 frameCount[0]++;
@@ -105,23 +127,37 @@ public class GamePanel extends Application {
         };
         timer.start();
 
-        Group root = new Group();
-        Scene scene = new Scene(root);
-        root.getChildren().add(canvas);
+        scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent keyEvent) {
+                if (keyEvent.getCode() == KeyCode.ESCAPE) {
+                    if (timer.isRunning()) {
+                        timer.stop();
+                    } else {
+                        timer.start();
+                    }
+                } else {
+                    if (KeyEvent.KEY_PRESSED.equals(keyEvent.getEventType())) {
+                        keyHandler.getSetActiveKeys().add(keyEvent.getCode());
+                    }
+                }
+            }
+        });
+
         stage.setScene(scene);
         stage.show();
-
-        scene.setOnKeyPressed(event -> TileManager.player.handleKeyPressedEvent(event.getCode()));
-        scene.setOnKeyReleased(event -> TileManager.player.handleKeyReleasedEvent(event.getCode()));
-        scene.setOnMouseClicked(event -> MenuState.mouseEvent(event.getSceneX(),event.getSceneY()));
     }
 
     public void update() {
         gsm.update();
     }
 
+    public void input(KeyHandler keyHandler, MouseHandler mouseHandler) {
+        gsm.input(keyHandler, mouseHandler);
+    }
+
     public void render() {
-        gc.clearRect(0,0,width,height);
+        gc.clearRect(0, 0, width, height);
         if (gc != null) {
             gsm.render(gc);
         }
