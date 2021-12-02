@@ -4,7 +4,6 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.Objects;
 
 public class SpriteSheet {
     private static final int TILE_SIZE = 31;

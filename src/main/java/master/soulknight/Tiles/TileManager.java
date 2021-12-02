@@ -24,20 +24,17 @@ public class TileManager {
 
 
     public static final SpriteSheet itemTileSheet = new SpriteSheet("src/main/resources/Sprite/Items.png");
-    public static final SpriteSheet tileSheet = new SpriteSheet("src/main/resources/Sprite/TileSheet.png");
 
-    public final Sprite floor1 = tileSheet.getSpriteArray(0,1);
-    public final Sprite floor2 = tileSheet.getSpriteArray(1,1);
-    public final Sprite floor3 = tileSheet.getSpriteArray(2,1);
-//    public static Sprite[] floors = {floor1,floor2,floor3};
+    public static final SpriteSheet tileSheet = new SpriteSheet("src/main/resources/Sprite/map1.png");
 
-    public final Sprite wall1 = tileSheet.getSpriteArray(0,0);
-    public final Sprite wall2 = tileSheet.getSpriteArray(1,0);
-    public final Sprite wall3 = tileSheet.getSpriteArray(2,0);
-    public final Sprite wall4 = tileSheet.getSpriteArray(3,0);
+    public static Sprite wall1 = tileSheet.getSpriteArray(0,0);
+    public static Sprite wall2 = tileSheet.getSpriteArray(1,0);
 //    public static Sprite[] walls = {wall1,wall2,wall3,wall4};
 
-    public final Sprite box = tileSheet.getSpriteArray(3,1);
+    public static Sprite box = tileSheet.getSpriteArray(2,0);
+
+    public static Sprite floor = tileSheet.getSpriteArray(3,0);
+//    public static Sprite[] floors = {floor1,floor2,floor3};
 
     public final Sprite exBombItem = itemTileSheet.getSpriteArray(0,0);
     public final Sprite speedItem = itemTileSheet.getSpriteArray(2,0);
@@ -163,21 +160,14 @@ public class TileManager {
                         block = new WallBlock(realSize, realSize, wall1.getFxImage()
                                 , new Vector2f(realSize * j, realSize * i));
                         collideBlocks.add(block);
-                    } else if (mapStr[i].charAt(j) == '2') {
-                        block = new WallBlock(realSize, realSize, wall1.getFxImage()
-                                , new Vector2f(realSize * j, realSize * i));
+
+                    }  else if (mapStr[i].charAt(j) == '2') {
+                        block = new WallBlock(TILE_SIZE, TILE_SIZE, wall2.getFxImage()
+                                , new Vector2f(TILE_SIZE * j, TILE_SIZE * i));
                         collideBlocks.add(block);
-                    } else if (mapStr[i].charAt(j) == '6') {
-                        block = new WallBlock(realSize, realSize, wall1.getFxImage()
-                                , new Vector2f(realSize * j, realSize * i));
-                        collideBlocks.add(block);
-                    } else if (mapStr[i].charAt(j) == '8') {
-                        block = new WallBlock(realSize, realSize, wall1.getFxImage()
-                                , new Vector2f(realSize * j, realSize * i));
-                        collideBlocks.add(block);
-                    } else if (mapStr[i].charAt(j) == '5') {
-                        block = new BoxBlock(realSize, realSize, box.getFxImage()
-                                , new Vector2f(realSize * j, realSize * i));
+                    } else if (mapStr[i].charAt(j) == '3') {
+                        block = new BoxBlock(TILE_SIZE, TILE_SIZE, box.getFxImage()
+                                , new Vector2f(TILE_SIZE * j, TILE_SIZE * i));
                         Random random = new Random();
                         int randNum = random.nextInt((5-1)+1) + 1;
                         if ( randNum == 1) {
@@ -197,28 +187,20 @@ public class TileManager {
                         }
                        collideBlocks.add(block);
                     } else if (mapStr[i].charAt(j) == 'p') {
-                        player = new Player(new SpriteSheet("src/main/resources/Sprite/Character_1.png"), new Vector2f(realSize * j, realSize * i), 52, scaling, this);
-                    } else if (mapStr[i].charAt(j) == 'M') {
-                        enemy = new Enemy(new SpriteSheet("src/main/resources/Sprite/Character_1.png"), new Vector2f(realSize * j, realSize * i), 52, scaling, this);
+                        player = new Player(new SpriteSheet("src/main/resources/Sprite/Character_1.png"),
+                                new Vector2f(TILE_SIZE * j, TILE_SIZE * i), 52, scaling);
+                    } else if (mapStr[i].charAt(j) == 'a') {
+                        enemy = new Enemy(new SpriteSheet("src/main/resources/Sprite/SnowApe.png"),
+                                new Vector2f(TILE_SIZE * j, TILE_SIZE * i), 52, scaling);
                         enemies.add(enemy);
-                    } else if (mapStr[i].charAt(j) == '4') {
-                        block = new FloorBlock(realSize, realSize, floor3.getFxImage()
-                                , new Vector2f(realSize * j, realSize * i));
-                        floorBlocks.add(block);
-                    } else if (mapStr[i].charAt(j) == '7') {
-                        block = new FloorBlock(realSize, realSize, floor3.getFxImage()
-                                , new Vector2f(realSize * j, realSize * i));
-                        floorBlocks.add(block);
-                    } else if (mapStr[i].charAt(j) == 'P') {
-                        block = new Portal(realSize, realSize, wall4.getFxImage()
-                                , new Vector2f(realSize * j, realSize * i));
-                        portals.add(block);
+                    }else if (mapStr[i].charAt(j) == 'b') {
+                        enemy = new Enemy(new SpriteSheet("src/main/resources/Sprite/Monkey.png"),
+                                new Vector2f(TILE_SIZE * j, TILE_SIZE * i), 52, scaling);
+                        enemies.add(enemy);
                     }
-                    block = new FloorBlock(realSize, realSize, floor3.getFxImage()
-                            , new Vector2f(realSize * j, realSize * i));
+                    block = new FloorBlock(TILE_SIZE, TILE_SIZE, floor.getFxImage()
+                            , new Vector2f(TILE_SIZE * j, TILE_SIZE * i));
                     floorBlocks.add(block);
-
-
                 }
             }
         } catch (IOException e) {
