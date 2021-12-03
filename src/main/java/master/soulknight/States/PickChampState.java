@@ -42,17 +42,17 @@ public class PickChampState extends GameState {
                 gsm.add(0);
             }
             // Pick first champ
-            if (gsm.isPickChampState() && x >= 239 && x <= 518 && y >= 525 && y <= 710) {
+            if (gsm.isPickChampState() && x >= 239 && x <= 518 && y >= 625 && y <= 710) {
                 gsm.pop(0);
                 gsm.add(1);
             }
             // Pick second champ
-            if (gsm.isPickChampState() && x >= 573 && x <= 852 && y >= 525 && y <= 710) {
+            if (gsm.isPickChampState() && x >= 573 && x <= 852 && y >= 625 && y <= 710) {
                 gsm.pop(0);
                 gsm.add(1);
             }
             // Pick third champ
-            if (gsm.isPickChampState() && x >= 931 && x <= 1210 && y >= 525 && y <= 710) {
+            if (gsm.isPickChampState() && x >= 931 && x <= 1210 && y >= 625 && y <= 710) {
                 gsm.pop(0);
                 gsm.add(1);
             }
