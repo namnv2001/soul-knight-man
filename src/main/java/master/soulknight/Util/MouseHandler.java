@@ -9,7 +9,9 @@ public class MouseHandler implements EventHandler<MouseEvent> {
     @Override
     public void handle(MouseEvent mouseEvent) {
         if (MouseEvent.MOUSE_CLICKED.equals(mouseEvent.getEventType())) {
-            pos = new Vector2f((float) mouseEvent.getSceneX(), (float) mouseEvent.getY());
+            System.out.println("CLICKED");
+            pos = new Vector2f((float) mouseEvent.getX(), (float) mouseEvent.getY());
+            System.out.println(pos);
         }
     }
 

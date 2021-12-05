@@ -1,7 +1,6 @@
 package master.soulknight.States;
 
 import javafx.scene.canvas.GraphicsContext;
-
 import javafx.scene.paint.Color;
 import master.soulknight.Tiles.TileManager;
 import master.soulknight.Util.KeyHandler;
@@ -12,8 +11,8 @@ import java.util.ArrayList;
 public class PlayState extends GameState {
 
     protected final double scaling = 2;
-    protected final TileManager tm1 = new TileManager("src/main/resources/levels/Level1.txt", scaling);
-    protected final TileManager tm2 = new TileManager("src/main/resources/levels/Level2.txt", scaling);
+    TileManager tm1 = new TileManager("src/main/resources/levels/Level1.txt", "src/main/resources/Sprite/Map1.png", scaling);
+    TileManager tm2 = new TileManager("src/main/resources/levels/Level2.txt", "src/main/resources/Sprite/Map2.png", scaling);
 
     private int delay = 0;
     private int currentLevel = 0;
@@ -35,6 +34,11 @@ public class PlayState extends GameState {
     @Override
     public void update() {
         tms.get(level).update();
+        if (tms.get(level).gameOver) {
+            gsm.pop(0);
+            gsm.add(3);
+            tms.get(level).gameOver = false;
+        }
     }
 
     @Override

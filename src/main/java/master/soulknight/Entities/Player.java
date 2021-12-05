@@ -9,6 +9,7 @@ import master.soulknight.Tiles.TileManager;
 import master.soulknight.Util.KeyHandler;
 import master.soulknight.Util.Vector2f;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Set;
 
@@ -81,10 +82,19 @@ public class Player extends Entity {
         }
     }
 
+    public boolean checkFirstTime(ArrayList<Bomb> bombs) {
+        for(Bomb bomb : tm.getBombs()) {
+            if(bomb.firstTime) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public void update() {
         if (!PlayState.gameOver) {
             super.update();
-            if (TileCollision.isCollidedWithBlock(this, tm.collideBlocks) || (TileCollision.isCollidedWithBombs(this, tm.getBombs()) && !Bomb.firstTime)) {
+            if (TileCollision.isCollidedWithBlock(this, tm.collideBlocks) || (TileCollision.isCollidedWithBombs(this, tm.getBombs()) && !checkFirstTime(tm.getBombs()))) {
                 pos.x -= dx;
                 pos.y -= dy;
             }

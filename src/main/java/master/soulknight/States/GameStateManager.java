@@ -49,6 +49,14 @@ public class GameStateManager {
     public boolean isPickChampState() {
         return states.get(states.size() - 1) instanceof PickChampState;
     }
+
+    public boolean isPlayState() {
+        return states.get(states.size() - 1) instanceof PlayState;
+    }
+
+    public boolean isPauseState() {
+        return states.get(states.size() - 1) instanceof PauseState;
+    }
   
     public void add(int state) {
 //        if(states.get(state) != null) {
@@ -61,6 +69,7 @@ public class GameStateManager {
             states.add(new MenuState(this));
         }
         if(state == PAUSE){
+            System.out.println("added");
             states.add(new PauseState(this));
         }
         if(state == GAMEOVER){

@@ -9,6 +9,7 @@ import master.soulknight.Graphics.Sprite;
 import master.soulknight.Graphics.SpriteSheet;
 import master.soulknight.States.PlayState;
 import master.soulknight.Tiles.Blocks.*;
+import master.soulknight.Tiles.Map.ConvertMap;
 import master.soulknight.Util.KeyHandler;
 import master.soulknight.Util.Vector2f;
 
@@ -22,19 +23,32 @@ import java.util.Random;
 
 public class TileManager {
 
+    String tilePath;
 
-    public static final SpriteSheet itemTileSheet = new SpriteSheet("src/main/resources/Sprite/Items.png");
+    public SpriteSheet tileSheet;
 
-    public static final SpriteSheet tileSheet = new SpriteSheet("src/main/resources/Sprite/Map1.png");
-
-    public final Sprite floor = tileSheet.getSpriteArray(3,0);
+    public final Sprite floor;
 //    public static Sprite[] floors = {floor1,floor2,floor3};
 
-    public final Sprite wall1 = tileSheet.getSpriteArray(0,0);
-    public final Sprite wall2 = tileSheet.getSpriteArray(1,0);
+    public final Sprite wall1;
+    public final Sprite wall2;
 //    public static Sprite[] walls = {wall1,wall2,wall3,wall4};
 
-    public final Sprite box = tileSheet.getSpriteArray(2,0);
+    public final Sprite box;
+
+    public TileManager(String path, String tilePath, double scaling) {
+        this.tilePath = tilePath;
+        this.scaling = scaling;
+        realSize *= scaling;
+        tileSheet = new SpriteSheet(tilePath);
+        floor = tileSheet.getSpriteArray(3,0);
+        wall1 = tileSheet.getSpriteArray(0,0);
+        wall2 = tileSheet.getSpriteArray(1,0);
+        box = tileSheet.getSpriteArray(2,0);
+        readMap(path);
+    }
+
+    public static final SpriteSheet itemTileSheet = new SpriteSheet("src/main/resources/Sprite/Items.png");
 
     public final Sprite exBombItem = itemTileSheet.getSpriteArray(0,0);
     public final Sprite speedItem = itemTileSheet.getSpriteArray(2,0);
@@ -56,7 +70,6 @@ public class TileManager {
     protected ArrayList<Bomb> bombs = new ArrayList<>();
     protected ArrayList<Block> floorBlocks = new ArrayList<>();
 
-    protected static int TILE_SIZE = 31;
     protected int realSize = 31;
     protected double scaling;
     protected int level;
@@ -64,12 +77,6 @@ public class TileManager {
     protected int columns;
 
     public boolean gameOver = false;
-
-    public TileManager(String path, double scaling) {
-        this.scaling = scaling;
-        realSize *= scaling;
-        readMap(path);
-    }
 
     public Player getPlayer() {
         return player;
@@ -127,6 +134,10 @@ public class TileManager {
     }
     // ----------------------------------------------------------------------------------
 
+
+    public ArrayList<Enemy> getEnemies() {
+        return enemies;
+    }
 
     public void readMap(String path) {
         try {
@@ -205,6 +216,7 @@ public class TileManager {
     }
 
     public void update() {
+        ConvertMap.convert2D(this,realSize);
         Iterator<Block> iterator = items.iterator();
         while (iterator.hasNext()) {
             Block block = iterator.next();
@@ -234,9 +246,12 @@ public class TileManager {
             System.out.println("Portal hit");
             PlayState.levelUp();
         }
-        player.update();
-        bombs.forEach(Bomb::update);
-        flames.forEach(Flame::update);
+        if(!gameOver) {
+            player.update();
+            bombs.forEach(Bomb::update);
+            flames.forEach(Flame::update);
+        }
+
     }
 
     public void render(GraphicsContext gc) {

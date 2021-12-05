@@ -31,7 +31,7 @@ public class MenuState extends GameState {
             double x = mouseHandler.getPos().x;
             double y = mouseHandler.getPos().y;
             // To pick champ state
-            if (gsm.isMenuState() && x >= 131 && x <= 341 && y >= 545 && y <= 716) {
+            if (this.gsm.isMenuState() && x >= 131 && x <= 341 && y >= 545 && y <= 716) {
                 gsm.pop(0);
                 gsm.add(5);
             }

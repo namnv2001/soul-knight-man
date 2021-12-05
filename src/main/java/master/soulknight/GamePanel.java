@@ -8,8 +8,9 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import master.soulknight.States.GameState;
 import master.soulknight.States.GameStateManager;
 import master.soulknight.Util.KeyHandler;
 import master.soulknight.Util.MouseHandler;
@@ -128,12 +129,18 @@ public class GamePanel extends Application {
         };
         timer.start();
 
-        scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
-            @Override
-            public void handle(KeyEvent keyEvent) {
+        scene.setOnKeyPressed(keyEvent -> {
+            if (gsm.isPlayState() || gsm.isPauseState()) {
                 if (keyEvent.getCode() == KeyCode.ESCAPE) {
                     if (timer.isRunning()) {
+                        gc.setFill(Color.BLUE);
+                        gc.fillRect(0,0,100,100);
                         timer.stop();
+                        scene.setOnMouseClicked(mouseEvent -> {
+                            if(mouseEvent.getX() > 0) {
+                                System.out.println("clicked");
+                            }
+                        });
                     } else {
                         timer.start();
                     }

@@ -8,7 +8,7 @@ import master.soulknight.Util.Vector2f;
 
 public class Bomb extends Entity {
 
-    public static boolean firstTime;
+    public boolean firstTime;
     public static int bombRange;
     private final double realSize = Entity.getSCALING() * SpriteSheet.getTileSize();
     public boolean removed;
