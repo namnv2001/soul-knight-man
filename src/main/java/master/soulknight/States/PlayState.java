@@ -2,6 +2,7 @@ package master.soulknight.States;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
+import master.soulknight.GamePanel;
 import master.soulknight.Tiles.TileManager;
 import master.soulknight.Util.KeyHandler;
 import master.soulknight.Util.MouseHandler;
@@ -51,7 +52,7 @@ public class PlayState extends GameState {
             }
         } else {
             gc.setFill(Color.BLACK);
-            gc.fillRect(0, 0, 1364, 868);
+            gc.fillRect(0, 0, GamePanel.width, GamePanel.height);
         }
     }
 
