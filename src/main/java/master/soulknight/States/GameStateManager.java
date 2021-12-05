@@ -22,8 +22,6 @@ public class GameStateManager {
     public static final int INFO = 4;
     public static final int PICK = 5;
 
-    public static SpriteSheet ui;
-    public static SpriteSheet button;
     public static GraphicsContext gc;
 
     public GameStateManager(GraphicsContext gc) {
@@ -57,7 +55,7 @@ public class GameStateManager {
     public boolean isPauseState() {
         return states.get(states.size() - 1) instanceof PauseState;
     }
-  
+
     public void add(int state) {
 //        if(states.get(state) != null) {
 //            return;
@@ -69,7 +67,6 @@ public class GameStateManager {
             states.add(new MenuState(this));
         }
         if(state == PAUSE){
-            System.out.println("added");
             states.add(new PauseState(this));
         }
         if(state == GAMEOVER){
