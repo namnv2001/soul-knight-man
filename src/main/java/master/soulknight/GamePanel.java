@@ -128,7 +128,7 @@ public class GamePanel extends Application {
             }
         };
         timer.start();
-
+        // Pause ---------------------------------------------------------------
         scene.setOnKeyPressed(keyEvent -> {
             if (gsm.isPlayState() || gsm.isPauseState()) {
                 if (keyEvent.getCode() == KeyCode.ESCAPE) {
@@ -151,7 +151,7 @@ public class GamePanel extends Application {
                 }
             }
         });
-
+        // -------------------------------------------------------------------
         stage.setScene(scene);
         stage.show();
     }
