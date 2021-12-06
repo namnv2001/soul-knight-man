@@ -36,6 +36,7 @@ public class GameOverState extends GameState {
         if(mouseHandler.getPos() != null && !gsm.isPlayState()) {
             double x = mouseHandler.getPos().x;
             double y = mouseHandler.getPos().y;
+            System.out.println(x + " " + y);
             if (gsm.isGameOverState() && x >= 458 && x <= 555 && y >= 687 && y <= 734) {
                 System.out.println("--------------------[Before add]: " + gsm.getSize());
                 gsm.pop(0);
@@ -47,6 +48,7 @@ public class GameOverState extends GameState {
                 gsm.pop(0);
                 gsm.add(0);
             }
+            mouseHandler.resetPos();
         }
     }
 }
