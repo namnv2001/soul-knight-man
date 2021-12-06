@@ -87,7 +87,7 @@ public class ConvertMap {
                 }
             }
         }
-        System.out.println(canTouchPlayer());
+//        System.out.println(canTouchPlayer());
 //        for (int i = 0; i < 13; i++) {
 //            for (int j = 0; j < 23; j++) {
 //                System.out.print(mapMatrixBackup[i][j] + " ");

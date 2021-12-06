@@ -134,7 +134,7 @@ public class GamePanel extends Application {
         timer.start();
         // Pause ---------------------------------------------------------------
         scene.setOnKeyPressed(keyEvent -> {
-            if (gsm.isPlayState() || gsm.isPauseState()) {
+            if (gsm.isPlayState() && !gsm.isGameOverState()) {
                 if (keyEvent.getCode() == KeyCode.ESCAPE) {
                     if (timer.isRunning()) {
                         Image image;

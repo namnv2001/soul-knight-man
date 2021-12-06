@@ -2,7 +2,6 @@ package master.soulknight.States;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-import javafx.scene.paint.Color;
 import master.soulknight.Util.KeyHandler;
 import master.soulknight.Util.MouseHandler;
 
@@ -34,15 +33,16 @@ public class GameOverState extends GameState {
 
     @Override
     public void input(KeyHandler keyHandler, MouseHandler mouseHandler) {
-        if(mouseHandler.getPos() != null) {
+        if(mouseHandler.getPos() != null && !gsm.isPlayState()) {
             double x = mouseHandler.getPos().x;
             double y = mouseHandler.getPos().y;
             if (gsm.isGameOverState() && x >= 458 && x <= 555 && y >= 687 && y <= 734) {
-                System.out.println("continue");
+                System.out.println("--------------------[Before add]: " + gsm.getSize());
                 gsm.pop(0);
                 gsm.add(1);
+                System.out.println("--------------------[After add]: " + gsm.getSize());
             }
-            if (gsm.isGameOverState() && x >= 866 && x<= 944 && y >= 687 && y <= 734) {
+            if (gsm.isGameOverState() && x >= 866 && x <= 944 && y >= 687 && y <= 734) {
                 System.out.println("quit");
                 gsm.pop(0);
                 gsm.add(0);
