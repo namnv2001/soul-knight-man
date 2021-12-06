@@ -49,6 +49,7 @@ public class GameOverState extends GameState {
                 gsm.add(0);
             }
             mouseHandler.resetPos();
+
         }
     }
 }
