@@ -15,7 +15,6 @@ public class BoxBlock extends Block{
 
     }
 
-
     @Override
     public Sprite getImage() {
         return null;

@@ -20,6 +20,18 @@ public class TileCollision {
         return false;
     }
 
+    public static boolean enemyIsCollidedWithBlock(Entity player, ArrayList<Block> collideBlocks) {
+        for (Block block : collideBlocks) {
+            if (player.getX()  < block.pos.x + block.getBlockWidth() &&
+                    player.getX() + player.getSize() > block.pos.x &&
+                    player.getY() < block.pos.y + block.getBlockHeight() &&
+                    player.getY() + player.getSize() > block.pos.y) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public static boolean isCollidedWithItem(Entity player, Block block) {
 
         return player.getX() + 7 < block.pos.x + block.getBlockWidth() &&
