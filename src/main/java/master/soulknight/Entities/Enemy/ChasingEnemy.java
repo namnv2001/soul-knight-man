@@ -26,14 +26,7 @@ public class ChasingEnemy extends Enemy {
     public void update() {
         x = (int) Math.round(pos.x / (SpriteSheet.getTileSize() * getSCALING()));
         y = (int) Math.round(pos.y / (SpriteSheet.getTileSize() * getSCALING()));
-        System.out.println(y + " " + x);
-        System.out.println(pos.y + " " + pos.x);
-        for (int i = 0; i < ConvertMap.path.size(); i++) {
-            System.out.print(ConvertMap.path.get(i).toString());
-        }
         super.update();
-
-        System.out.println(this.dx + " " + this.dy);
         pos.x += this.dx;
         pos.y += this.dy;
         if (TileCollision.enemyIsCollidedWithBlock(this, tm.collideBlocks) || TileCollision.isCollidedWithBombs(this, tm.getBombs())) {
