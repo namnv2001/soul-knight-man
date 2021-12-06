@@ -76,10 +76,10 @@ public class Bomb extends Entity {
                 if (downBeforeCollide == -1) downBeforeCollide = bombRange;
             }
         }
-        System.out.println(leftBeforeCollide);
-        System.out.println(rightBeforeCollide);
-        System.out.println(upBeforeCollide);
-        System.out.println(downBeforeCollide);
+//        System.out.println(leftBeforeCollide);
+//        System.out.println(rightBeforeCollide);
+//        System.out.println(upBeforeCollide);
+//        System.out.println(downBeforeCollide);
         for (int i = 1; i <= bombRange; i++) {
             String flamePath = "src/main/resources/Sprite/Flame - Copy.png";
             tm.addFlame(new Flame(new SpriteSheet(flamePath), new Vector2f(pos.x, pos.y), size, Entity.getSCALING(), bombRange));

@@ -199,7 +199,7 @@ public class TileManager {
                         }
                        collideBlocks.add(block);
                     } else if (mapStr[i].charAt(j) == 'p') {
-                        player = new Player(new SpriteSheet("src/main/resources/Sprite/Character_1.png"), new Vector2f(realSize * j, realSize * i), 52, scaling, this);
+                        player = new Player(new SpriteSheet("src/main/resources/Sprite/Priest.png"), new Vector2f(realSize * j, realSize * i), 52, scaling, this);
                     } else if (mapStr[i].charAt(j) == 'b') {
                         enemy = new NormalEnemy(new SpriteSheet("src/main/resources/Sprite/Character_1.png"), new Vector2f(realSize * j, realSize * i), 52, scaling, this);
                         enemies.add(enemy);

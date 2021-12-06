@@ -6,6 +6,7 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
@@ -15,6 +16,9 @@ import master.soulknight.States.GameStateManager;
 import master.soulknight.Util.KeyHandler;
 import master.soulknight.Util.MouseHandler;
 import master.soulknight.Util.StatusTimer;
+
+import java.io.FileInputStream;
+import java.io.IOException;
 
 public class GamePanel extends Application {
     public static int oldFrameCount;
@@ -130,16 +134,36 @@ public class GamePanel extends Application {
         timer.start();
         // Pause ---------------------------------------------------------------
         scene.setOnKeyPressed(keyEvent -> {
-            if (gsm.isPlayState() || gsm.isPauseState()) {
+            if (gsm.isPlayState() && !gsm.isGameOverState()) {
                 if (keyEvent.getCode() == KeyCode.ESCAPE) {
                     if (timer.isRunning()) {
-                        gc.setFill(Color.BLUE);
-
-                        gc.fillRect(0,0,100,100);
+                        Image image;
+                        try {
+                            image = new Image(new FileInputStream("src/main/resources/Sprite/Pause.png"));
+                            gc.drawImage(image, 0, 0);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
                         timer.stop();
                         scene.setOnMouseClicked(mouseEvent -> {
                             if(mouseEvent.getX() > 0) {
-                                System.out.println("clicked");
+                                double x = mouseEvent.getX();
+                                double y = mouseEvent.getY();
+                                // continue
+                                if (x >= 374 && x <= 579 && y >= 319 && y <= 486) {
+                                    timer.start();
+                                }
+                                // mute
+                                if (x >= 607 && x <= 812 && y >= 319 && y <= 486) {
+                                    System.out.println("mute");
+                                }
+                                // quit
+                                if (x >= 842 && x <= 1047 && y >= 319 && y <= 486) {
+                                    gsm.pop(0);
+                                    gsm.add(0);
+                                    scene.setOnMouseClicked(mouseHandler);
+                                    timer.start();
+                                }
                             }
                         });
                     } else {

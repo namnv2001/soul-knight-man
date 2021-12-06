@@ -32,8 +32,16 @@ public class GameStateManager {
         states.add(new MenuState(this));
     }
 
+    public int getSize() {
+        return states.size();
+    }
+
     public void pop(int state) {
         states.remove(state);
+    }
+
+    public boolean isGameOverState() {
+        return states.get(states.size() - 1) instanceof GameOverState;
     }
 
     public boolean isMenuState() {

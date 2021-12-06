@@ -112,13 +112,6 @@ public class ConvertMap {
                 }
             }
         }
-//        for(int i = 0 ; i < 13 ; i++) {
-//            for (int j = 0 ; j < 23 ; j++) {
-//                System.out.print(mapMatrixBackup[i][j] + " ");
-//            }
-//            System.out.println();
-//        }
-        //System.out.println();
         path = BFS(mapMatrixBackup, new Node(srcX, srcY, null), new Node(destX, destY, null));
     }
 
