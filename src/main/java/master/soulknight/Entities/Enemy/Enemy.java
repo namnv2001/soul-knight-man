@@ -7,43 +7,21 @@ import master.soulknight.Tiles.TileCollision;
 import master.soulknight.Tiles.TileManager;
 import master.soulknight.Util.Vector2f;
 
-public class Enemy extends Entity {
+public abstract class Enemy extends Entity {
 
     public Enemy(SpriteSheet sprite, Vector2f origin, int size, double SCALING, TileManager tm) {
         super(sprite, origin, size, SCALING, tm);
         up = true;
     }
 
-    public void changeDirection() {
-        if (up) {
-            up = false;
-            down = true;
-        } else if (down) {
-            down = false;
-            up = true;
-        } else if (right) {
-            right = false;
-            left = true;
-        } else {
-            left = false;
-            right = true;
-        }
-    }
-
     @Override
     public void update() {
         animated();
-
-        if (ani.getDelay() != 10) {
-            this.ani.setDelay(10);
-        }
-        move();
+//        if (ani.getDelay() != 10) {
+//            this.ani.setDelay(10);
+//        }
         super.update();
-        if (TileCollision.isCollidedWithBlock(this, tm.collideBlocks) || TileCollision.isCollidedWithBombs(this, tm.getBombs())) {
-            changeDirection();
-            pos.x -= dx;
-            pos.y -= dy;
-        }
+        ani.update();
     }
 
     public void render(GraphicsContext gc) {

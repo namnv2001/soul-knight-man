@@ -51,10 +51,6 @@ public abstract class Block {
         return true;
     }
 
-    public boolean solid() {
-        return true;
-    }
-
     public void render(GraphicsContext gc, int TILE_SIZE) {
         gc.drawImage(img, pos.x, pos.y, TILE_SIZE, TILE_SIZE);
     }

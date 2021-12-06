@@ -134,6 +134,7 @@ public class GamePanel extends Application {
                 if (keyEvent.getCode() == KeyCode.ESCAPE) {
                     if (timer.isRunning()) {
                         gc.setFill(Color.BLUE);
+
                         gc.fillRect(0,0,100,100);
                         timer.stop();
                         scene.setOnMouseClicked(mouseEvent -> {

@@ -22,11 +22,6 @@ public class FloorBlock extends Block{
         return null;
     }
 
-    @Override
-    public boolean solid() {
-        return false;
-    }
-
     public void render(GraphicsContext gc, int TILE_SIZE) {
         gc.drawImage(img, pos.x, pos.y, TILE_SIZE, TILE_SIZE);
     }

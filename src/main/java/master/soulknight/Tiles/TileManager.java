@@ -2,7 +2,9 @@ package master.soulknight.Tiles;
 
 import javafx.scene.canvas.GraphicsContext;
 import master.soulknight.Entities.Bomb;
+import master.soulknight.Entities.Enemy.ChasingEnemy;
 import master.soulknight.Entities.Enemy.Enemy;
+import master.soulknight.Entities.Enemy.NormalEnemy;
 import master.soulknight.Entities.Flame;
 import master.soulknight.Entities.Player;
 import master.soulknight.Graphics.Sprite;
@@ -199,10 +201,10 @@ public class TileManager {
                     } else if (mapStr[i].charAt(j) == 'p') {
                         player = new Player(new SpriteSheet("src/main/resources/Sprite/Character_1.png"), new Vector2f(realSize * j, realSize * i), 52, scaling, this);
                     } else if (mapStr[i].charAt(j) == 'b') {
-                        enemy = new Enemy(new SpriteSheet("src/main/resources/Sprite/Monkey.png"), new Vector2f(realSize * j, realSize * i), 52, scaling, this);
+                        enemy = new NormalEnemy(new SpriteSheet("src/main/resources/Sprite/Character_1.png"), new Vector2f(realSize * j, realSize * i), 52, scaling, this);
                         enemies.add(enemy);
                     } else if (mapStr[i].charAt(j) == 'a') {
-                        enemy = new Enemy(new SpriteSheet("src/main/resources/Sprite/SnowApe.png"), new Vector2f(realSize * j, realSize * i), 52, scaling, this);
+                        enemy = new NormalEnemy(new SpriteSheet("src/main/resources/Sprite/SnowApe.png"), new Vector2f(realSize * j, realSize * i), 52, scaling, this);
                         enemies.add(enemy);
                     }
                     block = new FloorBlock(realSize, realSize, floor.getFxImage()

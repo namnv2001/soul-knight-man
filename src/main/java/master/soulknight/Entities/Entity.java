@@ -212,9 +212,8 @@ public abstract class Entity {
     public void update() {
         animated();
         setHitBoxDirection();
-        move();
-        ani.update();
-        pos.x += dx;
-        pos.y += dy;
+
+//        pos.x += dx;
+//        pos.y += dy;
     }
 }

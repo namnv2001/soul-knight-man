@@ -28,7 +28,7 @@ public class Player extends Entity {
     public static Vector2f getBombPos(Vector2f pos) {
         int playerX = (int) Math.round(pos.x / (SpriteSheet.getTileSize() * getSCALING()));
         int playerY = (int) Math.round(pos.y / (SpriteSheet.getTileSize() * getSCALING()));
-//        System.out.println(playerX + " " + playerY);
+        System.out.println(playerX + " " + playerY);
         return new Vector2f((int) (playerX * SpriteSheet.getTileSize() * getSCALING()), (int) (playerY * SpriteSheet.getTileSize() * getSCALING()));
     }
 
@@ -94,6 +94,10 @@ public class Player extends Entity {
     public void update() {
         if (!PlayState.gameOver) {
             super.update();
+            move();
+            ani.update();
+            pos.x += dx;
+            pos.y += dy;
             if (TileCollision.isCollidedWithBlock(this, tm.collideBlocks) || (TileCollision.isCollidedWithBombs(this, tm.getBombs()) && !checkFirstTime(tm.getBombs()))) {
                 pos.x -= dx;
                 pos.y -= dy;
