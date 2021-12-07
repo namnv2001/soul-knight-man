@@ -21,7 +21,6 @@ public class ConvertMap {
     public static void convert2D(TileManager tileManager, int size) {
         for (int i = 0; i < 13; i++) {
             for (int j = 0; j < 23; j++) {
-
                 int playerX = Math.round(tileManager.player.getPos().x / size);
                 int playerY = Math.round(tileManager.player.getPos().y / size);
                 if (playerX == j && playerY == i) {
