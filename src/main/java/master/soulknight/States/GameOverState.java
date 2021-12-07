@@ -37,13 +37,11 @@ public class GameOverState extends GameState {
             double x = mouseHandler.getPos().x;
             double y = mouseHandler.getPos().y;
             System.out.println(x + " " + y);
-            if (gsm.isGameOverState() && x >= 458 && x <= 555 && y >= 687 && y <= 734) {
-                System.out.println("--------------------[Before add]: " + gsm.getSize());
+            if (gsm.isGameOverState() && x >= 612 && x <= 705 && y >= 640 && y <= 669) {
                 gsm.pop(0);
                 gsm.add(1);
-                System.out.println("--------------------[After add]: " + gsm.getSize());
             }
-            if (gsm.isGameOverState() && x >= 866 && x <= 944 && y >= 687 && y <= 734) {
+            if (gsm.isGameOverState() && x >= 738 && x <= 807 && y >= 640 && y <= 669) {
                 System.out.println("quit");
                 gsm.pop(0);
                 gsm.add(0);
