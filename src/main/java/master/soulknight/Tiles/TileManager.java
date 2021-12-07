@@ -9,6 +9,7 @@ import master.soulknight.Entities.Flame;
 import master.soulknight.Entities.Player;
 import master.soulknight.Graphics.Sprite;
 import master.soulknight.Graphics.SpriteSheet;
+import master.soulknight.States.PickChampState;
 import master.soulknight.States.PlayState;
 import master.soulknight.Tiles.Blocks.*;
 import master.soulknight.Tiles.Map.ConvertMap;
@@ -82,6 +83,21 @@ public class TileManager {
 
     public Player getPlayer() {
         return player;
+    }
+
+    private String getChampLink() {
+        System.out.println(PickChampState.getChamp());
+        switch (PickChampState.getChamp()) {
+            case 1:
+                return "src/main/resources/Sprite/Alchemist.png";
+            case 2:
+                return "src/main/resources/Sprite/Bomman.png";
+            case 3:
+                return "src/main/resources/Sprite/Priest.png";
+            default:
+                System.out.println("[Pick champ]: Wrong input!");
+                return "src/main/resources/Sprite/Alchemist.png";
+        }
     }
 
     // Bomb------------------------------------------------------------------------------
@@ -199,7 +215,7 @@ public class TileManager {
                         }
                        collideBlocks.add(block);
                     } else if (mapStr[i].charAt(j) == 'p') {
-                        player = new Player(new SpriteSheet("src/main/resources/Sprite/Priest.png"), new Vector2f(realSize * j, realSize * i), 52, scaling, this);
+                        player = new Player(new SpriteSheet(getChampLink()), new Vector2f(realSize * j, realSize * i), 52, scaling, this);
                     } else if (mapStr[i].charAt(j) == 'b') {
                         enemy = new ChasingEnemy(new SpriteSheet("src/main/resources/Sprite/Monkey.png"), new Vector2f(realSize * j, realSize * i), 52, scaling, this);
                         enemies.add(enemy);

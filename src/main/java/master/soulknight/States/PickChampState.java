@@ -11,6 +11,7 @@ import java.io.IOException;
 public class PickChampState extends GameState {
 
     Image backgroundImage;
+    private static int champ = 0;
 
     public PickChampState(GameStateManager gsm) {
         super(gsm);
@@ -19,6 +20,14 @@ public class PickChampState extends GameState {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private void setChamp(int number) {
+        champ = number;
+    }
+
+    public static int getChamp() {
+        return champ;
     }
 
     @Override
@@ -43,18 +52,21 @@ public class PickChampState extends GameState {
             }
             // Pick first champ
             if (gsm.isPickChampState() && x >= 242 && x <= 512 && y >= 690 && y <= 775) {
+                setChamp(1);
                 gsm.pop(0);
                 gsm.add(1);
                 System.out.println("Pick 1st champ");
             }
             // Pick second champ
             if (gsm.isPickChampState() && x >= 576 && x <= 855 && y >= 690 && y <= 775) {
+                setChamp(2);
                 gsm.pop(0);
                 gsm.add(1);
                 System.out.println("Pick 2nd champ");
             }
             // Pick third champ
             if (gsm.isPickChampState() && x >= 934 && x <= 1213 && y >= 690 && y <= 775) {
+                setChamp(3);
                 gsm.pop(0);
                 gsm.add(1);
                 System.out.println("Pick 3rd champ");
