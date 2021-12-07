@@ -217,7 +217,7 @@ public class TileManager {
                     } else if (mapStr[i].charAt(j) == 'p') {
                         player = new Player(new SpriteSheet(getChampLink()), new Vector2f(realSize * j, realSize * i), 52, scaling, this);
                     } else if (mapStr[i].charAt(j) == 'b') {
-                        enemy = new ChasingEnemy(new SpriteSheet("src/main/resources/Sprite/Monkey.png"), new Vector2f(realSize * j, realSize * i), 52, scaling, this);
+                        enemy = new ChasingEnemy(new SpriteSheet("src/main/resources/Sprite/RedIndian.png"), new Vector2f(realSize * j, realSize * i), 52, scaling, this);
                         enemies.add(enemy);
                     } else if (mapStr[i].charAt(j) == 'a') {
                         enemy = new NormalEnemy(new SpriteSheet("src/main/resources/Sprite/SnowApe.png"), new Vector2f(realSize * j, realSize * i), 52, scaling, this);
