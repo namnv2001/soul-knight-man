@@ -40,6 +40,7 @@ public class MenuState extends GameState {
                 gsm.pop(0);
                 gsm.add(4);
             }
+            mouseHandler.resetPos();
         }
     }
 
