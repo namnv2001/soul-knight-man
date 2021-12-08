@@ -38,9 +38,6 @@ public class NormalEnemy extends Enemy{
             pos.x -= dx;
             pos.y -= dy;
         }
-        int x = (int)(Math.round(pos.x)/(SpriteSheet.getTileSize()*getSCALING()));
-        int y = (int)(Math.round(pos.y)/(SpriteSheet.getTileSize()*getSCALING()));
-        System.out.println(x + " " + y);
     }
 
 

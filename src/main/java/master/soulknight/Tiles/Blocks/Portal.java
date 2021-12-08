@@ -1,22 +1,37 @@
 package master.soulknight.Tiles.Blocks;
 
-import javafx.scene.image.Image;
-import master.soulknight.Graphics.Sprite;
+import javafx.scene.canvas.GraphicsContext;
+import master.soulknight.Entities.Entity;
+import master.soulknight.Graphics.SpriteSheet;
+import master.soulknight.Tiles.TileManager;
 import master.soulknight.Util.Vector2f;
 
-public class Portal extends Block{
+public class Portal extends Entity {
 
-    public Portal(int width, int height, Image img, Vector2f pos) {
-        super(width, height, img, pos);
+    public Portal(SpriteSheet sprite, Vector2f origin, int size, double SCALING) {
+        super(sprite, origin, size, SCALING);
+        right = true;
+    }
+
+    public Portal(SpriteSheet sprite, Vector2f origin, int size, double SCALING, TileManager tm) {
+        super(sprite, origin, size, SCALING, tm);
     }
 
     @Override
     public void update() {
-
+        super.update();
+        ani.update();
     }
 
     @Override
-    public Sprite getImage() {
-        return null;
+    public void render(GraphicsContext gc) {
+        gc.drawImage(ani.getImage().getFxImage(), pos.x, pos.y,
+                SpriteSheet.getTileSize() * Entity.getSCALING(),
+                SpriteSheet.getTileSize() * Entity.getSCALING());
     }
 }
+
+
+
+
+

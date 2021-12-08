@@ -57,6 +57,7 @@ public class TileManager {
     public final Sprite speedItem = itemTileSheet.getSpriteArray(2,0);
     public final Sprite powerUpItem = itemTileSheet.getSpriteArray(1,0);
 
+
     public static int mapRows;
     public static int mapColumns;
 
@@ -66,7 +67,7 @@ public class TileManager {
 //    public ArrayList<Block> tmCollideBlocks = new ArrayList<>();
     public ArrayList<Block> collideBlocks = new ArrayList<>();
 
-    protected ArrayList<Block> portals = new ArrayList<>();
+    protected ArrayList<Portal> portals = new ArrayList<>();
     protected ArrayList<Block> items = new ArrayList<>();
     protected ArrayList<Enemy> enemies = new ArrayList<>();
     protected ArrayList<Flame> flames = new ArrayList<>();
@@ -87,16 +88,14 @@ public class TileManager {
 
     private String getChampLink() {
         System.out.println(PickChampState.getChamp());
-        switch (PickChampState.getChamp()) {
-            case 1:
-                return "src/main/resources/Sprite/Player/Alchemist.png";
-            case 2:
-                return "src/main/resources/Sprite/Player/Bomman.png";
-            case 3:
-                return "src/main/resources/Sprite/Player/Priest.png";
-            default:
-                System.out.println("[Pick champ]: Wrong input!");
-                return "src/main/resources/Sprite/Player/Alchemist.png";
+        if (PickChampState.getChamp() == 1) {
+            return "src/main/resources/Sprite/Player/Alchemist.png";
+        }
+        else if (PickChampState.getChamp() == 2) {
+            return "src/main/resources/Sprite/Player/Bomman.png";
+        }
+        else {
+            return "src/main/resources/Sprite/Player/Priest.png";
         }
     }
 
@@ -193,6 +192,8 @@ public class TileManager {
                         block = new WallBlock(realSize, realSize, wall2.getFxImage()
                                 , new Vector2f(realSize * j, realSize * i));
                         collideBlocks.add(block);
+                    } else if (mapStr[i].charAt(j) == 'p') {
+                        player = new Player(new SpriteSheet(getChampLink()), new Vector2f(realSize * j, realSize * i), 52, scaling, this);
                     } else if (mapStr[i].charAt(j) == '3') {
                         block = new BoxBlock(realSize, realSize, box.getFxImage()
                                 , new Vector2f(realSize * j, realSize * i));
@@ -214,14 +215,24 @@ public class TileManager {
                             items.add(item);
                         }
                        collideBlocks.add(block);
-                    } else if (mapStr[i].charAt(j) == 'p') {
-                        player = new Player(new SpriteSheet(getChampLink()), new Vector2f(realSize * j, realSize * i), 52, scaling, this);
+                    } else if (mapStr[i].charAt(j) == 'B') {
+                        enemy = new ChasingEnemy(new SpriteSheet("src/main/resources/Sprite/Monkey.png"), new Vector2f(realSize * j, realSize * i), 52, scaling, this);
+                        enemies.add(enemy);
                     } else if (mapStr[i].charAt(j) == 'b') {
-                        enemy = new ChasingEnemy(new SpriteSheet("src/main/resources/Sprite/Enemies/RedIndian.png"), new Vector2f(realSize * j, realSize * i), 52, scaling, this);
+                        enemy = new NormalEnemy(new SpriteSheet("src/main/resources/Sprite/Enemies/Monkey.png"), new Vector2f(realSize * j, realSize * i), 52, scaling, this);
                         enemies.add(enemy);
                     } else if (mapStr[i].charAt(j) == 'a') {
                         enemy = new NormalEnemy(new SpriteSheet("src/main/resources/Sprite/Enemies/SnowApe.png"), new Vector2f(realSize * j, realSize * i), 52, scaling, this);
                         enemies.add(enemy);
+                    } else if (mapStr[i].charAt(j) == 'P') {
+                        Portal topleftPortal = new Portal(new SpriteSheet("src/main/resources/Sprite/top-left - Copy.png"), new Vector2f(realSize * j, realSize * i), 52, scaling);
+                        portals.add(topleftPortal);
+                        Portal toprightPortal = new Portal(new SpriteSheet("src/main/resources/Sprite/top-right - Copy.png"), new Vector2f(realSize * (j + 1), realSize * i), 52, scaling);
+                        portals.add(toprightPortal);
+                        Portal botleftPortal = new Portal(new SpriteSheet("src/main/resources/Sprite/bottom-left - Copy.png"), new Vector2f(realSize * j, realSize * (i + 1)), 52, scaling);
+                        portals.add(botleftPortal);
+                        Portal botrightPortal = new Portal(new SpriteSheet("src/main/resources/Sprite/bottom-right - Copy.png"), new Vector2f(realSize * (j+1), realSize * (i+1)), 52, scaling);
+                        portals.add(botrightPortal);
                     }
                     block = new FloorBlock(realSize, realSize, floor.getFxImage()
                             , new Vector2f(realSize * j, realSize * i));
@@ -234,7 +245,6 @@ public class TileManager {
     }
 
     public void update() {
-        ConvertMap.convert2D(this,realSize);
         Iterator<Block> iterator = items.iterator();
         while (iterator.hasNext()) {
             Block block = iterator.next();
@@ -269,6 +279,9 @@ public class TileManager {
             bombs.forEach(Bomb::update);
             flames.forEach(Flame::update);
         }
+        if(enemies.isEmpty()) {
+            portals.forEach(Portal::update);
+        }
 
     }
 
@@ -278,7 +291,9 @@ public class TileManager {
         collideBlocks.forEach(g -> g.render(gc, realSize));
         bombs.forEach(g -> g.render(gc));
         flames.forEach(g -> g.render(gc));
-        portals.forEach(g -> g.render(gc, realSize));
+        if(enemies.isEmpty()) {
+            portals.forEach(g -> g.render(gc));
+        }
         if (!gameOver) {
             enemies.forEach(g -> g.render(gc));
             player.render(gc);

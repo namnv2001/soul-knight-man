@@ -14,7 +14,7 @@ public class SpeedUpItem extends Block{
 
     @Override
     public void update() {
-        player.addSpeed();
+        this.player.addSpeed();
     }
 
     @Override

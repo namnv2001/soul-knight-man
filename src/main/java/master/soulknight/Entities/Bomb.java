@@ -16,7 +16,7 @@ public class Bomb extends Entity {
     protected int rightBeforeCollide = -1;
     protected int upBeforeCollide = -1;
     protected int downBeforeCollide = -1;
-    private int bombCounter;
+    public int bombCounter;
 
     public Bomb(SpriteSheet sprite, Vector2f origin, int size, double SCALING, int bombRange, TileManager tm) {
         super(sprite, origin, size, SCALING, tm);

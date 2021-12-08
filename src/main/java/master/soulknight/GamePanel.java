@@ -57,7 +57,7 @@ public class GamePanel extends Application {
 
         scene.setOnKeyPressed(keyHandler);
         scene.setOnKeyReleased(keyHandler);
-        scene.setOnMouseClicked(mouseHandler);
+
 
         // ----------------------------------------------------------------------------------
         final double GAME_HERTZ = 64.0;
@@ -173,9 +173,11 @@ public class GamePanel extends Application {
                     if (KeyEvent.KEY_PRESSED.equals(keyEvent.getEventType())) {
                         keyHandler.getSetActiveKeys().add(keyEvent.getCode());
                     }
+                    scene.setOnMouseClicked(mouseHandler);
                 }
             }
         });
+        scene.setOnMouseClicked(mouseHandler);
         // -------------------------------------------------------------------
         stage.setScene(scene);
         stage.show();
