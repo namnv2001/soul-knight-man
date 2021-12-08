@@ -41,4 +41,19 @@ public class Sprite {
         }
         return new ImageView(wr).getImage();
     }
+
+    public Image getFontFxImage() {
+        WritableImage wr = new WritableImage(10, 10);
+        PixelWriter pw = wr.getPixelWriter();
+        for (int x = 0; x < 10; x++) {
+            for (int y = 0; y < 10; y++) {
+                if (pixels[x + y * 10] == TRANSPARENT_COLOR) {
+                    pw.setArgb(x, y, 0);
+                } else {
+                    pw.setArgb(x, y, pixels[x + y * 10]);
+                }
+            }
+        }
+        return new ImageView(wr).getImage();
+    }
 }

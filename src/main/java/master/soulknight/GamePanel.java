@@ -26,7 +26,7 @@ public class GamePanel extends Application {
     public static int tickCount;
 
     public static int width = 1426;
-    public static int height = 806;
+    public static int height = 806 + 40;
 
     private GraphicsContext gc;
     private Canvas canvas;
@@ -193,6 +193,8 @@ public class GamePanel extends Application {
 
     public void render() {
         gc.clearRect(0, 0, width, height);
+        gc.setFill(Color.BLACK);
+        gc.fillRect(0,0,width,height);
         if (gc != null) {
             gsm.render(gc);
         }

@@ -27,23 +27,19 @@ import java.util.Random;
 public class TileManager {
 
     String tilePath;
-
     public SpriteSheet tileSheet;
-
     public final Sprite floor;
-//    public static Sprite[] floors = {floor1,floor2,floor3};
-
     public final Sprite wall1;
     public final Sprite wall2;
-//    public static Sprite[] walls = {wall1,wall2,wall3,wall4};
-
     public final Sprite box;
+    public int score;
 
     public TileManager(String path, String tilePath, double scaling) {
         this.tilePath = tilePath;
         this.scaling = scaling;
         realSize *= scaling;
         tileSheet = new SpriteSheet(tilePath);
+        score = 0;
         floor = tileSheet.getSpriteArray(3,0);
         wall1 = tileSheet.getSpriteArray(0,0);
         wall2 = tileSheet.getSpriteArray(1,0);
@@ -57,14 +53,12 @@ public class TileManager {
     public final Sprite speedItem = itemTileSheet.getSpriteArray(2,0);
     public final Sprite powerUpItem = itemTileSheet.getSpriteArray(1,0);
 
-
     public static int mapRows;
     public static int mapColumns;
 
     public Player player;
     public Enemy enemy;
 
-//    public ArrayList<Block> tmCollideBlocks = new ArrayList<>();
     public ArrayList<Block> collideBlocks = new ArrayList<>();
 
     protected ArrayList<Portal> portals = new ArrayList<>();
@@ -82,6 +76,8 @@ public class TileManager {
 
     public boolean gameOver = false;
 
+
+    // Player---------------------------------------------------------------------------
     public Player getPlayer() {
         return player;
     }
@@ -98,6 +94,8 @@ public class TileManager {
             return "src/main/resources/Sprite/Player/Priest.png";
         }
     }
+
+    //-----------------------------------------------------------------------------------
 
     // Bomb------------------------------------------------------------------------------
     public ArrayList<Bomb> getBombs() {
@@ -127,6 +125,7 @@ public class TileManager {
         }
         return false;
     }
+
     // ----------------------------------------------------------------------------------
 
     // Flame-----------------------------------------------------------------------------
@@ -149,12 +148,15 @@ public class TileManager {
     public ArrayList<Flame> getFlames() {
         return flames;
     }
+
     // ----------------------------------------------------------------------------------
 
-
+    // Enemy-----------------------------------------------------------------------------
     public ArrayList<Enemy> getEnemies() {
         return enemies;
     }
+
+    // ----------------------------------------------------------------------------------
 
     public void readMap(String path) {
         try {
@@ -216,7 +218,7 @@ public class TileManager {
                         }
                        collideBlocks.add(block);
                     } else if (mapStr[i].charAt(j) == 'B') {
-                        enemy = new ChasingEnemy(new SpriteSheet("src/main/resources/Sprite/Monkey.png"), new Vector2f(realSize * j, realSize * i), 52, scaling, this);
+                        enemy = new ChasingEnemy(new SpriteSheet("src/main/resources/Sprite/Enemies/RedIndian.png"), new Vector2f(realSize * j, realSize * i), 52, scaling, this);
                         enemies.add(enemy);
                     } else if (mapStr[i].charAt(j) == 'b') {
                         enemy = new NormalEnemy(new SpriteSheet("src/main/resources/Sprite/Enemies/Monkey.png"), new Vector2f(realSize * j, realSize * i), 52, scaling, this);
@@ -225,13 +227,13 @@ public class TileManager {
                         enemy = new NormalEnemy(new SpriteSheet("src/main/resources/Sprite/Enemies/SnowApe.png"), new Vector2f(realSize * j, realSize * i), 52, scaling, this);
                         enemies.add(enemy);
                     } else if (mapStr[i].charAt(j) == 'P') {
-                        Portal topleftPortal = new Portal(new SpriteSheet("src/main/resources/Sprite/top-left - Copy.png"), new Vector2f(realSize * j, realSize * i), 52, scaling);
+                        Portal topleftPortal = new Portal(new SpriteSheet("src/main/resources/Sprite/Ui/Interactive/Portals/top-left - Copy.png"), new Vector2f(realSize * j, realSize * i), 52, scaling);
                         portals.add(topleftPortal);
-                        Portal toprightPortal = new Portal(new SpriteSheet("src/main/resources/Sprite/top-right - Copy.png"), new Vector2f(realSize * (j + 1), realSize * i), 52, scaling);
+                        Portal toprightPortal = new Portal(new SpriteSheet("src/main/resources/Sprite/Ui/Interactive/Portals/top-right - Copy.png"), new Vector2f(realSize * (j + 1), realSize * i), 52, scaling);
                         portals.add(toprightPortal);
-                        Portal botleftPortal = new Portal(new SpriteSheet("src/main/resources/Sprite/bottom-left - Copy.png"), new Vector2f(realSize * j, realSize * (i + 1)), 52, scaling);
+                        Portal botleftPortal = new Portal(new SpriteSheet("src/main/resources/Sprite/Ui/Interactive/Portals/bottom-left - Copy.png"), new Vector2f(realSize * j, realSize * (i + 1)), 52, scaling);
                         portals.add(botleftPortal);
-                        Portal botrightPortal = new Portal(new SpriteSheet("src/main/resources/Sprite/bottom-right - Copy.png"), new Vector2f(realSize * (j+1), realSize * (i+1)), 52, scaling);
+                        Portal botrightPortal = new Portal(new SpriteSheet("src/main/resources/Sprite/Ui/Interactive/Portals/bottom-right - Copy.png"), new Vector2f(realSize * (j+1), realSize * (i+1)), 52, scaling);
                         portals.add(botrightPortal);
                     }
                     block = new FloorBlock(realSize, realSize, floor.getFxImage()
@@ -265,6 +267,7 @@ public class TileManager {
         for (int i = 0; i < enemies.size(); i++) {
             if (TileCollision.isCollidedWithFlames(enemies.get(i),flames)) {
                 enemies.remove(enemies.get(i));
+                score += 100;
             }
         }
         if (!gameOver) {

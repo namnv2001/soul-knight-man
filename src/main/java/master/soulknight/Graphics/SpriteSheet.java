@@ -1,5 +1,8 @@
 package master.soulknight.Graphics;
 
+import javafx.scene.canvas.GraphicsContext;
+import master.soulknight.Util.Vector2f;
+
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.FileInputStream;
@@ -59,5 +62,14 @@ public class SpriteSheet {
         return SPRITESHEET.getSubImage(x * w, y * h, w, h);
     }
 
+    public static void drawArray(GraphicsContext gc, Font f, String word, Vector2f pos, int width, int height) {
+        float x = pos.x;
+        float y = pos.y;
 
+        for (int i = 0; i < word.length(); i++) {
+            if (word.charAt(i) != 32) {
+                gc.drawImage(f.getFont(word.charAt(i)).getFontFxImage(), (int) (x + i * 25), (int) (y), width, height);
+            }
+        }
+    }
 }
