@@ -33,8 +33,8 @@ public class ChasingEnemy extends Enemy {
         int x = (int) Math.round(pos.x / (SpriteSheet.getTileSize() * getSCALING()));
         int y = (int) Math.round(pos.y / (SpriteSheet.getTileSize() * getSCALING()));
         super.update();
-//        pos.x += this.dx;
-//        pos.y += this.dy;
+        pos.x += this.dx;
+        pos.y += this.dy;
         if (TileCollision.enemyIsCollidedWithBlock(this, tm.collideBlocks) || TileCollision.isCollidedWithBombs(this, tm.getBombs())) {
             pos.x -= dx;
             pos.y -= dy;
