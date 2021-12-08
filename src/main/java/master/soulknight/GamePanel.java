@@ -139,7 +139,7 @@ public class GamePanel extends Application {
                     if (timer.isRunning()) {
                         Image image;
                         try {
-                            image = new Image(new FileInputStream("src/main/resources/Sprite/Pause.png"));
+                            image = new Image(new FileInputStream("src/main/resources/Sprite/Ui/States/Pause.png"));
                             gc.drawImage(image, 0, 0);
                         } catch (IOException e) {
                             e.printStackTrace();

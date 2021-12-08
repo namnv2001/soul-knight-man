@@ -51,7 +51,7 @@ public class TileManager {
         readMap(path);
     }
 
-    public static final SpriteSheet itemTileSheet = new SpriteSheet("src/main/resources/Sprite/Items.png");
+    public static final SpriteSheet itemTileSheet = new SpriteSheet("src/main/resources/Sprite/Ui/Interactive/Items.png");
 
     public final Sprite exBombItem = itemTileSheet.getSpriteArray(0,0);
     public final Sprite speedItem = itemTileSheet.getSpriteArray(2,0);
@@ -89,13 +89,13 @@ public class TileManager {
     private String getChampLink() {
         System.out.println(PickChampState.getChamp());
         if (PickChampState.getChamp() == 1) {
-            return "src/main/resources/Sprite/Alchemist.png";
+            return "src/main/resources/Sprite/Player/Alchemist.png";
         }
         else if (PickChampState.getChamp() == 2) {
-            return "src/main/resources/Sprite/Bomman.png";
+            return "src/main/resources/Sprite/Player/Bomman.png";
         }
         else {
-            return "src/main/resources/Sprite/Priest.png";
+            return "src/main/resources/Sprite/Player/Priest.png";
         }
     }
 
@@ -219,11 +219,10 @@ public class TileManager {
                         enemy = new ChasingEnemy(new SpriteSheet("src/main/resources/Sprite/Monkey.png"), new Vector2f(realSize * j, realSize * i), 52, scaling, this);
                         enemies.add(enemy);
                     } else if (mapStr[i].charAt(j) == 'b') {
-                        enemy = new NormalEnemy(new SpriteSheet("src/main/resources/Sprite/Monkey.png"), new Vector2f(realSize * j, realSize * i), 52, scaling, this);
+                        enemy = new NormalEnemy(new SpriteSheet("src/main/resources/Sprite/Enemies/Monkey.png"), new Vector2f(realSize * j, realSize * i), 52, scaling, this);
                         enemies.add(enemy);
-                    }
-                    else if (mapStr[i].charAt(j) == 'a') {
-                        enemy = new NormalEnemy(new SpriteSheet("src/main/resources/Sprite/SnowApe.png"), new Vector2f(realSize * j, realSize * i), 52, scaling, this);
+                    } else if (mapStr[i].charAt(j) == 'a') {
+                        enemy = new NormalEnemy(new SpriteSheet("src/main/resources/Sprite/Enemies/SnowApe.png"), new Vector2f(realSize * j, realSize * i), 52, scaling, this);
                         enemies.add(enemy);
                     } else if (mapStr[i].charAt(j) == 'P') {
                         Portal topleftPortal = new Portal(new SpriteSheet("src/main/resources/Sprite/top-left - Copy.png"), new Vector2f(realSize * j, realSize * i), 52, scaling);

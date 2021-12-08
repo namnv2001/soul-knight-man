@@ -76,7 +76,7 @@ public class Player extends Entity {
         if (activeKeys.contains(KeyCode.SPACE)) {
             if (bombsInHand > 0 && !tm.bombExist(getBombPos(pos))) {
                 bombsInHand--;
-                bomb = new Bomb(new SpriteSheet("src/main/resources/Sprite/Bombs.png"), getBombPos(pos), size, Entity.getSCALING(), bombRange, tm);
+                bomb = new Bomb(new SpriteSheet("src/main/resources/Sprite/Ui/Interactive/Bombs.png"), getBombPos(pos), size, Entity.getSCALING(), bombRange, tm);
                 tm.addBomb(bomb);
             }
         }

@@ -16,7 +16,7 @@ public class PickChampState extends GameState {
     public PickChampState(GameStateManager gsm) {
         super(gsm);
         try {
-            backgroundImage = new Image(new FileInputStream("src/main/resources/Sprite/PickChamp.png"));
+            backgroundImage = new Image(new FileInputStream("src/main/resources/Sprite/Ui/States/PickChamp.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }

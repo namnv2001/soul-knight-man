@@ -15,7 +15,7 @@ public class PauseState extends GameState {
     public PauseState(GameStateManager gsm) {
         super(gsm);
         try {
-            image = new Image(new FileInputStream("src/main/resources/Sprite/PauseState.png"));
+            image = new Image(new FileInputStream("src/main/resources/Sprite/Ui/States/PauseState.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }

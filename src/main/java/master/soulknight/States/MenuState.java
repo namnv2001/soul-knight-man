@@ -14,7 +14,7 @@ public class MenuState extends GameState {
     public MenuState(GameStateManager gsm) {
         super(gsm);
         try {
-            image = new Image(new FileInputStream("src/main/resources/Sprite/Menu.png"));
+            image = new Image(new FileInputStream("src/main/resources/Sprite/Ui/States/Menu.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }
