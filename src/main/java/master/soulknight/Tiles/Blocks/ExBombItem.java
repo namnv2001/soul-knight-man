@@ -15,7 +15,7 @@ public class ExBombItem extends Block{
     @Override
     public void update() {
         System.out.println("ExBomb");
-        player.addBombsInHand();
+        this.player.addBombsInHand();
     }
 
     @Override

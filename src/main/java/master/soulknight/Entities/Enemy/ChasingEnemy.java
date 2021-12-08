@@ -1,14 +1,18 @@
 package master.soulknight.Entities.Enemy;
 
+import master.soulknight.Entities.Entity;
 import master.soulknight.Graphics.SpriteSheet;
 import master.soulknight.Tiles.Map.ConvertMap;
 import master.soulknight.Tiles.TileCollision;
 import master.soulknight.Tiles.TileManager;
 import master.soulknight.Util.Vector2f;
 
+import java.util.List;
+
 public class ChasingEnemy extends Enemy {
 
-    int x, y;
+    List<ConvertMap.Node> path ;
+    ConvertMap convertMap;
 
     public ChasingEnemy(SpriteSheet sprite, Vector2f origin, int size, double SCALING, TileManager tm) {
         super(sprite, origin, size, SCALING, tm);
@@ -24,34 +28,37 @@ public class ChasingEnemy extends Enemy {
 
     @Override
     public void update() {
-        x = (int) Math.round(pos.x / (SpriteSheet.getTileSize() * getSCALING()));
-        y = (int) Math.round(pos.y / (SpriteSheet.getTileSize() * getSCALING()));
+        convertMap = new ConvertMap();
+        path = convertMap.convert2D(tm, this, (int) (SpriteSheet.getTileSize() * Entity.getSCALING()));
+        int x = (int) Math.round(pos.x / (SpriteSheet.getTileSize() * getSCALING()));
+        int y = (int) Math.round(pos.y / (SpriteSheet.getTileSize() * getSCALING()));
         super.update();
-        pos.x += this.dx;
-        pos.y += this.dy;
+//        pos.x += this.dx;
+//        pos.y += this.dy;
         if (TileCollision.enemyIsCollidedWithBlock(this, tm.collideBlocks) || TileCollision.isCollidedWithBombs(this, tm.getBombs())) {
             pos.x -= dx;
             pos.y -= dy;
+            changeDirection();
         }
-        if (!ConvertMap.path.isEmpty()) {
-            for (int i = 0; i < ConvertMap.path.size() - 1; i++) {
-                if (pos.x == ConvertMap.path.get(i).getY() * 62 && pos.y == ConvertMap.path.get(i).getX() * 62) {
-                    if (x - 1 == ConvertMap.path.get(i + 1).getY() && y == ConvertMap.path.get(i + 1).getX()) {
+        if (!path.isEmpty()) {
+            for (int i = 0; i < path.size() - 1; i++) {
+                if (pos.x == path.get(i).getY() * 62 && pos.y == path.get(i).getX() * 62) {
+                    if (x - 1 == path.get(i + 1).getY() && y == path.get(i + 1).getX()) {
                         setFalse();
                         left = true;
                         this.dx = -2;
                         this.dy = 0;
-                    } else if (x + 1 == ConvertMap.path.get(i + 1).getY() && y == ConvertMap.path.get(i + 1).getX()) {
+                    } else if (x + 1 == path.get(i + 1).getY() && y == path.get(i + 1).getX()) {
                         setFalse();
                         right = true;
                         this.dx = 2;
                         this.dy = 0;
-                    } else if (x == ConvertMap.path.get(i + 1).getY() && y - 1 == ConvertMap.path.get(i + 1).getX()) {
+                    } else if (x == path.get(i + 1).getY() && y - 1 == path.get(i + 1).getX()) {
                         setFalse();
                         up = true;
                         this.dx = 0;
                         this.dy = -2;
-                    } else if (x == ConvertMap.path.get(i + 1).getY() && y + 1 == ConvertMap.path.get(i + 1).getX()) {
+                    } else if (x == path.get(i + 1).getY() && y + 1 == path.get(i + 1).getX()) {
                         setFalse();
                         down = true;
                         this.dx = 0;
@@ -59,6 +66,29 @@ public class ChasingEnemy extends Enemy {
                     }
                 }
             }
+        }
+    }
+    public void changeDirection() {
+        if (up) {
+            up = false;
+            down = true;
+            this.dx = 0;
+            this.dy = 2;
+        } else if (down) {
+            down = false;
+            up = true;
+            this.dx = 0;
+            this.dy = -2;
+        } else if (right) {
+            right = false;
+            left = true;
+            this.dx = 2;
+            this.dy = 0;
+        } else {
+            left = false;
+            right = true;
+            this.dx = -2;
+            this.dy = 0;
         }
     }
 }

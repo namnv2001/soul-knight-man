@@ -4,6 +4,7 @@ import master.soulknight.Entities.Bomb;
 import master.soulknight.Entities.Entity;
 import master.soulknight.Entities.Flame;
 import master.soulknight.Tiles.Blocks.Block;
+import master.soulknight.Tiles.Blocks.Portal;
 
 import java.util.ArrayList;
 
@@ -71,12 +72,12 @@ public class TileCollision {
                 player.getY() + 7 + player.getSize() > enemy.getY();
     }
 
-    public static boolean isColliedWithPortals(Entity player, ArrayList<Block> portals) {
-        for (Block block : portals) {
-            if (player.getX() + 7 < block.pos.x + block.getBlockWidth() &&
-                    player.getX() + 7 + player.getSize() > block.pos.x &&
-                    player.getY() + 7 < block.pos.y + block.getBlockHeight() &&
-                    player.getY() + 7 + player.getSize() > block.pos.y) {
+    public static boolean isColliedWithPortals(Entity player, ArrayList<Portal> portals) {
+        for (Portal block : portals) {
+            if (player.getX() + 7 < block.getX() + block.getSize() &&
+                    player.getX() + 7 + player.getSize() > block.getX() &&
+                    player.getY() + 7 < block.getY() + block.getSize() &&
+                    player.getY() + 7 + player.getSize() > block.getY()) {
                 return true;
             }
         }

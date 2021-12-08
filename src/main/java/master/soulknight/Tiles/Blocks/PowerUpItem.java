@@ -14,7 +14,7 @@ public class PowerUpItem extends Block{
 
     @Override
     public void update() {
-        player.addBombRange();
+        this.player.addBombRange();
     }
 
     @Override

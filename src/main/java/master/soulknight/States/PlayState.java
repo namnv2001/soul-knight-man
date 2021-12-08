@@ -36,6 +36,7 @@ public class PlayState extends GameState {
     public void update() {
         tms.get(level).update();
         if (tms.get(level).gameOver) {
+            level = 0;
             gsm.pop(0);
             gsm.add(3);
             tms.get(level).gameOver = false;

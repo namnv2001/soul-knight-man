@@ -1,6 +1,7 @@
 package master.soulknight.Tiles.Map;
 
 import master.soulknight.Entities.Bomb;
+import master.soulknight.Entities.Enemy.ChasingEnemy;
 import master.soulknight.Entities.Enemy.Enemy;
 import master.soulknight.Tiles.Blocks.Block;
 import master.soulknight.Tiles.TileManager;
@@ -11,14 +12,14 @@ import java.util.List;
 import java.util.Queue;
 
 public class ConvertMap {
-    public static List<Node> path = new ArrayList<>();
-    static int[][] mapMatrix = new int[13][23];
-    static int[][] mapMatrixBackup = new int[13][23];
-    static boolean[][] visited = new boolean[13][23];
-    static int[] rowNum = {-1, 0, 0, 1};
-    static int[] colNum = {0, -1, 1, 0};
+    public List<Node> path = new ArrayList<>();
+    int[][] mapMatrix = new int[13][23];
+    int[][] mapMatrixBackup = new int[13][23];
+    boolean[][] visited = new boolean[13][23];
+    int[] rowNum = {-1, 0, 0, 1};
+    int[] colNum = {0, -1, 1, 0};
 
-    public static void convert2D(TileManager tileManager, int size) {
+    public List<Node> convert2D(TileManager tileManager, ChasingEnemy chasingEnemy, int size) {
         for (int i = 0; i < 13; i++) {
             for (int j = 0; j < 23; j++) {
                 int playerX = Math.round(tileManager.player.getPos().x / size);
@@ -32,8 +33,13 @@ public class ConvertMap {
                     int enemyX = Math.round(enemy.getPos().x / size);
                     int enemyY = Math.round(enemy.getPos().y / size);
                     if (enemyX == j && enemyY == i) {
-                        mapMatrix[i][j] = 3;
+                        mapMatrix[i][j] = 1;
                     }
+                }
+                int enemyX = Math.round(chasingEnemy.getPos().x / size);
+                int enemyY = Math.round(chasingEnemy.getPos().y / size);
+                if (enemyX == j && enemyY == i) {
+                    mapMatrix[i][j] = 3;
                 }
                 for (Block block : tileManager.collideBlocks) {
                     int x = (int) (block.pos.x / size);
@@ -57,17 +63,18 @@ public class ConvertMap {
             }
         }
 
-//                for(int i = 0 ; i < 13 ; i++) {
-//            for (int j = 0 ; j < 23 ; j++) {
-//                System.out.print(mapMatrix[i][j] + " ");
-//            }
-//            System.out.println();
-//        }
-        findConnect(mapMatrix, mapMatrixBackup, visited);
+                for(int i = 0 ; i < 13 ; i++) {
+            for (int j = 0 ; j < 23 ; j++) {
+                System.out.print(mapMatrix[i][j] + " ");
+            }
+            System.out.println();
+        }
+        System.out.println();
+        return findConnect(mapMatrix, mapMatrixBackup, visited);
 
     }
 
-    public static int[][] checkSurround(int[][] mapMatrix, int[][] mapMatrixBackup, int x, int y) {
+    public int[][] checkSurround(int[][] mapMatrix, int[][] mapMatrixBackup, int x, int y) {
         if (mapMatrix[x + 1][y] == 0) {
             mapMatrixBackup[x + 1][y] = 1;
         }
@@ -83,7 +90,7 @@ public class ConvertMap {
         return mapMatrixBackup;
     }
 
-    public static void findConnect(int[][] mapMatrix, int[][] mapMatrixBackup, boolean[][] visited) {
+    public List<Node> findConnect(int[][] mapMatrix, int[][] mapMatrixBackup, boolean[][] visited) {
         int srcX = 0;
         int srcY = 0;
         int destX = 0;
@@ -94,34 +101,43 @@ public class ConvertMap {
                     mapMatrixBackup[i][j] = 1;
                     srcX = i;
                     srcY = j;
-                    checkSurround(mapMatrix, mapMatrixBackup, i, j);
+                    mapMatrixBackup = checkSurround(mapMatrix, mapMatrixBackup, i, j);
                     visited[i][j] = true;
                     i = 1;
                     j = 1;
                 }
                 if (mapMatrixBackup[i][j] == 1 && !visited[i][j]) {
-                    checkSurround(mapMatrix, mapMatrixBackup, i, j);
+                    mapMatrixBackup = checkSurround(mapMatrix, mapMatrixBackup, i, j);
                     visited[i][j] = true;
                     j = 1;
                     i = 1;
                 }
                 if (mapMatrix[i][j] == 2) {
+                    mapMatrixBackup[i][j] = 1;
                     destX = i;
                     destY = j;
                 }
             }
         }
+//        for(int i = 0 ; i < 13 ; i++) {
+//            for (int j = 0 ; j < 23 ; j++) {
+//                System.out.print(mapMatrixBackup[i][j] + " ");
+//            }
+//            System.out.println();
+//        }
+//        System.out.println();
         path = BFS(mapMatrixBackup, new Node(srcX, srcY, null), new Node(destX, destY, null));
+        return path;
     }
 
-    private static void findPath(Node node, List<Node> path) {
+    private void findPath(Node node, List<Node> path) {
         if (node != null) {
             findPath(node.parent, path);
             path.add(node);
         }
     }
 
-    public static List<Node> BFS(int[][] mapMatrixBackup, Node src, Node dest) {
+    public List<Node> BFS(int[][] mapMatrixBackup, Node src, Node dest) {
 
         List<Node> path = new ArrayList<>();
 
@@ -160,11 +176,11 @@ public class ConvertMap {
         return path;
     }
 
-    static boolean isValid(int row, int col) {
+    boolean isValid(int row, int col) {
         return (row >= 0) && (row < 13) && (col >= 0) && (col < 23);
     }
 
-    public static class Node {
+    public class Node {
         int x, y;
         Node parent;
 

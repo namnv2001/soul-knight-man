@@ -3,7 +3,6 @@ package master.soulknight.Entities.Enemy;
 import javafx.scene.canvas.GraphicsContext;
 import master.soulknight.Entities.Entity;
 import master.soulknight.Graphics.SpriteSheet;
-import master.soulknight.Tiles.TileCollision;
 import master.soulknight.Tiles.TileManager;
 import master.soulknight.Util.Vector2f;
 
