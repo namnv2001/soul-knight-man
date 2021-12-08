@@ -15,7 +15,7 @@ public class GameOverState extends GameState {
     public GameOverState(GameStateManager gsm) {
         super(gsm);
         try {
-            image = new Image(new FileInputStream("src/main/resources/Sprite/GameOver.png"));
+            image = new Image(new FileInputStream("src/main/resources/Sprite/Ui/States/GameOver.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }

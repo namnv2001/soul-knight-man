@@ -12,8 +12,8 @@ import java.util.ArrayList;
 public class PlayState extends GameState {
 
     protected final double scaling = 2;
-    TileManager tm1 = new TileManager("src/main/resources/levels/Level1.txt", "src/main/resources/Sprite/Map1.png", scaling);
-    TileManager tm2 = new TileManager("src/main/resources/levels/Level2.txt", "src/main/resources/Sprite/Map2.png", scaling);
+    TileManager tm1 = new TileManager("src/main/resources/levels/Level1.txt", "src/main/resources/Sprite/Ui/Maps/Map1.png", scaling);
+    TileManager tm2 = new TileManager("src/main/resources/levels/Level2.txt", "src/main/resources/Sprite/Ui/Maps/Map2.png", scaling);
 
     private int delay = 0;
     private int currentLevel = 0;
