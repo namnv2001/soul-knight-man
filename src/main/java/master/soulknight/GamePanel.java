@@ -38,6 +38,9 @@ public class GamePanel extends Application {
     private MediaPlayer mp;
     PlaySound ps;
 
+    Image muteImage = null;
+    Image image;
+
     public void initGraphics() {
         canvas = new Canvas(width, height);
         gc = canvas.getGraphicsContext2D();
@@ -147,22 +150,20 @@ public class GamePanel extends Application {
             if (gsm.isPlayState() && !gsm.isGameOverState()) {
                 if (keyEvent.getCode() == KeyCode.ESCAPE) {
                     if (timer.isRunning()) {
-                        Image image;
                         try {
                             image = new Image(new FileInputStream("src/main/resources/Sprite/Ui/States/Pause.png"));
-                            gc.drawImage(image, 0, 0);
+                            muteImage = new Image(new FileInputStream("src/main/resources/Sprite/Ui/States/Muted.png"));
                         } catch (IOException e) {
                             e.printStackTrace();
+                        }
+
+                        gc.drawImage(image, 0, 0);
+                        if(ps.isMute()) {
+                            gc.drawImage(muteImage,645, 378);
                         }
                         timer.stop();
                         scene.setOnMouseClicked(mouseEvent -> {
                             if(mouseEvent.getX() > 0) {
-                                Image muteImage = null;
-                                try {
-                                    muteImage = new Image(new FileInputStream("src/main/resources/Sprite/Ui/States/Muted.png"));
-                                } catch (IOException e) {
-                                    e.printStackTrace();
-                                }
                                 double x = mouseEvent.getX();
                                 double y = mouseEvent.getY();
                                 // continue
@@ -220,10 +221,4 @@ public class GamePanel extends Application {
         }
     }
 
-    public void playBGMusic(String file) {
-        Media media = new Media(new File(file).toURI().toString());
-        mp = new MediaPlayer(media);
-        mp.setCycleCount(10);
-        mp.play();
-    }
 }
