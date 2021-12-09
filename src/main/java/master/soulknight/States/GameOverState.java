@@ -37,7 +37,6 @@ public class GameOverState extends GameState {
         gc.drawImage(image, 0, 0);
         // x,y pos in new Vector2f(x,y)
         SpriteSheet.drawArray(gc, font, "Player (1): " + TileManager.score, new Vector2f(302,70),40,55);
-
     }
 
     @Override
