@@ -149,9 +149,14 @@ public class GamePanel extends Application {
                 if (keyEvent.getCode() == KeyCode.ESCAPE) {
                     if (timer.isRunning()) {
                         Image image;
+                        Image muteImage;
                         try {
                             image = new Image(new FileInputStream("src/main/resources/Sprite/Ui/States/Pause.png"));
+                            if (true) {
+                                muteImage = new Image(new FileInputStream("src/main/resources/Sprite/Ui/States/Muted.png"));
+                            }
                             gc.drawImage(image, 0, 0);
+                            gc.drawImage(muteImage, 645, 378);
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
