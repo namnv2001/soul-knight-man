@@ -12,7 +12,6 @@ import master.soulknight.Graphics.SpriteSheet;
 import master.soulknight.States.PickChampState;
 import master.soulknight.States.PlayState;
 import master.soulknight.Tiles.Blocks.*;
-import master.soulknight.Tiles.Map.ConvertMap;
 import master.soulknight.Util.KeyHandler;
 import master.soulknight.Util.Vector2f;
 
