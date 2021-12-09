@@ -35,7 +35,7 @@ public class GameOverState extends GameState {
     @Override
     public void render(GraphicsContext gc) {
         gc.drawImage(image, 0, 0);
-        SpriteSheet.drawArray(gc,font,"Score:" + TileManager.score,new Vector2f(400,400),40,40);
+        SpriteSheet.drawArray(gc, font, "Player (1): " + TileManager.score, new Vector2f(302,70),40,55);
 
     }
 
@@ -45,11 +45,11 @@ public class GameOverState extends GameState {
             double x = mouseHandler.getPos().x;
             double y = mouseHandler.getPos().y;
             System.out.println(x + " " + y);
-            if (gsm.isGameOverState() && x >= 612 && x <= 705 && y >= 640 && y <= 669) {
+            if (gsm.isGameOverState() && x >= 614 && x <= 707 && y >= 705 && y <= 734) {
                 gsm.pop(0);
                 gsm.add(1);
             }
-            if (gsm.isGameOverState() && x >= 738 && x <= 807 && y >= 640 && y <= 669) {
+            if (gsm.isGameOverState() && x >= 740 && x <= 809 && y >= 705 && y <= 734) {
                 System.out.println("quit");
                 gsm.pop(0);
                 gsm.add(0);

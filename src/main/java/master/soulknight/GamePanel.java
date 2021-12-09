@@ -150,15 +150,15 @@ public class GamePanel extends Application {
                                 double x = mouseEvent.getX();
                                 double y = mouseEvent.getY();
                                 // continue
-                                if (x >= 374 && x <= 579 && y >= 319 && y <= 486) {
+                                if (x >= 374 && x <= 579 && y >= 339 && y <= 506) {
                                     timer.start();
                                 }
                                 // mute
-                                if (x >= 607 && x <= 812 && y >= 319 && y <= 486) {
+                                if (x >= 607 && x <= 812 && y >= 339 && y <= 506) {
                                     System.out.println("mute");
                                 }
                                 // quit
-                                if (x >= 842 && x <= 1047 && y >= 319 && y <= 486) {
+                                if (x >= 842 && x <= 1047 && y >= 339 && y <= 506) {
                                     gsm.pop(0);
                                     gsm.add(0);
                                     scene.setOnMouseClicked(mouseHandler);
