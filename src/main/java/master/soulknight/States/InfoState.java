@@ -36,7 +36,7 @@ public class InfoState extends GameState {
         if (mouseHandler.getPos() != null) {
             double x = mouseHandler.getPos().x;
             double y = mouseHandler.getPos().y;
-            if (gsm.isInfoState() && x >= 1307 && x <= 1363 && y >= 71 && y <= 133) {
+            if (gsm.isInfoState() && x >= 1294 && x <= 1363 && y >= 71 && y <= 147) {
                 gsm.pop(0);
                 gsm.add(0);
             }
