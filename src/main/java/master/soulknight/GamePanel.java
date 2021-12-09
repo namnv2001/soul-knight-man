@@ -8,7 +8,6 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
@@ -18,7 +17,6 @@ import master.soulknight.Util.MouseHandler;
 import master.soulknight.Util.PlaySound;
 import master.soulknight.Util.StatusTimer;
 
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 
@@ -38,6 +36,11 @@ public class GamePanel extends Application {
     private MediaPlayer mp;
     PlaySound ps;
 
+    Image unmuteButton = null;
+    Image muteButton = null;
+    Image muteimage = null;
+    Image image;
+
     public void initGraphics() {
         canvas = new Canvas(width, height);
         gc = canvas.getGraphicsContext2D();
@@ -52,10 +55,9 @@ public class GamePanel extends Application {
 
     @Override
     public void start(Stage stage) {
-//
 
         init();
-       // playBGMusic("src/main/resources/Music/VitalityHelltakerOST-Mittsies-6554269.mp3");
+//        playBGMusic("src/main/resources/Music/VitalityHelltakerOST-Mittsies-6554269.mp3");
         ps.play();
         Group root = new Group();
         Scene scene = new Scene(root);
@@ -148,17 +150,18 @@ public class GamePanel extends Application {
             if (gsm.isPlayState() && !gsm.isGameOverState()) {
                 if (keyEvent.getCode() == KeyCode.ESCAPE) {
                     if (timer.isRunning()) {
-                        Image image;
-                        Image muteImage;
                         try {
                             image = new Image(new FileInputStream("src/main/resources/Sprite/Ui/States/Pause.png"));
-                            if (true) {
-                                muteImage = new Image(new FileInputStream("src/main/resources/Sprite/Ui/States/Muted.png"));
-                            }
-                            gc.drawImage(image, 0, 0);
-                            gc.drawImage(muteImage, 645, 378);
+                            muteimage = new Image(new FileInputStream("src/main/resources/Sprite/Ui/States/Pause-Muted.png"));
+                            muteButton = new Image(new FileInputStream("src/main/resources/Sprite/Ui/States/PauseButton.png"));
+                            unmuteButton = new Image(new FileInputStream("src/main/resources/Sprite/Ui/States/UnmuteButton.png"));
                         } catch (IOException e) {
                             e.printStackTrace();
+                        }
+                        if(ps.isMute()) {
+                            gc.drawImage(muteimage,0, 0);
+                        } else {
+                            gc.drawImage(image, 0, 0);
                         }
                         timer.stop();
                         scene.setOnMouseClicked(mouseEvent -> {
@@ -173,6 +176,12 @@ public class GamePanel extends Application {
                                 if (x >= 607 && x <= 812 && y >= 339 && y <= 506) {
                                     System.out.println("mute");
                                     ps.mute();
+
+                                    if (ps.isMute()) {
+                                        gc.drawImage(muteButton, 607, 339);
+                                    } else {
+                                        gc.drawImage(unmuteButton, 607, 339);
+                                    }
                                 }
                                 // quit
                                 if (x >= 842 && x <= 1047 && y >= 339 && y <= 506) {
@@ -217,10 +226,4 @@ public class GamePanel extends Application {
         }
     }
 
-    public void playBGMusic(String file) {
-        Media media = new Media(new File(file).toURI().toString());
-        mp = new MediaPlayer(media);
-        mp.setCycleCount(10);
-        mp.play();
-    }
 }

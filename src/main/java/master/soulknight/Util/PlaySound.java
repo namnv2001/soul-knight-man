@@ -13,6 +13,10 @@ public class PlaySound {
         System.out.println("sound1");
     }
 
+    public boolean isMute() {
+        return mp.isMute();
+    }
+
     public void play() {
         System.out.println("sound");
         mp.setVolume(0.75);
