@@ -150,7 +150,6 @@ public class GamePanel extends Application {
                         Image image;
                         try {
                             image = new Image(new FileInputStream("src/main/resources/Sprite/Ui/States/Pause.png"));
-
                             gc.drawImage(image, 0, 0);
                         } catch (IOException e) {
                             e.printStackTrace();
@@ -160,7 +159,7 @@ public class GamePanel extends Application {
                             if(mouseEvent.getX() > 0) {
                                 Image muteImage = null;
                                 try {
-                                        muteImage = new Image(new FileInputStream("src/main/resources/Sprite/Ui/States/Muted.png"));
+                                    muteImage = new Image(new FileInputStream("src/main/resources/Sprite/Ui/States/Muted.png"));
                                 } catch (IOException e) {
                                     e.printStackTrace();
                                 }
