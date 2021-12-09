@@ -52,10 +52,9 @@ public class GamePanel extends Application {
 
     @Override
     public void start(Stage stage) {
-//
 
         init();
-       // playBGMusic("src/main/resources/Music/VitalityHelltakerOST-Mittsies-6554269.mp3");
+//        playBGMusic("src/main/resources/Music/VitalityHelltakerOST-Mittsies-6554269.mp3");
         ps.play();
         Group root = new Group();
         Scene scene = new Scene(root);
@@ -149,20 +148,22 @@ public class GamePanel extends Application {
                 if (keyEvent.getCode() == KeyCode.ESCAPE) {
                     if (timer.isRunning()) {
                         Image image;
-                        Image muteImage;
                         try {
                             image = new Image(new FileInputStream("src/main/resources/Sprite/Ui/States/Pause.png"));
-                            if (true) {
-                                muteImage = new Image(new FileInputStream("src/main/resources/Sprite/Ui/States/Muted.png"));
-                            }
+
                             gc.drawImage(image, 0, 0);
-                            gc.drawImage(muteImage, 645, 378);
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
                         timer.stop();
                         scene.setOnMouseClicked(mouseEvent -> {
                             if(mouseEvent.getX() > 0) {
+                                Image muteImage = null;
+                                try {
+                                        muteImage = new Image(new FileInputStream("src/main/resources/Sprite/Ui/States/Muted.png"));
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
                                 double x = mouseEvent.getX();
                                 double y = mouseEvent.getY();
                                 // continue
@@ -173,6 +174,9 @@ public class GamePanel extends Application {
                                 if (x >= 607 && x <= 812 && y >= 339 && y <= 506) {
                                     System.out.println("mute");
                                     ps.mute();
+                                    if (ps.isMute()) {
+                                        gc.drawImage(muteImage, 645, 378);
+                                    }
                                 }
                                 // quit
                                 if (x >= 842 && x <= 1047 && y >= 339 && y <= 506) {
