@@ -2,7 +2,6 @@ package master.soulknight.States;
 
 import javafx.scene.canvas.GraphicsContext;
 import master.soulknight.GamePanel;
-import master.soulknight.Graphics.SpriteSheet;
 import master.soulknight.Util.Vector2f;
 import master.soulknight.Util.MouseHandler;
 import master.soulknight.Util.KeyHandler;

@@ -1,7 +1,6 @@
 package master.soulknight;
 
 import javafx.application.Application;
-import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
@@ -9,14 +8,17 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import master.soulknight.States.GameStateManager;
 import master.soulknight.Util.KeyHandler;
 import master.soulknight.Util.MouseHandler;
+import master.soulknight.Util.PlaySound;
 import master.soulknight.Util.StatusTimer;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 
@@ -33,6 +35,9 @@ public class GamePanel extends Application {
 
     private GameStateManager gsm;
 
+    private MediaPlayer mp;
+    PlaySound ps;
+
     public void initGraphics() {
         canvas = new Canvas(width, height);
         gc = canvas.getGraphicsContext2D();
@@ -41,13 +46,17 @@ public class GamePanel extends Application {
     public void init() {
         initGraphics();
         gsm = new GameStateManager(gc);
+        ps = new PlaySound("src/main/resources/Music/VitalityHelltakerOST-Mittsies-6554269.mp3");
 
     }
 
     @Override
     public void start(Stage stage) {
-        init();
+//
 
+        init();
+       // playBGMusic("src/main/resources/Music/VitalityHelltakerOST-Mittsies-6554269.mp3");
+        ps.play();
         Group root = new Group();
         Scene scene = new Scene(root);
         root.getChildren().add(canvas);
@@ -81,6 +90,8 @@ public class GamePanel extends Application {
         StatusTimer timer = new StatusTimer() {
             @Override
             public void handle(long l) {
+
+
 
                 //--------------------------------------------------------------------------
                 double now = System.nanoTime();
@@ -156,6 +167,7 @@ public class GamePanel extends Application {
                                 // mute
                                 if (x >= 607 && x <= 812 && y >= 319 && y <= 486) {
                                     System.out.println("mute");
+                                    ps.mute();
                                 }
                                 // quit
                                 if (x >= 842 && x <= 1047 && y >= 319 && y <= 486) {
@@ -198,5 +210,12 @@ public class GamePanel extends Application {
         if (gc != null) {
             gsm.render(gc);
         }
+    }
+
+    public void playBGMusic(String file) {
+        Media media = new Media(new File(file).toURI().toString());
+        mp = new MediaPlayer(media);
+        mp.setCycleCount(10);
+        mp.play();
     }
 }
