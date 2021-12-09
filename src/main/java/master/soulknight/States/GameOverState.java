@@ -2,18 +2,24 @@ package master.soulknight.States;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import master.soulknight.Graphics.Font;
+import master.soulknight.Graphics.SpriteSheet;
+import master.soulknight.Tiles.TileManager;
 import master.soulknight.Util.KeyHandler;
 import master.soulknight.Util.MouseHandler;
+import master.soulknight.Util.Vector2f;
 
 import java.io.FileInputStream;
 import java.io.IOException;
 
 public class GameOverState extends GameState {
 
+    Font font;
     Image image;
 
     public GameOverState(GameStateManager gsm) {
         super(gsm);
+        font = new Font("src/main/resources/Sprite/Ui/Font/FontSheet.png",10,10);
         try {
             image = new Image(new FileInputStream("src/main/resources/Sprite/Ui/States/GameOver.png"));
         } catch (IOException e) {
@@ -29,6 +35,8 @@ public class GameOverState extends GameState {
     @Override
     public void render(GraphicsContext gc) {
         gc.drawImage(image, 0, 0);
+        SpriteSheet.drawArray(gc,font,"Score:" + TileManager.score,new Vector2f(400,400),40,40);
+
     }
 
     @Override

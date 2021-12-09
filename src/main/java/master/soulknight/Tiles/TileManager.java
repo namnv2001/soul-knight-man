@@ -32,7 +32,7 @@ public class TileManager {
     public final Sprite wall1;
     public final Sprite wall2;
     public final Sprite box;
-    public int score;
+    public static int score;
 
     public TileManager(String path, String tilePath, double scaling) {
         this.tilePath = tilePath;
