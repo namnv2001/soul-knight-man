@@ -75,7 +75,6 @@ public class PickChampState extends GameState {
                 gsm.add(1);
                 System.out.println("Pick 3rd champ");
             }
-
             mouseHandler.resetPos();
         }
     }

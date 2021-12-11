@@ -32,7 +32,7 @@ public class GamePanel extends Application {
 
     private GameStateManager gsm;
 
-    PlaySound ps;
+    private PlaySound ps;
 
     Image unmuteButton = null;
     Image muteButton = null;

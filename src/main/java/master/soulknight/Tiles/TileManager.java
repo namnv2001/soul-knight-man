@@ -28,6 +28,7 @@ public class TileManager {
     public static int score;
     public static int mapRows;
     public static int mapColumns;
+
     public final Sprite floor;
     public final Sprite wall1;
     public final Sprite wall2;
@@ -35,23 +36,26 @@ public class TileManager {
     public final Sprite exBombItem = itemTileSheet.getSpriteArray(0, 0);
     public final Sprite speedItem = itemTileSheet.getSpriteArray(2, 0);
     public final Sprite powerUpItem = itemTileSheet.getSpriteArray(1, 0);
+
+    public boolean gameOver = false;
     public SpriteSheet tileSheet;
     public Player player;
-    public Enemy enemy;
     public ArrayList<Block> collideBlocks = new ArrayList<>();
-    public boolean gameOver = false;
+
     protected ArrayList<Portal> portals = new ArrayList<>();
     protected ArrayList<Block> items = new ArrayList<>();
     protected ArrayList<Enemy> enemies = new ArrayList<>();
     protected ArrayList<Flame> flames = new ArrayList<>();
     protected ArrayList<Bomb> bombs = new ArrayList<>();
     protected ArrayList<Block> floorBlocks = new ArrayList<>();
+
     protected int realSize = 31;
     protected double scaling;
     protected int level;
     protected int rows;
     protected int columns;
-    protected int boxEnemyCounter = 0;
+    protected int boxEnemyCounter;
+
     String tilePath;
 
     public TileManager(String path, String tilePath, double scaling) {
@@ -179,6 +183,7 @@ public class TileManager {
                 for (int j = 0; j < columns; j++) {
                     Block block;
                     Block item;
+                    Enemy enemy;
 
                     if (mapStr[i].charAt(j) == '1') {
                         block = new WallBlock(realSize, realSize, wall1.getFxImage()
@@ -215,7 +220,8 @@ public class TileManager {
                         enemy = new ChasingEnemy(new SpriteSheet("src/main/resources/Sprite/Enemies/RedIndian.png"), new Vector2f(realSize * j, realSize * i), 52, scaling, this);
                         enemies.add(enemy);
                     } else if (mapStr[i].charAt(j) == 'b') {
-                        enemy = new TwoLifeEnemy(new SpriteSheet("src/main/resources/Sprite/Enemies/GoldenBeetle.png"), new Vector2f(realSize * j, realSize * i), 52, scaling, this);
+                        enemy = new TwoLifeEnemy(new SpriteSheet("src/main/resources/Sprite/Enemies/GoldenBeetle.png"), new SpriteSheet("src/main/resources/Sprite/Enemies/CrystalBeetle.png"),
+                                new Vector2f(realSize * j, realSize * i), 52, scaling, this);
                         enemies.add(enemy);
                     } else if (mapStr[i].charAt(j) == 'a') {
                         enemy = new NormalEnemy(new SpriteSheet("src/main/resources/Sprite/Enemies/SnowApe.png"), new Vector2f(realSize * j, realSize * i), 52, scaling, this);

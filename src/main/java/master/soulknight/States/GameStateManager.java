@@ -1,10 +1,8 @@
 package master.soulknight.States;
 
 import javafx.scene.canvas.GraphicsContext;
-import master.soulknight.GamePanel;
 import master.soulknight.Util.KeyHandler;
 import master.soulknight.Util.MouseHandler;
-import master.soulknight.Util.Vector2f;
 
 import java.util.ArrayList;
 
@@ -16,15 +14,12 @@ public class GameStateManager {
     public static final int GAMEOVER = 3;
     public static final int INFO = 4;
     public static final int PICK = 5;
-    public static Vector2f map;
     public static GraphicsContext gc;
     private ArrayList<GameState> states;
 
     public GameStateManager(GraphicsContext gc) {
-        map = new Vector2f(GamePanel.width, GamePanel.height);
         GameStateManager.gc = gc;
         states = new ArrayList<>();
-        Vector2f.setWorldVar(map.x, map.y);
         states.add(new MenuState(this));
     }
 
@@ -57,9 +52,6 @@ public class GameStateManager {
     }
 
     public void add(int state) {
-//        if(states.get(state) != null) {
-//            return;
-//        }
         if (state == PLAY) {
             states.add(new PlayState(this));
         }

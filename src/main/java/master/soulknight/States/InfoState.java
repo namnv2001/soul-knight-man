@@ -25,7 +25,6 @@ public class InfoState extends GameState {
     public void update() {
     }
 
-
     @Override
     public void render(GraphicsContext gc) {
         gc.drawImage(backgroundImage, 0, 0);

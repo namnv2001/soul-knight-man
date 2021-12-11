@@ -11,13 +11,13 @@ import master.soulknight.Util.Vector2f;
 import java.util.List;
 
 public class TwoLifeEnemy extends Enemy {
-    int delay;
-    boolean firstLife = true;
-    List<ConvertMap.Node> path;
-    ConvertMap convertMap;
+    private final SpriteSheet secondSprite;
+    private int delay;
+    private boolean firstLife = true;
 
-    public TwoLifeEnemy(SpriteSheet sprite, Vector2f origin, int size, double SCALING, TileManager tm) {
+    public TwoLifeEnemy(SpriteSheet sprite, SpriteSheet sprite2, Vector2f origin, int size, double SCALING, TileManager tm) {
         super(sprite, origin, size, SCALING, tm);
+        secondSprite = sprite2;
     }
 
     public void changeDirection() {
@@ -46,14 +46,17 @@ public class TwoLifeEnemy extends Enemy {
     @Override
     public void update() {
         if (TileCollision.isCollidedWithFlames(this, tm.getFlames()) && firstLife) {
-            TileManager.score += 100;
             delay = 0;
-            setSprite(new SpriteSheet("src/main/resources/Sprite/Enemies/CrystalBeetle.png"));
             firstLife = false;
+            TileManager.score += 100;
+            setSprite(secondSprite);
+
             int roundedX = (int) Math.round(pos.x / (SpriteSheet.getTileSize() * getSCALING()));
             int roundedY = (int) Math.round(pos.y / (SpriteSheet.getTileSize() * getSCALING()));
+
             pos.x = (float) (roundedX * SpriteSheet.getTileSize() * getSCALING());
             pos.y = (float) (roundedY * SpriteSheet.getTileSize() * getSCALING());
+
             setFalse();
         } else if (TileCollision.isCollidedWithFlames(this, tm.getFlames()) && !firstLife && delay > 50) {
             dead = true;
@@ -72,18 +75,22 @@ public class TwoLifeEnemy extends Enemy {
         }
         if (!firstLife) {
             delay++;
-            convertMap = new ConvertMap();
-            path = convertMap.convert2D(tm, this, (int) (SpriteSheet.getTileSize() * Entity.getSCALING()));
+            ConvertMap convertMap = new ConvertMap();
+            List<ConvertMap.Node> path = convertMap.convert2D(tm, this, (int) (SpriteSheet.getTileSize() * Entity.getSCALING()));
             int x = (int) Math.round(pos.x / (SpriteSheet.getTileSize() * getSCALING()));
             int y = (int) Math.round(pos.y / (SpriteSheet.getTileSize() * getSCALING()));
+
             super.update();
+
             pos.x += this.dx;
             pos.y += this.dy;
+
             if (TileCollision.enemyIsCollidedWithBlock(this, tm.collideBlocks) || TileCollision.isCollidedWithBombs(this, tm.getBombs())) {
                 pos.x -= dx;
                 pos.y -= dy;
                 changeDirection();
             }
+
             if (!path.isEmpty()) {
                 for (int i = 0; i < path.size() - 1; i++) {
                     if (pos.x == path.get(i).getY() * 62 && pos.y == path.get(i).getX() * 62) {

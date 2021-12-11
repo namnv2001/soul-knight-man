@@ -12,12 +12,6 @@ public class Animation {
 
     private int timePlayed;
 
-    public Animation(Sprite[] frames) {
-        setFrames(0, frames);
-        timePlayed = 0;
-        states = new int[10];
-    }
-
     public Animation() {
         timePlayed = 0;
         states = new int[10];
@@ -36,20 +30,11 @@ public class Animation {
         }
     }
 
-    public void setCurrentFrame(int currentFrame) {
-        this.currentFrame = currentFrame;
-    }
-
-    public void setNumFrames(int numFrames) {
-        this.numFrames = numFrames;
-    }
-
     public void update() {
         if (delay == -1) {
             return;
         }
         count++;
-        //System.out.println(delay);
         if (count == delay) {
             currentFrame++;
             count = 0;

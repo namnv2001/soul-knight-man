@@ -8,6 +8,7 @@ import master.soulknight.Util.Vector2f;
 
 public abstract class Enemy extends Entity {
     public boolean dead;
+
     public Enemy(SpriteSheet sprite, Vector2f origin, int size, double SCALING, TileManager tm) {
         super(sprite, origin, size, SCALING, tm);
         up = true;
@@ -17,9 +18,6 @@ public abstract class Enemy extends Entity {
     @Override
     public void update() {
         animated();
-//        if (ani.getDelay() != 10) {
-//            this.ani.setDelay(10);
-//        }
         super.update();
         ani.update();
     }

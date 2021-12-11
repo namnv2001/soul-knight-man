@@ -14,8 +14,8 @@ import java.io.IOException;
 
 public class GameOverState extends GameState {
 
-    Font font;
-    Image image;
+    private final Font font;
+    private Image image;
 
     public GameOverState(GameStateManager gsm) {
         super(gsm);

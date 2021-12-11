@@ -5,11 +5,10 @@ import master.soulknight.Tiles.TileCollision;
 import master.soulknight.Tiles.TileManager;
 import master.soulknight.Util.Vector2f;
 
-public class NormalEnemy extends Enemy{
+public class NormalEnemy extends Enemy {
 
     public NormalEnemy(SpriteSheet sprite, Vector2f origin, int size, double SCALING, TileManager tm) {
         super(sprite, origin, size, SCALING, tm);
-
     }
 
     public void changeDirection() {
@@ -39,11 +38,10 @@ public class NormalEnemy extends Enemy{
             pos.x -= dx;
             pos.y -= dy;
         }
-        if (TileCollision.isCollidedWithFlames(this,tm.getFlames())) {
+        if (TileCollision.isCollidedWithFlames(this, tm.getFlames())) {
             this.dead = true;
         }
     }
-
 
 
 }

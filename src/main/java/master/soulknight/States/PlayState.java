@@ -57,7 +57,7 @@ public class PlayState extends GameState {
         } else {
             gc.setFill(Color.BLACK);
             gc.fillRect(0, 0, GamePanel.width, GamePanel.height);
-            SpriteSheet.drawArray(gc, font, "Level " + (level + 1), new Vector2f(400, 400), 40, 40);
+            SpriteSheet.drawArray(gc, font, "Level " + (level + 1), new Vector2f(620, 400), 40, 40);
         }
         SpriteSheet.drawArray(gc, font, "Score:" + TileManager.score, new Vector2f(0, 807), 40, 40);
         SpriteSheet.drawArray(gc, font, GamePanel.oldFrameCount + " FPS", new Vector2f(GamePanel.width - 180, 807), 40, 40);
