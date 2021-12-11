@@ -13,10 +13,10 @@ public class PlaySound {
         System.out.println("sound1");
     }
 
-    public void play() {
+    public void play(double Volume, int CycleCount) {
         System.out.println("sound");
-        mp.setVolume(0.75);
-        mp.setCycleCount(10);
+        mp.setVolume(Volume);
+        mp.setCycleCount(CycleCount);
         mp.play();
     }
 

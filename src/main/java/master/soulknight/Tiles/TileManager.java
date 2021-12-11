@@ -13,6 +13,7 @@ import master.soulknight.States.PickChampState;
 import master.soulknight.States.PlayState;
 import master.soulknight.Tiles.Blocks.*;
 import master.soulknight.Util.KeyHandler;
+import master.soulknight.Util.PlaySound;
 import master.soulknight.Util.Vector2f;
 
 import java.io.BufferedReader;
@@ -74,6 +75,8 @@ public class TileManager {
     protected int columns;
 
     public boolean gameOver = false;
+
+    PlaySound ps;
 
 
     // Player---------------------------------------------------------------------------
@@ -137,6 +140,11 @@ public class TileManager {
             if (block.pos.x == x && block.pos.y == y) {
                 if (block.breakable()) {
                     collideBlocks.remove(block);
+                    //box destroy sfx
+                    ps = new PlaySound("src/main/resources/Music/fx_box_destroy.wav");
+//                    ps.setCycleCount(1);
+//                    ps.setVolume(1);
+                    ps.play(1,1);
                 }
                 return true;
             }
@@ -251,6 +259,11 @@ public class TileManager {
             Block block = iterator.next();
             if (TileCollision.isCollidedWithItem(player,block)) {
                 iterator.remove();
+                //pick up item sfx
+                ps = new PlaySound("src/main/resources/Music/fx_pickup.wav");
+//                ps.setCycleCount(1);
+//                ps.setVolume(1);
+                ps.play(1,1);
                 block.update();
             }
         }
@@ -274,6 +287,10 @@ public class TileManager {
         }
         if (TileCollision.isColliedWithPortals(player, portals)) {
             System.out.println("Portal hit");
+            ps = new PlaySound("src/main/resources/Music/fx_portal.wav");
+//            ps.setCycleCount(1);
+//            ps.setVolume(1);
+            ps.play(1,1);
             PlayState.levelUp();
         }
         if(!gameOver) {
