@@ -272,10 +272,7 @@ public class TileManager {
         if (!gameOver) {
             enemies.forEach(Enemy::update);
         }
-        if (TileCollision.isColliedWithPortals(player, portals)) {
-            System.out.println("Portal hit");
-            PlayState.levelUp();
-        }
+
         if(!gameOver) {
             player.update();
             bombs.forEach(Bomb::update);
@@ -283,6 +280,10 @@ public class TileManager {
         }
         if(enemies.isEmpty()) {
             portals.forEach(Portal::update);
+            if (TileCollision.isColliedWithPortals(player, portals)) {
+                System.out.println("Portal hit");
+                PlayState.levelUp();
+            }
         }
 
     }

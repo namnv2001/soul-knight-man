@@ -8,7 +8,6 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import master.soulknight.States.GameStateManager;
@@ -33,7 +32,6 @@ public class GamePanel extends Application {
 
     private GameStateManager gsm;
 
-    private MediaPlayer mp;
     PlaySound ps;
 
     Image unmuteButton = null;
