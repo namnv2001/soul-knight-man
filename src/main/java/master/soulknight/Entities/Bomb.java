@@ -48,8 +48,6 @@ public class Bomb extends Entity {
             remove();
             //explode sfx
             ps = new PlaySound("src/main/resources/Music/fx_explode_big.wav");
-//            ps.setCycleCount(1);
-//            ps.setVolume(1);
             ps.play(1,1);
         }
         if (!TileCollision.isCollidedWithBombs(tm.getPlayer(), tm.getBombs())) {

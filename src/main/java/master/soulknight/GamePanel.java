@@ -56,8 +56,6 @@ public class GamePanel extends Application {
 
         init();
        // playBGMusic("src/main/resources/Music/VitalityHelltakerOST-Mittsies-6554269.mp3");
-//        ps.setCycleCount(10);
-//        ps.setVolume(0.2);
         ps.play(0.2, 10);
         Group root = new Group();
         Scene scene = new Scene(root);

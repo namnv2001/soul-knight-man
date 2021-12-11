@@ -86,6 +86,8 @@ public class TileManager {
 
     private String getChampLink() {
         System.out.println(PickChampState.getChamp());
+        ps = new PlaySound("src/main/resources/Music/fx_character_pick.wav");
+        ps.play(1,1);
         if (PickChampState.getChamp() == 1) {
             return "src/main/resources/Sprite/Player/Alchemist.png";
         }
@@ -142,8 +144,6 @@ public class TileManager {
                     collideBlocks.remove(block);
                     //box destroy sfx
                     ps = new PlaySound("src/main/resources/Music/fx_box_destroy.wav");
-//                    ps.setCycleCount(1);
-//                    ps.setVolume(1);
                     ps.play(1,1);
                 }
                 return true;
@@ -261,8 +261,6 @@ public class TileManager {
                 iterator.remove();
                 //pick up item sfx
                 ps = new PlaySound("src/main/resources/Music/fx_pickup.wav");
-//                ps.setCycleCount(1);
-//                ps.setVolume(1);
                 ps.play(1,1);
                 block.update();
             }
@@ -279,6 +277,11 @@ public class TileManager {
         for (int i = 0; i < enemies.size(); i++) {
             if (TileCollision.isCollidedWithFlames(enemies.get(i),flames)) {
                 enemies.remove(enemies.get(i));
+                //portal open sfx
+                if(enemies.isEmpty()) {
+                    ps = new PlaySound("src/main/resources/Music/fx_portal_open.wav");
+                    ps.play(1,1);
+                }
                 score += 100;
             }
         }
@@ -287,9 +290,8 @@ public class TileManager {
         }
         if (TileCollision.isColliedWithPortals(player, portals)) {
             System.out.println("Portal hit");
-            ps = new PlaySound("src/main/resources/Music/fx_portal.wav");
-//            ps.setCycleCount(1);
-//            ps.setVolume(1);
+            //portal enter sfx
+            ps = new PlaySound("src/main/resources/Music/fx_portal_enter.wav");
             ps.play(1,1);
             PlayState.levelUp();
         }
