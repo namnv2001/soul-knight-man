@@ -10,7 +10,6 @@ public class PlaySound {
     public PlaySound(String file) {
         Media media = new Media(new File(file).toURI().toString());
         mp = new MediaPlayer(media);
-        System.out.println("sound1");
     }
 
     public boolean isMute() {
@@ -18,7 +17,6 @@ public class PlaySound {
     }
 
     public void play() {
-        System.out.println("sound");
         mp.setVolume(0.75);
         mp.setCycleCount(10);
         mp.play();

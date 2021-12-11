@@ -2,17 +2,13 @@ package master.soulknight.States;
 
 import javafx.scene.canvas.GraphicsContext;
 import master.soulknight.GamePanel;
-import master.soulknight.Util.Vector2f;
-import master.soulknight.Util.MouseHandler;
 import master.soulknight.Util.KeyHandler;
+import master.soulknight.Util.MouseHandler;
+import master.soulknight.Util.Vector2f;
 
 import java.util.ArrayList;
 
 public class GameStateManager {
-
-    private ArrayList<GameState> states;
-
-    public static Vector2f map;
 
     public static final int MENU = 0;
     public static final int PLAY = 1;
@@ -20,8 +16,9 @@ public class GameStateManager {
     public static final int GAMEOVER = 3;
     public static final int INFO = 4;
     public static final int PICK = 5;
-
+    public static Vector2f map;
     public static GraphicsContext gc;
+    private ArrayList<GameState> states;
 
     public GameStateManager(GraphicsContext gc) {
         map = new Vector2f(GamePanel.width, GamePanel.height);
@@ -63,16 +60,16 @@ public class GameStateManager {
 //        if(states.get(state) != null) {
 //            return;
 //        }
-        if(state == PLAY){
+        if (state == PLAY) {
             states.add(new PlayState(this));
         }
-        if(state == MENU){
+        if (state == MENU) {
             states.add(new MenuState(this));
         }
-        if(state == PAUSE){
+        if (state == PAUSE) {
             states.add(new PauseState(this));
         }
-        if(state == GAMEOVER){
+        if (state == GAMEOVER) {
             states.add(new GameOverState(this));
         }
         if (state == INFO) {
@@ -84,14 +81,14 @@ public class GameStateManager {
     }
 
     public void update() {
-        for (int i = 0; i < states.size(); i++) {
-            states.get(i).update();
+        for (GameState state : states) {
+            state.update();
         }
     }
 
     public void input(KeyHandler keyHandler, MouseHandler mouseHandler) {
-        for(GameState state : states) {
-            state.input(keyHandler,mouseHandler);
+        for (GameState state : states) {
+            state.input(keyHandler, mouseHandler);
         }
     }
 

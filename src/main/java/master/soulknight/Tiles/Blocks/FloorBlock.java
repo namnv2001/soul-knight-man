@@ -2,7 +2,6 @@ package master.soulknight.Tiles.Blocks;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-import master.soulknight.Graphics.Sprite;
 import master.soulknight.Util.Vector2f;
 
 public class FloorBlock extends Block{
@@ -14,12 +13,6 @@ public class FloorBlock extends Block{
     @Override
     public void update() {
 
-    }
-
-
-    @Override
-    public Sprite getImage() {
-        return null;
     }
 
     public void render(GraphicsContext gc, int TILE_SIZE) {

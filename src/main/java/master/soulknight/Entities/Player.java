@@ -33,12 +33,14 @@ public class Player extends Entity {
     }
 
     public void addBombsInHand() {
+        System.out.println("Ex Bomb");
         if (bombsInHand < 4) {
             this.bombsInHand++;
         }
     }
 
     public void addBombRange() {
+        System.out.println("Power Up");
         if (bombRange < 4) {
             this.bombRange++;
         }
@@ -53,26 +55,10 @@ public class Player extends Entity {
 
     public void input(KeyHandler keyHandler) {
         Set<KeyCode> activeKeys = keyHandler.getActiveKeys();
-        if (activeKeys.contains(KeyCode.W)) {
-            up = true;
-        } else {
-            up = false;
-        }
-        if (activeKeys.contains(KeyCode.S)) {
-            down = true;
-        } else {
-            down = false;
-        }
-        if (activeKeys.contains(KeyCode.A)) {
-            left = true;
-        } else {
-            left = false;
-        }
-        if (activeKeys.contains(KeyCode.D)) {
-            right = true;
-        } else {
-            right = false;
-        }
+        up = activeKeys.contains(KeyCode.W);
+        down = activeKeys.contains(KeyCode.S);
+        left = activeKeys.contains(KeyCode.A);
+        right = activeKeys.contains(KeyCode.D);
         if (activeKeys.contains(KeyCode.SPACE)) {
             if (bombsInHand > 0 && !tm.bombExist(getBombPos(pos))) {
                 bombsInHand--;
@@ -80,11 +66,14 @@ public class Player extends Entity {
                 tm.addBomb(bomb);
             }
         }
+        if (activeKeys.contains(KeyCode.Q)) {
+            tm.getEnemies().clear();
+        }
     }
 
     public boolean checkFirstTime(ArrayList<Bomb> bombs) {
-        for(Bomb bomb : tm.getBombs()) {
-            if(bomb.firstTime) {
+        for (Bomb bomb : bombs) {
+            if (bomb.firstTime) {
                 return true;
             }
         }
@@ -129,6 +118,5 @@ public class Player extends Entity {
                 SpriteSheet.getTileSize() * Entity.getSCALING());
 //        gc.setFill(Color.BLUE);
 //        gc.fillRect(pos.x + 7, pos.y + 7, getSize(), getSize());
-
     }
 }

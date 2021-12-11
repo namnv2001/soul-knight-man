@@ -48,14 +48,12 @@ public class GamePanel extends Application {
         initGraphics();
         gsm = new GameStateManager(gc);
         ps = new PlaySound("src/main/resources/Music/VitalityHelltakerOST-Mittsies-6554269.mp3");
-
     }
 
     @Override
     public void start(Stage stage) {
 
         init();
-//        playBGMusic("src/main/resources/Music/VitalityHelltakerOST-Mittsies-6554269.mp3");
         ps.play();
         Group root = new Group();
         Scene scene = new Scene(root);
@@ -92,7 +90,6 @@ public class GamePanel extends Application {
             public void handle(long l) {
 
 
-
                 //--------------------------------------------------------------------------
                 double now = System.nanoTime();
                 int updateCount = 0;
@@ -119,11 +116,9 @@ public class GamePanel extends Application {
                 int thisSecond = (int) (lastUpdateTime[0] / 1000000000);
                 if (thisSecond > lastSecondTime[0]) {
                     if (frameCount[0] != oldFrameCount) {
-                        System.out.println("NEW SECOND " + thisSecond + " " + frameCount[0]);
                         oldFrameCount = frameCount[0];
                     }
                     if (tickCount != oldTickCount) {
-                        System.out.println("NEW SECOND (T) " + thisSecond + " " + tickCount);
                         oldTickCount = tickCount;
                     }
                     tickCount = 0;

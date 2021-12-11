@@ -7,10 +7,9 @@ import java.io.IOException;
 
 public class Font {
 
-    private Sprite FONTSHEET;
-    private Sprite[][] spriteArray;
     public int w;
     public int h;
+    private Sprite FONTSHEET;
     private int wLetter;
     private int hLetter;
 
@@ -33,8 +32,7 @@ public class Font {
     }
 
     public void loadFontArray() {
-        spriteArray = new Sprite[wLetter][hLetter];
-
+        Sprite[][] spriteArray = new Sprite[wLetter][hLetter];
         for (int x = 0; x < wLetter; x++) {
             for (int y = 0; y < hLetter; y++) {
                 spriteArray[x][y] = getLetter(x, y);
@@ -47,9 +45,8 @@ public class Font {
     }
 
     public Sprite getFont(char letter) {
-
         int x = (int) letter % wLetter;
         int y = (int) letter / wLetter;
-        return getLetter(x,y);
+        return getLetter(x, y);
     }
 }

@@ -18,7 +18,7 @@ public class Flame extends Bomb {
     }
 
     public void update() {
-        if (flameCounter > 10) {
+        if (flameCounter > 1) {
             removed = true;
         }
     }

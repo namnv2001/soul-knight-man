@@ -7,10 +7,11 @@ import master.soulknight.Tiles.TileManager;
 import master.soulknight.Util.Vector2f;
 
 public abstract class Enemy extends Entity {
-
+    public boolean dead;
     public Enemy(SpriteSheet sprite, Vector2f origin, int size, double SCALING, TileManager tm) {
         super(sprite, origin, size, SCALING, tm);
         up = true;
+        dead = false;
     }
 
     @Override

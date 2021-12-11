@@ -28,7 +28,6 @@ public abstract class Entity {
     protected boolean down;
     protected boolean right;
     protected boolean left;
-    protected boolean fallen;
     protected int x;
     protected int y;
     protected float dx;
@@ -71,6 +70,12 @@ public abstract class Entity {
 
     public static double getSCALING() {
         return SCALING;
+    }
+
+    public void setSprite(SpriteSheet sprite) {
+        System.out.println("Sprite");
+        this.sprite = sprite;
+        setAnimation(RIGHT, sprite.getSpriteArray(RIGHT), 10);
     }
 
     public int getX() {
@@ -212,8 +217,5 @@ public abstract class Entity {
     public void update() {
         animated();
         setHitBoxDirection();
-
-//        pos.x += dx;
-//        pos.y += dy;
     }
 }

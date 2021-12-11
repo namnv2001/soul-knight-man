@@ -67,6 +67,9 @@ public class ChasingEnemy extends Enemy {
                 }
             }
         }
+        if (TileCollision.isCollidedWithFlames(this,tm.getFlames())) {
+            this.dead = true;
+        }
     }
     public void changeDirection() {
         if (up) {

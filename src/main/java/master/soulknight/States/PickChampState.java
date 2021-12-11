@@ -10,8 +10,8 @@ import java.io.IOException;
 
 public class PickChampState extends GameState {
 
-    Image backgroundImage;
     private static int champ = 0;
+    Image backgroundImage;
 
     public PickChampState(GameStateManager gsm) {
         super(gsm);
@@ -22,12 +22,12 @@ public class PickChampState extends GameState {
         }
     }
 
-    private void setChamp(int number) {
-        champ = number;
-    }
-
     public static int getChamp() {
         return champ;
+    }
+
+    private void setChamp(int number) {
+        champ = number;
     }
 
     @Override
@@ -45,11 +45,13 @@ public class PickChampState extends GameState {
         if (mouseHandler.getPos() != null) {
             double x = mouseHandler.getPos().x;
             double y = mouseHandler.getPos().y;
+
             // Back to menu state
             if (gsm.isPickChampState() && x >= 1249 && x <= 1344 && y >= 25 && y <= 130) {
                 gsm.pop(0);
                 gsm.add(0);
             }
+
             // Pick first champ
             if (gsm.isPickChampState() && x >= 242 && x <= 512 && y >= 690 && y <= 775) {
                 setChamp(1);
@@ -57,6 +59,7 @@ public class PickChampState extends GameState {
                 gsm.add(1);
                 System.out.println("Pick 1st champ");
             }
+
             // Pick second champ
             if (gsm.isPickChampState() && x >= 576 && x <= 855 && y >= 690 && y <= 775) {
                 setChamp(2);
@@ -64,6 +67,7 @@ public class PickChampState extends GameState {
                 gsm.add(1);
                 System.out.println("Pick 2nd champ");
             }
+
             // Pick third champ
             if (gsm.isPickChampState() && x >= 934 && x <= 1213 && y >= 690 && y <= 775) {
                 setChamp(3);
@@ -71,6 +75,7 @@ public class PickChampState extends GameState {
                 gsm.add(1);
                 System.out.println("Pick 3rd champ");
             }
+
             mouseHandler.resetPos();
         }
     }

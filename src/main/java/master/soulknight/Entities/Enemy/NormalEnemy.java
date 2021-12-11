@@ -9,6 +9,7 @@ public class NormalEnemy extends Enemy{
 
     public NormalEnemy(SpriteSheet sprite, Vector2f origin, int size, double SCALING, TileManager tm) {
         super(sprite, origin, size, SCALING, tm);
+
     }
 
     public void changeDirection() {
@@ -37,6 +38,9 @@ public class NormalEnemy extends Enemy{
             changeDirection();
             pos.x -= dx;
             pos.y -= dy;
+        }
+        if (TileCollision.isCollidedWithFlames(this,tm.getFlames())) {
+            this.dead = true;
         }
     }
 
