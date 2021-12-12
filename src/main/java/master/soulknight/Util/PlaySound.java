@@ -18,9 +18,10 @@ public class PlaySound {
         return mp.isMute();
     }
 
-    public void play() {
-        mp.setVolume(0.75);
-        mp.setCycleCount(10);
+    public void play(double Volume, int CycleCount) {
+        System.out.println("sound");
+        mp.setVolume(Volume);
+        mp.setCycleCount(CycleCount);
         mp.play();
     }
 

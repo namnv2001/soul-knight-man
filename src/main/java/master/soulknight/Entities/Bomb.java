@@ -1,9 +1,12 @@
 package master.soulknight.Entities;
 
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.media.MediaPlayer;
 import master.soulknight.Graphics.SpriteSheet;
+import master.soulknight.States.GameStateManager;
 import master.soulknight.Tiles.TileCollision;
 import master.soulknight.Tiles.TileManager;
+import master.soulknight.Util.PlaySound;
 import master.soulknight.Util.Vector2f;
 
 public class Bomb extends Entity {
@@ -18,6 +21,9 @@ public class Bomb extends Entity {
     protected int rightBeforeCollide = -1;
     protected int upBeforeCollide = -1;
     protected int downBeforeCollide = -1;
+
+    private MediaPlayer mp;
+    PlaySound ps;
 
     public Bomb(SpriteSheet sprite, Vector2f origin, int size, double SCALING, int bombRange, TileManager tm) {
         super(sprite, origin, size, SCALING, tm);
@@ -42,6 +48,9 @@ public class Bomb extends Entity {
         if (bombCounter >= 100) {
             generateFlames();
             remove();
+            //explode sfx
+            ps = new PlaySound("src/main/resources/Music/fx_explode_big.wav");
+            ps.play(1,1);
         }
         if (!TileCollision.isCollidedWithBombs(tm.getPlayer(), tm.getBombs())) {
             leave();

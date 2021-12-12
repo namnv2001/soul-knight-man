@@ -12,6 +12,7 @@ import master.soulknight.States.PickChampState;
 import master.soulknight.States.PlayState;
 import master.soulknight.Tiles.Blocks.*;
 import master.soulknight.Util.KeyHandler;
+import master.soulknight.Util.PlaySound;
 import master.soulknight.Util.Vector2f;
 
 import java.io.BufferedReader;
@@ -58,6 +59,8 @@ public class TileManager {
 
     String tilePath;
 
+    PlaySound ps;
+
     public TileManager(String path, String tilePath, double scaling) {
         this.tilePath = tilePath;
         this.scaling = scaling;
@@ -79,6 +82,8 @@ public class TileManager {
 
     private String getChampLink() {
         System.out.println(PickChampState.getChamp());
+        ps = new PlaySound("src/main/resources/Music/fx_character_pick.wav");
+        ps.play(1,1);
         if (PickChampState.getChamp() == 1) {
             return "src/main/resources/Sprite/Player/Alchemist.png";
         } else if (PickChampState.getChamp() == 2) {
@@ -131,6 +136,9 @@ public class TileManager {
             if (block.pos.x == x && block.pos.y == y) {
                 if (block.breakable()) {
                     collideBlocks.remove(block);
+                    //box destroy sfx
+                    ps = new PlaySound("src/main/resources/Music/fx_box_destroy.wav");
+                    ps.play(1,1);
                     boxEnemyCounter++;
                     if (boxEnemyCounter == 4) {
                         boxEnemyCounter = 0;
@@ -252,6 +260,9 @@ public class TileManager {
             Block block = iterator.next();
             if (TileCollision.isCollidedWithItem(player, block)) {
                 iterator.remove();
+                //pick up item sfx
+                ps = new PlaySound("src/main/resources/Music/fx_pickup.wav");
+                ps.play(1,1);
                 block.update();
             }
         }
@@ -266,9 +277,14 @@ public class TileManager {
         }
 
         for (int i = 0; i < enemies.size(); i++) {
-            if (enemies.get(i).dead) {
-                score += 100;
+            if (TileCollision.isCollidedWithFlames(enemies.get(i),flames)) {
                 enemies.remove(enemies.get(i));
+                //portal open sfx
+                if(enemies.isEmpty()) {
+                    ps = new PlaySound("src/main/resources/Music/fx_portal_open.wav");
+                    ps.play(1,1);
+                }
+                score += 100;
             }
         }
 
@@ -277,6 +293,13 @@ public class TileManager {
             player.update();
             bombs.forEach(Bomb::update);
             flames.forEach(Flame::update);
+        }
+        if (TileCollision.isColliedWithPortals(player, portals)) {
+            System.out.println("Portal hit");
+            //portal enter sfx
+            ps = new PlaySound("src/main/resources/Music/fx_portal_enter.wav");
+            ps.play(1,1);
+            PlayState.levelUp();
         }
         if (enemies.isEmpty()) {
             portals.forEach(Portal::update);
