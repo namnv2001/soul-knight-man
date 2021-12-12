@@ -281,10 +281,10 @@ public class TileManager {
                 score += 100;
                 enemies.remove(enemies.get(i));
                 //portal open sfx
-//                if(enemies.isEmpty()) {
-//                    ps = new PlaySound("src/main/resources/Music/fx_portal_open.wav");
-//                    ps.play(1,1);
-//                }
+                if(enemies.isEmpty()) {
+                    ps = new PlaySound("src/main/resources/Music/fx_portal_open.wav");
+                    ps.play(1,1);
+                }
             }
         }
 
