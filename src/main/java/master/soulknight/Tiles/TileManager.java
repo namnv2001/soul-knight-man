@@ -294,16 +294,11 @@ public class TileManager {
             bombs.forEach(Bomb::update);
             flames.forEach(Flame::update);
         }
-        if (TileCollision.isColliedWithPortals(player, portals)) {
-            System.out.println("Portal hit");
-            //portal enter sfx
-            ps = new PlaySound("src/main/resources/Music/fx_portal_enter.wav");
-            ps.play(1,1);
-            PlayState.levelUp();
-        }
         if (enemies.isEmpty()) {
             portals.forEach(Portal::update);
             if (TileCollision.isColliedWithPortals(player, portals)) {
+                ps = new PlaySound("src/main/resources/Music/fx_portal_enter.wav");
+                ps.play(1,1);
                 PlayState.levelUp();
             }
         }
