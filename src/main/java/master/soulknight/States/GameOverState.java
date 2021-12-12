@@ -14,12 +14,12 @@ import java.io.IOException;
 
 public class GameOverState extends GameState {
 
-    Font font;
-    Image image;
+    private final Font font;
+    private Image image;
 
     public GameOverState(GameStateManager gsm) {
         super(gsm);
-        font = new Font("src/main/resources/Sprite/Ui/Font/FontSheet.png",10,10);
+        font = new Font("src/main/resources/Sprite/Ui/Font/FontSheet.png", 10, 10);
         try {
             image = new Image(new FileInputStream("src/main/resources/Sprite/Ui/States/GameOver.png"));
         } catch (IOException e) {
@@ -35,13 +35,12 @@ public class GameOverState extends GameState {
     @Override
     public void render(GraphicsContext gc) {
         gc.drawImage(image, 0, 0);
-        // x,y pos in new Vector2f(x,y)
-        SpriteSheet.drawArray(gc, font, "Player (1): " + TileManager.score, new Vector2f(302,70),40,55);
+        SpriteSheet.drawArray(gc, font, "Player (1): " + TileManager.score, new Vector2f(302, 70), 40, 55);
     }
 
     @Override
     public void input(KeyHandler keyHandler, MouseHandler mouseHandler) {
-        if(mouseHandler.getPos() != null && !gsm.isPlayState()) {
+        if (mouseHandler.getPos() != null && !gsm.isPlayState()) {
             double x = mouseHandler.getPos().x;
             double y = mouseHandler.getPos().y;
             System.out.println(x + " " + y);

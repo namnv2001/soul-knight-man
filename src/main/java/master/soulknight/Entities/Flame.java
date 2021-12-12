@@ -4,7 +4,6 @@ import javafx.scene.canvas.GraphicsContext;
 import master.soulknight.Graphics.SpriteSheet;
 import master.soulknight.Util.Vector2f;
 
-
 public class Flame extends Bomb {
 
     private final double realSize = Entity.getSCALING() * SpriteSheet.getTileSize();
@@ -18,7 +17,7 @@ public class Flame extends Bomb {
     }
 
     public void update() {
-        if (flameCounter > 10) {
+        if (flameCounter > 1) {
             removed = true;
         }
     }

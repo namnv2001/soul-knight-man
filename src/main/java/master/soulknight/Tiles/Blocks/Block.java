@@ -2,11 +2,8 @@ package master.soulknight.Tiles.Blocks;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-
 import master.soulknight.Entities.Player;
-import master.soulknight.Graphics.Sprite;
 import master.soulknight.Util.Vector2f;
-
 
 public abstract class Block {
     public Image img;
@@ -14,7 +11,6 @@ public abstract class Block {
     public Player player;
     protected int width;
     protected int height;
-
 
     public Block(int width, int height, Image img, Vector2f pos) {
         this.width = width;
@@ -40,8 +36,6 @@ public abstract class Block {
     }
 
     public abstract void update();
-
-    public abstract Sprite getImage();
 
     public Vector2f getPos() {
         return pos;

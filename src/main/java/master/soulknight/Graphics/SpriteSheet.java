@@ -17,10 +17,6 @@ public class SpriteSheet {
     private int wSprite;
     private int hSprite;
 
-    public Sprite getSPRITESHEET() {
-        return SPRITESHEET;
-    }
-
     public SpriteSheet(String file) {
         w = TILE_SIZE;
         h = TILE_SIZE;
@@ -39,6 +35,17 @@ public class SpriteSheet {
 
     public static int getTileSize() {
         return TILE_SIZE;
+    }
+
+    public static void drawArray(GraphicsContext gc, Font f, String word, Vector2f pos, int width, int height) {
+        float x = pos.x;
+        float y = pos.y;
+
+        for (int i = 0; i < word.length(); i++) {
+            if (word.charAt(i) != 32) {
+                gc.drawImage(f.getFont(word.charAt(i)).getFontFxImage(), (int) (x + i * 25), (int) (y), width, height);
+            }
+        }
     }
 
     public void loadSpriteArray() {
@@ -60,16 +67,5 @@ public class SpriteSheet {
 
     public Sprite getSprite(int x, int y) {
         return SPRITESHEET.getSubImage(x * w, y * h, w, h);
-    }
-
-    public static void drawArray(GraphicsContext gc, Font f, String word, Vector2f pos, int width, int height) {
-        float x = pos.x;
-        float y = pos.y;
-
-        for (int i = 0; i < word.length(); i++) {
-            if (word.charAt(i) != 32) {
-                gc.drawImage(f.getFont(word.charAt(i)).getFontFxImage(), (int) (x + i * 25), (int) (y), width, height);
-            }
-        }
     }
 }

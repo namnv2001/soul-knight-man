@@ -11,30 +11,32 @@ import master.soulknight.Util.Vector2f;
 
 public class Bomb extends Entity {
 
-    public boolean firstTime;
-    public static int bombRange;
     private final double realSize = Entity.getSCALING() * SpriteSheet.getTileSize();
+    public boolean firstTime;
     public boolean removed;
+    public int bombRange;
+    public int bombCounter;
+    public int bombTime;
     protected int leftBeforeCollide = -1;
     protected int rightBeforeCollide = -1;
     protected int upBeforeCollide = -1;
     protected int downBeforeCollide = -1;
-    public int bombCounter;
 
     private MediaPlayer mp;
     PlaySound ps;
 
     public Bomb(SpriteSheet sprite, Vector2f origin, int size, double SCALING, int bombRange, TileManager tm) {
         super(sprite, origin, size, SCALING, tm);
-        Bomb.bombRange = bombRange;
+        this.bombRange = bombRange;
         bombCounter = 0;
         removed = false;
         firstTime = true;
+        this.bombTime = 100;
     }
 
     public Bomb(SpriteSheet sprite, Vector2f origin, int size, double SCALING, int bombRange) {
         super(sprite, origin, size, SCALING);
-        Bomb.bombRange = bombRange;
+        this.bombRange = bombRange;
         bombCounter = 0;
         removed = false;
         firstTime = true;
@@ -53,7 +55,6 @@ public class Bomb extends Entity {
         if (!TileCollision.isCollidedWithBombs(tm.getPlayer(), tm.getBombs())) {
             leave();
         }
-
     }
 
     public void generateFlames() {
@@ -85,10 +86,6 @@ public class Bomb extends Entity {
                 if (downBeforeCollide == -1) downBeforeCollide = bombRange;
             }
         }
-//        System.out.println(leftBeforeCollide);
-//        System.out.println(rightBeforeCollide);
-//        System.out.println(upBeforeCollide);
-//        System.out.println(downBeforeCollide);
         for (int i = 1; i <= bombRange; i++) {
             String flamePath = "src/main/resources/Sprite/Ui/Interactive/Flame.png";
             tm.addFlame(new Flame(new SpriteSheet(flamePath), new Vector2f(pos.x, pos.y), size, Entity.getSCALING(), bombRange));
@@ -111,7 +108,7 @@ public class Bomb extends Entity {
     }
 
     public void endCounter() {
-        bombCounter = 100;
+        bombCounter = bombTime;
     }
 
     public void remove() {

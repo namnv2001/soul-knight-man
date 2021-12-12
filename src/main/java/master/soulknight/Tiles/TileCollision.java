@@ -4,7 +4,7 @@ import master.soulknight.Entities.Bomb;
 import master.soulknight.Entities.Entity;
 import master.soulknight.Entities.Flame;
 import master.soulknight.Tiles.Blocks.Block;
-import master.soulknight.Tiles.Blocks.Portal;
+import master.soulknight.Entities.Portal;
 
 import java.util.ArrayList;
 

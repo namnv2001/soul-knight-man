@@ -11,9 +11,6 @@ import java.util.List;
 
 public class ChasingEnemy extends Enemy {
 
-    List<ConvertMap.Node> path ;
-    ConvertMap convertMap;
-
     public ChasingEnemy(SpriteSheet sprite, Vector2f origin, int size, double SCALING, TileManager tm) {
         super(sprite, origin, size, SCALING, tm);
         up = false;
@@ -28,8 +25,8 @@ public class ChasingEnemy extends Enemy {
 
     @Override
     public void update() {
-        convertMap = new ConvertMap();
-        path = convertMap.convert2D(tm, this, (int) (SpriteSheet.getTileSize() * Entity.getSCALING()));
+        ConvertMap convertMap = new ConvertMap();
+        List<ConvertMap.Node> path = convertMap.convert2D(tm, this, (int) (SpriteSheet.getTileSize() * Entity.getSCALING()));
         int x = (int) Math.round(pos.x / (SpriteSheet.getTileSize() * getSCALING()));
         int y = (int) Math.round(pos.y / (SpriteSheet.getTileSize() * getSCALING()));
         super.update();
@@ -42,7 +39,7 @@ public class ChasingEnemy extends Enemy {
         }
         if (!path.isEmpty()) {
             for (int i = 0; i < path.size() - 1; i++) {
-                if (pos.x == path.get(i).getY() * 62 && pos.y == path.get(i).getX() * 62) {
+                if (pos.x == path.get(i).getY() * SpriteSheet.getTileSize() * getSCALING() && pos.y == path.get(i).getX() * SpriteSheet.getTileSize() * getSCALING()) {
                     if (x - 1 == path.get(i + 1).getY() && y == path.get(i + 1).getX()) {
                         setFalse();
                         left = true;
@@ -67,7 +64,11 @@ public class ChasingEnemy extends Enemy {
                 }
             }
         }
+        if (TileCollision.isCollidedWithFlames(this, tm.getFlames())) {
+            this.dead = true;
+        }
     }
+
     public void changeDirection() {
         if (up) {
             up = false;

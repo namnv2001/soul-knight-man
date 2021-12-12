@@ -19,7 +19,7 @@ public class ConvertMap {
     int[] rowNum = {-1, 0, 0, 1};
     int[] colNum = {0, -1, 1, 0};
 
-    public List<Node> convert2D(TileManager tileManager, ChasingEnemy chasingEnemy, int size) {
+    public List<Node> convert2D(TileManager tileManager, Enemy chasingEnemy, int size) {
         for (int i = 0; i < 13; i++) {
             for (int j = 0; j < 23; j++) {
                 int playerX = Math.round(tileManager.player.getPos().x / size);
