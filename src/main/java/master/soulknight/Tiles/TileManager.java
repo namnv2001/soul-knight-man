@@ -277,14 +277,14 @@ public class TileManager {
         }
 
         for (int i = 0; i < enemies.size(); i++) {
-            if (TileCollision.isCollidedWithFlames(enemies.get(i),flames)) {
+            if (enemies.get(i).dead) {
+                score += 100;
                 enemies.remove(enemies.get(i));
                 //portal open sfx
-                if(enemies.isEmpty()) {
-                    ps = new PlaySound("src/main/resources/Music/fx_portal_open.wav");
-                    ps.play(1,1);
-                }
-                score += 100;
+//                if(enemies.isEmpty()) {
+//                    ps = new PlaySound("src/main/resources/Music/fx_portal_open.wav");
+//                    ps.play(1,1);
+//                }
             }
         }
 
