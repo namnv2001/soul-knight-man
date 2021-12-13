@@ -34,7 +34,7 @@ public class WinState extends GameState {
     @Override
     public void render(GraphicsContext gc) {
         gc.drawImage(image, 0, 0);
-        SpriteSheet.drawArray(gc, font, "Player (1): " + TileManager.score, new Vector2f(302, 70), 40, 55);
+        SpriteSheet.drawArray(gc, font, "Player (1): " + TileManager.score, new Vector2f(510, 368), 40, 55);
     }
 
     @Override
