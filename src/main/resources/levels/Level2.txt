@@ -1,0 +1,34 @@
+2 13 23
+12222212212212222222222
+2p23    23      23    2
+2 23 21 2322212 23 22 2
+1 13323323   3232332332
+2 31 23 32   32 32a23 2
+2 32 23 32   32a32 23 2
+2 32 32 32 2 13 32 32 2
+2 23 32a23   23 13 32 2
+2 23a31 23   23 13 31 2
+2323323323   3232332332
+2 22 13 2222132 22 2P 1
+2    13      32    1  1
+11222121222222122121222
+
+
+Mô tả cấu trúc tệp cấu hình màn chơi:
+1/ Dòng đầu tiên bao gồm 3 số nguyên L, R, C:
+L - số thứ tự màn chơi
+R - số hàng của bản đồ
+C - số cột của bản đồ
+
+2/ R dòng tiếp theo, mỗi dòng có C kí tự. Mỗi kí tự đại diện cho một đối tượng trên bản đồ:
+Tiles:
+1, 2 - Wall
+3 - Brick
+ - Portal
+
+Character:
+p - Bomber
+a - SnowApe
+b - Monkey
+
+Kí tự khác các kí tự trên - Floor

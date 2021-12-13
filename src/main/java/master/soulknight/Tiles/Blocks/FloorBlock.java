@@ -1,8 +1,7 @@
 package master.soulknight.Tiles.Blocks;
 
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-import master.soulknight.Graphics.Sprite;
-import master.soulknight.Util.AABB;
 import master.soulknight.Util.Vector2f;
 
 public class FloorBlock extends Block{
@@ -12,17 +11,11 @@ public class FloorBlock extends Block{
     }
 
     @Override
-    public boolean update(AABB p) {
-        return false;
+    public void update() {
+
     }
 
-    @Override
-    public boolean isInside(AABB p) {
-        return false;
-    }
-
-    @Override
-    public Sprite getImage() {
-        return null;
+    public void render(GraphicsContext gc, int TILE_SIZE) {
+        gc.drawImage(img, pos.x, pos.y, TILE_SIZE, TILE_SIZE);
     }
 }

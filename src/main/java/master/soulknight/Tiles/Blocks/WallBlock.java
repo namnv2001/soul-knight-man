@@ -2,7 +2,6 @@ package master.soulknight.Tiles.Blocks;
 
 import javafx.scene.image.Image;
 import master.soulknight.Graphics.Sprite;
-import master.soulknight.Util.AABB;
 import master.soulknight.Util.Vector2f;
 
 public class WallBlock extends Block {
@@ -12,17 +11,13 @@ public class WallBlock extends Block {
     }
 
     @Override
-    public boolean update(AABB p) {
-        return true;
+    public void update() {
+
     }
 
     @Override
-    public boolean isInside(AABB p) {
+    public boolean breakable() {
         return false;
     }
 
-    @Override
-    public Sprite getImage() {
-        return null;
-    }
 }
