@@ -1,11 +1,8 @@
 package master.soulknight.Tiles;
 
 import javafx.scene.canvas.GraphicsContext;
-import master.soulknight.Entities.Bomb;
+import master.soulknight.Entities.*;
 import master.soulknight.Entities.Enemy.*;
-import master.soulknight.Entities.Flame;
-import master.soulknight.Entities.Player;
-import master.soulknight.Entities.Portal;
 import master.soulknight.Graphics.Sprite;
 import master.soulknight.Graphics.SpriteSheet;
 import master.soulknight.States.PickChampState;
@@ -190,7 +187,6 @@ public class TileManager {
             for (int i = 0; i < rows; i++) {
                 for (int j = 0; j < columns; j++) {
                     Block block;
-                    Block item;
                     Enemy enemy;
 
                     if (mapStr[i].charAt(j) == '1') {
@@ -206,23 +202,7 @@ public class TileManager {
                     } else if (mapStr[i].charAt(j) == '3') {
                         block = new BoxBlock(realSize, realSize, box.getFxImage()
                                 , new Vector2f(realSize * j, realSize * i));
-                        Random random = new Random();
-                        int randNum = random.nextInt((5 - 1) + 1) + 1;
-                        if (randNum == 1) {
-                            item = new PowerUpItem(realSize, realSize, powerUpItem.getFxImage()
-                                    , new Vector2f(realSize * j, realSize * i), player);
-                            items.add(item);
-                        }
-                        if (randNum == 2) {
-                            item = new ExBombItem(realSize, realSize, exBombItem.getFxImage()
-                                    , new Vector2f(realSize * j, realSize * i), player);
-                            items.add(item);
-                        }
-                        if (randNum == 3) {
-                            item = new SpeedUpItem(realSize, realSize, speedItem.getFxImage()
-                                    , new Vector2f(realSize * j, realSize * i), player);
-                            items.add(item);
-                        }
+                        randomNumItem(10,1,i,j);
                         collideBlocks.add(block);
                     } else if (mapStr[i].charAt(j) == 'B') {
                         enemy = new ChasingEnemy(new SpriteSheet("src/main/resources/Sprite/Enemies/RedIndian.png"), new Vector2f(realSize * j, realSize * i), 52, scaling, this);
@@ -254,6 +234,28 @@ public class TileManager {
         }
     }
 
+    public void randomNumItem(int max, int min, int i , int j) {
+        Block item;
+        Random random = new Random();
+        int randNum = random.nextInt((max - min) + 1) + min;
+        if (randNum == 1) {
+            item = new PowerUpItem(realSize, realSize, powerUpItem.getFxImage()
+                    , new Vector2f(realSize * j, realSize * i), player);
+            items.add(item);
+        }
+        if (randNum == 2) {
+            item = new ExBombItem(realSize, realSize, exBombItem.getFxImage()
+                    , new Vector2f(realSize * j, realSize * i), player);
+            items.add(item);
+        }
+        if (randNum == 3) {
+            item = new SpeedUpItem(realSize, realSize, speedItem.getFxImage()
+                    , new Vector2f(realSize * j, realSize * i), player);
+            items.add(item);
+        }
+    }
+
+
     public void update() {
         Iterator<Block> iterator = items.iterator();
         while (iterator.hasNext()) {
@@ -278,6 +280,12 @@ public class TileManager {
 
         for (int i = 0; i < enemies.size(); i++) {
             if (enemies.get(i).dead) {
+                if (enemies.get(i) instanceof BoxEnemy) {
+                    int x = (int) Math.round(enemies.get(i).getPos().x / (SpriteSheet.getTileSize() * Entity.getSCALING()));
+                    int y = (int) Math.round(enemies.get(i).getPos().y / (SpriteSheet.getTileSize() * Entity.getSCALING()));
+                    System.out.println(x + " " + y);
+                    randomNumItem(3,1,y,x);
+                }
                 score += 100;
                 enemies.remove(enemies.get(i));
             }
