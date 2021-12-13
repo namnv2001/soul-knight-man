@@ -10,7 +10,7 @@ public class GameStateManager {
 
     public static final int MENU = 0;
     public static final int PLAY = 1;
-    public static final int PAUSE = 2;
+    public static final int WIN = 2;
     public static final int GAMEOVER = 3;
     public static final int INFO = 4;
     public static final int PICK = 5;
@@ -47,8 +47,8 @@ public class GameStateManager {
         return states.get(states.size() - 1) instanceof PlayState;
     }
 
-    public boolean isPauseState() {
-        return states.get(states.size() - 1) instanceof PauseState;
+    public boolean isWinState() {
+        return states.get(states.size() - 1) instanceof WinState;
     }
 
     public void add(int state) {
@@ -58,8 +58,8 @@ public class GameStateManager {
         if (state == MENU) {
             states.add(new MenuState(this));
         }
-        if (state == PAUSE) {
-            states.add(new PauseState(this));
+        if (state == WIN) {
+            states.add(new WinState(this));
         }
         if (state == GAMEOVER) {
             states.add(new GameOverState(this));

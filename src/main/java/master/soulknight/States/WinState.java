@@ -2,20 +2,25 @@ package master.soulknight.States;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import master.soulknight.Graphics.Font;
+import master.soulknight.Graphics.SpriteSheet;
+import master.soulknight.Tiles.TileManager;
 import master.soulknight.Util.KeyHandler;
 import master.soulknight.Util.MouseHandler;
+import master.soulknight.Util.Vector2f;
 
 import java.io.FileInputStream;
 import java.io.IOException;
 
-public class PauseState extends GameState {
+public class WinState extends GameState {
 
     Image image;
-
-    public PauseState(GameStateManager gsm) {
+    private final Font font;
+    public WinState(GameStateManager gsm) {
         super(gsm);
+        font = new Font("src/main/resources/Sprite/Ui/Font/FontSheet.png", 10, 10);
         try {
-            image = new Image(new FileInputStream("src/main/resources/Sprite/Ui/States/PauseState.png"));
+            image = new Image(new FileInputStream("src/main/resources/Sprite/Ui/States/GameClear.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -29,19 +34,17 @@ public class PauseState extends GameState {
     @Override
     public void render(GraphicsContext gc) {
         gc.drawImage(image, 0, 0);
+        SpriteSheet.drawArray(gc, font, "Player (1): " + TileManager.score, new Vector2f(302, 70), 40, 55);
     }
 
     @Override
     public void input(KeyHandler keyHandler, MouseHandler mouseHandler) {
         if (mouseHandler.getPos() != null) {
-            double x = mouseHandler.getPos().x;
-            double y = mouseHandler.getPos().y;
-            if (gsm.isPauseState() && x >= 477 && x <= 687 && y >= 317 && y <= 488) {
-                // Keep playing logic
+            if (gsm.isWinState()) {
+                gsm.pop(0);
+                gsm.add(0);
             }
-            if (gsm.isPauseState() && x >= 738 && x <= 948 && y >= 317 && y <= 488) {
-                // Back to home logic
-            }
+
         }
     }
 }

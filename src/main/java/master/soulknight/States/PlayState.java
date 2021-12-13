@@ -37,18 +37,24 @@ public class PlayState extends GameState {
 
     @Override
     public void update() {
-        tms.get(level).update();
-        if (tms.get(level).gameOver) {
+        if (level == 2) {
             level = 0;
             gsm.pop(0);
-            gsm.add(3);
-            tms.get(level).gameOver = false;
+            gsm.add(2);
+        } else {
+            tms.get(level).update();
+            if (tms.get(level).gameOver) {
+                level = 0;
+                gsm.pop(0);
+                gsm.add(3);
+                tms.get(level).gameOver = false;
+            }
         }
     }
 
     @Override
     public void render(GraphicsContext gc) {
-        if (delay++ > 40) {
+        if (delay++ > 40 && level < 2) {
             tms.get(level).render(gc);
             if (currentLevel != level) {
                 delay = 0;
@@ -65,6 +71,8 @@ public class PlayState extends GameState {
 
     @Override
     public void input(KeyHandler keyHandler, MouseHandler mouseHandler) {
-        tms.get(level).input(keyHandler);
+        if (level < 2) {
+            tms.get(level).input(keyHandler);
+        }
     }
 }
