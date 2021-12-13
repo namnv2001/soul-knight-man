@@ -28,7 +28,6 @@ public class Player extends Entity {
     public static Vector2f getBombPos(Vector2f pos) {
         int playerX = (int) Math.round(pos.x / (SpriteSheet.getTileSize() * getSCALING()));
         int playerY = (int) Math.round(pos.y / (SpriteSheet.getTileSize() * getSCALING()));
-        System.out.println(playerX + " " + playerY);
         return new Vector2f((int) (playerX * SpriteSheet.getTileSize() * getSCALING()), (int) (playerY * SpriteSheet.getTileSize() * getSCALING()));
     }
 

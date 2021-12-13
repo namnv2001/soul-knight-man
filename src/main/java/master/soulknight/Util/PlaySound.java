@@ -19,7 +19,6 @@ public class PlaySound {
     }
 
     public void play(double Volume, int CycleCount) {
-        System.out.println("sound");
         mp.setVolume(Volume);
         mp.setCycleCount(CycleCount);
         mp.play();

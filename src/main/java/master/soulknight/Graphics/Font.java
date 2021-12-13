@@ -23,8 +23,6 @@ public class Font {
             FONTSHEET = new Sprite(sprite);
             wLetter = FONTSHEET.image.getWidth() / w;
             hLetter = FONTSHEET.image.getHeight() / h;
-            System.out.println(FONTSHEET.image.getHeight());
-            System.out.println(FONTSHEET.image.getWidth());
             loadFontArray();
         } catch (IOException e) {
             e.printStackTrace();

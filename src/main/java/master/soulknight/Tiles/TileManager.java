@@ -294,7 +294,9 @@ public class TileManager {
             if (TileCollision.isColliedWithPortals(player, portals)) {
                 ps = new PlaySound("src/main/resources/Music/fx_portal_enter.wav");
                 ps.play(1,1);
-                PlayState.levelUp();
+                if(PlayState.level < 2) {
+                    PlayState.levelUp();
+                }
             }
         }
     }

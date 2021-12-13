@@ -44,7 +44,7 @@ public class WinState extends GameState {
                 gsm.pop(0);
                 gsm.add(0);
             }
-
+            mouseHandler.resetPos();
         }
     }
 }

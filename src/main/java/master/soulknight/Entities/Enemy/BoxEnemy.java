@@ -8,4 +8,5 @@ public class BoxEnemy extends ChasingEnemy {
     public BoxEnemy(SpriteSheet sprite, Vector2f origin, int size, double SCALING, TileManager tm) {
         super(sprite, origin, size, SCALING, tm);
     }
+
 }
