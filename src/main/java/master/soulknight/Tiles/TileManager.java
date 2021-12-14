@@ -24,8 +24,6 @@ public class TileManager {
 
     public static final SpriteSheet itemTileSheet = new SpriteSheet("src/main/resources/Sprite/Ui/Interactive/Items.png");
     public static int score;
-    public static int mapRows;
-    public static int mapColumns;
 
     public final Sprite floor;
     public final Sprite wall1;
@@ -49,17 +47,13 @@ public class TileManager {
 
     protected int realSize = 31;
     protected double scaling;
-    protected int level;
     protected int rows;
     protected int columns;
     protected int boxEnemyCounter;
 
-    String tilePath;
-
     PlaySound ps;
 
     public TileManager(String path, String tilePath, double scaling) {
-        this.tilePath = tilePath;
         this.scaling = scaling;
         realSize *= scaling;
         this.boxEnemyCounter = 0;
@@ -169,11 +163,8 @@ public class TileManager {
             firstLine = reader.readLine();
 
             String[] splited = firstLine.split("\\s+");
-            level = Integer.parseInt(splited[0]);
             rows = Integer.parseInt(splited[1]);
             columns = Integer.parseInt(splited[2]);
-            mapRows = rows;
-            mapColumns = columns;
             int count = 0;
             String[] mapStr = new String[rows];
             String line;
