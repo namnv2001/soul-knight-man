@@ -15,7 +15,7 @@ import java.util.ArrayList;
 public class PlayState extends GameState {
 
     public static boolean gameOver = false;
-    private static int level = 0;
+    public static int level = 0;
     public final ArrayList<TileManager> tms = new ArrayList<>();
     protected final double scaling = 2;
     private final Font font;
@@ -29,6 +29,7 @@ public class PlayState extends GameState {
         tms.add(tm1);
         TileManager tm2 = new TileManager("src/main/resources/levels/Level2.txt", "src/main/resources/Sprite/Ui/Maps/Map2.png", scaling);
         tms.add(tm2);
+        currentLevel = level;
     }
 
     public static void levelUp() {
@@ -37,28 +38,28 @@ public class PlayState extends GameState {
 
     @Override
     public void update() {
-        if (level == 2) {
+        if (level >= 2) {
             level = 0;
             gsm.pop(0);
             gsm.add(2);
         } else {
-            tms.get(level).update();
             if (tms.get(level).gameOver) {
                 level = 0;
                 gsm.pop(0);
                 gsm.add(3);
                 tms.get(level).gameOver = false;
             }
+            tms.get(level).update();
         }
     }
 
     @Override
     public void render(GraphicsContext gc) {
-        if (delay++ > 40 && level < 2) {
+        if (delay++ > 60 && level < 2) {
             tms.get(level).render(gc);
             if (currentLevel != level) {
                 delay = 0;
-                currentLevel++;
+                currentLevel = level;
             }
         } else {
             gc.setFill(Color.BLACK);
